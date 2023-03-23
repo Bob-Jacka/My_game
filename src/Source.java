@@ -3,7 +3,7 @@ import Heroes.Hero1;
 import Items.Armor.*;
 import Items.*;
 import Items.Potions.*;
-import Items.Weapons.*;
+import Items.Weapons.Swords.Sword;
 
 import java.util.Random;
 import java.util.Scanner;
