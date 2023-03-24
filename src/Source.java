@@ -1,7 +1,10 @@
+import Dictionary.FoodName;
 import Enemies.Enemy;
 import Heroes.Hero1;
 import Items.Armor.*;
 import Items.*;
+import Items.OtherItems.Food;
+import Items.OtherItems.ResurrectStone;
 import Items.Potions.*;
 import Items.Weapons.Swords.Sword;
 
@@ -94,6 +97,24 @@ public class Source {
             System.out.printf("You're lucky, there is no enemy ");
         }
         return null;
+    }
+
+    public Items GenerateOtherItems() {
+//        Random random = new Random();
+        int generationRate = random.nextInt(90);
+        if (generationRate > 85) {
+            return new Food(FoodName.borch, 30, false);
+        } else if (generationRate > 60 && generationRate < 85) {
+            return new Food(FoodName.hlebyshek, 20, false);
+        } else if (generationRate > 40 && generationRate < 60) {
+            return new ResurrectStone("Valhalla", 3);
+        } else if (generationRate > 80 && generationRate < 85) {
+            return new ResurrectStone("Valhalaaaa", 4);
+        } else {
+            System.out.println("There is nothing interesting");
+            return null;
+        }
+
     }
 
 }

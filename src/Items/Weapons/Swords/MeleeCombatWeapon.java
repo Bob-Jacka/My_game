@@ -4,7 +4,8 @@ import Items.Items;
 
 public interface MeleeCombatWeapon extends Items {
     void makeItSharp();
-    void repair_the_sword();
+    void repair_the_MeleeWeapon();
+    void ThrowIt();
 
     
 }

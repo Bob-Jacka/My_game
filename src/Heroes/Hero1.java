@@ -3,11 +3,12 @@ package Heroes;
 import Enemies.Enemy;
 import Items.Armor.Armor;
 import Items.Items;
+import Items.OtherItems.ResurrectStone;
 import Items.Potions.*;
 import java.util.ArrayList;
 import static java.lang.System.gc;
 
-public class Hero1 {
+public class Hero1 implements Hero {
 
 //    public Hero1() {
 //        this.health = 15;
@@ -189,6 +190,14 @@ public class Hero1 {
         }
         else {
             System.out.println("There is no health potion in the inventory");
+        }
+    }
+    public void resurrect() {
+        if (inventory.contains(ResurrectStone.class)) {
+            this.inventory.remove(ResurrectStone.class);
+            System.out.println("Resurrect!");
+        } else {
+            System.out.println("There is no resurrect stone in you inventory");
         }
     }
 ///////////////////////LevelUp/////////////////////////////////////////

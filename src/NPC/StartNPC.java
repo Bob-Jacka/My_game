@@ -1,6 +1,7 @@
 package NPC;
 
 import Dictionary.RandomNpcSpeech;
+import Heroes.Hero;
 import Heroes.Hero1;
 
 import java.lang.reflect.Field;
@@ -20,10 +21,10 @@ public class StartNPC implements NPC {
                 System.out.println(quest);
                 this.isQuestTaken = true;
                 //adding quest to activeQuest
-                Field fieldActiveQuest = Hero1.class.getField("activeQuest");
+                Field fieldActiveQuest = Hero.class.getField("activeQuest");
                 fieldActiveQuest.set(quest, quest);   ///// this place is problematic
                 //adding quest to questList
-                Field fieldListQuest = Hero1.class.getField("questList");
+                Field fieldListQuest = Hero.class.getField("questList");
                 fieldListQuest.set(quest, quest);   ///// this place is problematic
             } catch (NoSuchFieldException e) {
                 e.getStackTrace();

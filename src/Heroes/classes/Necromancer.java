@@ -36,6 +36,7 @@ public class Necromancer extends Hero3 {
 
     }
 
+
     public Skeleton skeletonSummon() {
         return new Skeleton("valera");
     }

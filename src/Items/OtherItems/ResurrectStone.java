@@ -1,12 +1,20 @@
 package Items.OtherItems;
 
 public class ResurrectStone implements OtherItems{
-
-    private String name;
-    private int TriesToBroke;
+    public ResurrectStone(String name, int TriesToBroke) {
+        this.name = name;
+        this.TriesToBroke = TriesToBroke;
+    }
+    private final String name;
+    private final int TriesToBroke;
     @Override
     public void getParams() {
         System.out.println(name);
         System.out.println(TriesToBroke);
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

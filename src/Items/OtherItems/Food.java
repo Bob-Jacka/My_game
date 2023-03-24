@@ -1,7 +1,14 @@
 package Items.OtherItems;
 
+import Dictionary.FoodName;
+
 public class Food implements OtherItems{
-    private String name;
+    public Food(FoodName foodName, int healthToRecover, boolean isRotten) {
+        this.name = foodName;
+        this.healthToRecover = healthToRecover;
+        this.isRotten = isRotten;
+    }
+    private final FoodName name;
     private int healthToRecover;
     private boolean isRotten;
 }

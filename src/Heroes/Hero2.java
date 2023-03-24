@@ -1,5 +1,7 @@
 package Heroes;
 
+import Items.OtherItems.ResurrectStone;
+
 import java.util.ArrayList;
 
 import static java.lang.System.gc;
@@ -47,8 +49,8 @@ public class Hero2 extends Hero1 {
     }
 
     public void resurrect() {
-        if (inventory.contains(resurrectStone.class)) {
-            this.inventory.remove(resurrectStone);
+        if (inventory.contains(ResurrectStone.class)) {
+            this.inventory.remove(ResurrectStone.class);
             System.out.println("Resurrect!");
         } else {
             System.out.println("There is no resurrect stone in you inventory");

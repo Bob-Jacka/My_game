@@ -3,6 +3,7 @@ package Heroes;
 import Dictionary.PetName;
 import Heroes.classes.*;
 import Heroes.classes.Summons.Pet;
+import Items.OtherItems.ResurrectStone;
 
 import java.util.Random;
 
@@ -66,6 +67,14 @@ public class Hero3 extends Hero2 {
         System.out.println("Your level is: Hero3");
         System.out.print("Your inventory is: ");
         inventoryCall(this.inventory);
+    }
+    public void resurrect() {
+        if (inventory.contains(ResurrectStone.class)) {
+            this.inventory.remove(ResurrectStone.class);
+            System.out.println("Resurrect!");
+        } else {
+            System.out.println("There is no resurrect stone in you inventory");
+        }
     }
 
     ///////////////////////LevelUp after Hero3//////////////////////////////////////
