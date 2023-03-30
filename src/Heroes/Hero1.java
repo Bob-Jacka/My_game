@@ -5,6 +5,7 @@ import Items.Armor.Armor;
 import Items.Items;
 import Items.OtherItems.ResurrectStone;
 import Items.Potions.*;
+import NPC.StartNPC;
 import java.util.ArrayList;
 import static java.lang.System.gc;
 
@@ -169,7 +170,10 @@ public class Hero1 implements Hero {
         this.questList.remove(quest);
         System.out.println("quest is passed");
     }
-    public void rejectTheQuest() {}
+    public void rejectTheQuest() throws NoSuchFieldException {
+//        Field field = StartNPC.class.getField("isQuestTaken");
+//        field.set(Object quest, );
+    }
 
 //////////////////////////inventory///////////////////////////////////////////
     public void inventoryPut(Items item) {
@@ -178,7 +182,7 @@ public class Hero1 implements Hero {
 }
     public void putOn(Armor anyArmor) {
         this.setArmor(this.getArmor() + anyArmor.getArmorDef());
-        System.out.println(anyArmor.getArmorName() + " puted on");
+        System.out.println(anyArmor.getName() + " puted on");
     }
     public void healByHealthPotion() {
         if (this.inventory.contains(HealthPotion.class)) {

@@ -2,15 +2,20 @@ package NPC;
 
 import Dictionary.RandomNpcSpeech;
 import Heroes.Hero;
-import Heroes.Hero1;
 
 import java.lang.reflect.Field;
+import java.util.Random;
 
 public class StartNPC implements NPC {
-    private final String name = "Angela";
+    private final String name;
     private final int health = 100;
     private final int attack = 10;
     private boolean isQuestTaken = false;  /// по стандарту false - квест не взят
+
+    public StartNPC(String name) {
+        this.name = name;
+        System.out.println("Message from StartNPC");
+    }
 
     @Override
     public void takeQuest() throws NoSuchFieldException {
@@ -46,8 +51,11 @@ public class StartNPC implements NPC {
 
     @Override
     public void talk() {
-        System.out.println(RandomNpcSpeech.speech1);  ////make random choose
+        Random random = new Random();
+        int randomSpeech = random.nextInt(RandomNpcSpeech.speech.length);
+            System.out.println(RandomNpcSpeech.speech[randomSpeech]); ////make random choose
     }
+
 
     @Override
     public String getName() {

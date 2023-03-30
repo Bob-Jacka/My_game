@@ -11,4 +11,14 @@ public class Food implements OtherItems{
     private final FoodName name;
     private int healthToRecover;
     private boolean isRotten;
+
+    @Override
+    public void getParams() {
+
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
 }

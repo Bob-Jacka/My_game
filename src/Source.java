@@ -6,7 +6,10 @@ import Items.*;
 import Items.OtherItems.Food;
 import Items.OtherItems.ResurrectStone;
 import Items.Potions.*;
-import Items.Weapons.Swords.Sword;
+import Items.Weapons.Firearms.Tunning.Muska;
+import Items.Weapons.Firearms.Tunning.OpticalScope;
+import Items.Weapons.Firearms.Tunning.muzzleBrake;
+import Items.Weapons.MeleeCombatWeapon.Sword;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -114,7 +117,16 @@ public class Source {
             System.out.println("There is nothing interesting");
             return null;
         }
-
+    }
+    public Items GenerateTunning() {
+        int generationRate = random.nextInt(90);
+        if (generationRate > 50) {
+            return new Muska(20, "Muska");
+        } else if (generationRate > 50 && generationRate < 80) {
+            return new OpticalScope("Callimator", 50);
+        } else if (generationRate == 50){
+            return new muzzleBrake( 100);
+        } else return null;
     }
 
 }

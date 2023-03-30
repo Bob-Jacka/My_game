@@ -15,13 +15,13 @@ public class Armor implements Items {
     }
 
     private String armorName;
-    private int armorDef;
+    private int armorDef;    ////How many def pluses to Hero.armor
     private int armorAgility;
     private int mana;
     private int strenght;
 
     /////////////////////////////////////////////
-    public String getArmorName() {
+    public String getName() {
         return armorName;
     }
 
@@ -42,4 +42,13 @@ public class Armor implements Items {
             System.out.println("Не пробито");
             }
     }
+
+    @Override
+    public void getParams() {
+
+    }
+
+
+
+
 }

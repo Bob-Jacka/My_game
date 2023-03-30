@@ -49,4 +49,14 @@ public class Potion implements Items {
         System.out.println("Potion recharge is " + this.recharge);
 
 }
+
+    @Override
+    public void getParams() {
+
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
 }
