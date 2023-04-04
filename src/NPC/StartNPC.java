@@ -1,10 +1,11 @@
 package NPC;
 
+import Dictionary.Quest;
 import Dictionary.RandomNpcSpeech;
 import Heroes.Hero;
 
 import java.lang.reflect.Field;
-import java.util.Random;
+import java.util.Arrays;
 
 public class StartNPC implements NPC {
     private final String name;
@@ -14,23 +15,22 @@ public class StartNPC implements NPC {
 
     public StartNPC(String name) {
         this.name = name;
-        System.out.println("Message from StartNPC");
+        System.out.println("StartNPC is created");
     }
 
     @Override
     public void takeQuest() throws NoSuchFieldException {
         if (isQuestTaken == false) {
             try {
-                String quest = "Тебе нужно убить 10 волков";
                 System.out.println("С пробуждением, рада тебя видеть, у меня есть задание для тебя");
-                System.out.println(quest);
+                System.out.println(Arrays.toString(Quest.Quest1));  //maybe problems
                 this.isQuestTaken = true;
                 //adding quest to activeQuest
                 Field fieldActiveQuest = Hero.class.getField("activeQuest");
-                fieldActiveQuest.set(quest, quest);   ///// this place is problematic
+                fieldActiveQuest.set(Quest.Quest1, Quest.Quest1);   ///// this place is problematic
                 //adding quest to questList
                 Field fieldListQuest = Hero.class.getField("questList");
-                fieldListQuest.set(quest, quest);   ///// this place is problematic
+                fieldListQuest.set(Quest.Quest1, Quest.Quest1);   ///// this place is problematic
             } catch (NoSuchFieldException e) {
                 e.getStackTrace();
                 System.out.println("Quest is ungettable");
@@ -51,9 +51,7 @@ public class StartNPC implements NPC {
 
     @Override
     public void talk() {
-        Random random = new Random();
-        int randomSpeech = random.nextInt(RandomNpcSpeech.speech.length);
-            System.out.println(RandomNpcSpeech.speech[randomSpeech]); ////make random choose
+        System.out.println(RandomNpcSpeech.getRandomSpeech()); ////make random choose
     }
 
 

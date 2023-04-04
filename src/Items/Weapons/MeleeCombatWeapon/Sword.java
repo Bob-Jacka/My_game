@@ -4,9 +4,9 @@ import Items.Weapons.MeleeCombatWeaponInterface;
 
 public class Sword implements MeleeCombatWeaponInterface {
 
-    public Sword() {
-        System.out.println("Weapon created");
-    }
+//    public Sword() {
+//        System.out.println("Weapon created");
+//    }
 
     public Sword(String weaponName, int weaponAttack, float weaponWeight, int sharpening) {
         this.weaponName = weaponName;
@@ -22,12 +22,6 @@ public class Sword implements MeleeCombatWeaponInterface {
     private int sharpening;  ///// заточка
     private String typeOfSword = "Sword";
 
-    public void GetWeaponParam() {
-        System.out.println("Weapon Name is " + this.weaponName);
-        System.out.println("Weapon attack is " + this.weaponAttack);
-        System.out.println("Weapon weight is " + this.weaponWeight);
-        System.out.println("Weapon sharpening is " + this.sharpening);
-    }
 
     @Override
     public void makeItSharp() {
@@ -46,11 +40,19 @@ public class Sword implements MeleeCombatWeaponInterface {
 
     @Override
     public void getParams() {
-
+        System.out.println("Weapon Name is " + this.weaponName);
+        System.out.println("Weapon attack is " + this.weaponAttack);
+        System.out.println("Weapon weight is " + this.weaponWeight);
+        System.out.println("Weapon sharpening is " + this.sharpening);
     }
 
     @Override
     public String getName() {
-        return null;
+        return weaponName;
+    }
+
+    @Override
+    public int getAttack() {
+        return weaponAttack;
     }
 }

@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+@Deprecated
 public class Create_person {
     Create_person() {
         System.out.println("Please, enter some parameters");

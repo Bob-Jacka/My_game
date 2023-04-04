@@ -31,4 +31,9 @@ public class LongBow implements RangedCombatWeaponInterface {
     public void repairTheRangedWeapon() {
 
     }
+
+    @Override
+    public int getAttack() {
+        return 0;
+    }
 }

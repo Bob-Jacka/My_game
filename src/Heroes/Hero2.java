@@ -68,7 +68,7 @@ public class Hero2 extends Hero1 {
         inventoryCall(this.inventory);
     }
 
-    protected Hero3 levelUpToHero3() {
+    public Hero3 levelUpToHero3() {
         gc();
         return new Hero3("Master " + this.name, this.health+150, this.armor+120,
                 this.attack+80, this.magic, this.resistance+30);

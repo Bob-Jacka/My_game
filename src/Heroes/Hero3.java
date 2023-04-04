@@ -1,11 +1,9 @@
 package Heroes;
 
-import Dictionary.PetName;
+import Dictionary.RandomPetName;
 import Heroes.classes.*;
 import Heroes.classes.Summons.Pet;
 import Items.OtherItems.ResurrectStone;
-
-import java.util.Random;
 
 public class Hero3 extends Hero2 {
     //    protected Hero3() {
@@ -43,7 +41,7 @@ public class Hero3 extends Hero2 {
 //        Random random = new Random();
 //        int petNumber = random.nextInt();
         Pet pet = new Pet();
-        System.out.println("summoning pet: " + PetName.Boomer);
+        System.out.println("summoning pet: " + RandomPetName.getRandomPetName());
         return pet;
     }
 

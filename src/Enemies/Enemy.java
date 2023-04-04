@@ -3,7 +3,7 @@ package Enemies;
 public class Enemy {
     public Enemy(String name, boolean magic, int resistance) {
         this.name = name;
-//        this.armor = armor;
+//      this.armor = armor;
         this.magic = magic;
         this.resistance = resistance;
     }
@@ -57,7 +57,7 @@ public class Enemy {
 
     public void setName(String name) {
         this.name = name;
-        System.out.println("New nsme is" + name);
+        System.out.println("New name is" + name);
     }
     public void setResistance(int resistance) {
         this.resistance = resistance;

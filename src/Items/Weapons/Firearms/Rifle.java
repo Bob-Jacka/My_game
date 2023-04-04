@@ -32,4 +32,9 @@ public class Rifle implements RangedCombatWeaponInterface {
     public void repairTheRangedWeapon() {
 
     }
+
+    @Override
+    public int getAttack() {
+        return 0;
+    }
 }

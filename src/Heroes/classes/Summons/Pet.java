@@ -1,7 +1,5 @@
 package Heroes.classes.Summons;
 
-import Dictionary.PetName;
-
 public class Pet {
 
     private String petName;

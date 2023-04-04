@@ -52,4 +52,9 @@ public class Knife implements MeleeCombatWeaponInterface {
     public String getName() {
         return null;
     }
+
+    @Override
+    public int getAttack() {
+        return weaponAttack;
+    }
 }

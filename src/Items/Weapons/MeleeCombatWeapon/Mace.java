@@ -39,4 +39,9 @@ public class Mace implements MeleeCombatWeaponInterface {
     public void ThrowIt() {
 
     }
+
+    @Override
+    public int getAttack() {
+        return weaponAttack;
+    }
 }

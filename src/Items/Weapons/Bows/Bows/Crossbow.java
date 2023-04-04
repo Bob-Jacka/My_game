@@ -33,4 +33,9 @@ public class Crossbow implements RangedCombatWeaponInterface {
     public void repairTheRangedWeapon() {
 
     }
+
+    @Override
+    public int getAttack() {
+        return 0;
+    }
 }

@@ -2,7 +2,7 @@ package Items.Weapons.MeleeCombatWeapon;
 
 import Items.Weapons.MeleeCombatWeaponInterface;
 
-public class Сathars extends Sword implements MeleeCombatWeaponInterface {
+public class Сathars implements MeleeCombatWeaponInterface {
     public Сathars() {
         System.out.println("Weapon created");
     }
@@ -26,5 +26,35 @@ public class Сathars extends Sword implements MeleeCombatWeaponInterface {
         System.out.println("Weapon attack is " + this.weaponAttack);
         System.out.println("Weapon weight is " + this.weaponWeight);
         System.out.println("Weapon sharpening is " + this.sharpening);
+    }
+
+    @Override
+    public void getParams() {
+
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public void makeItSharp() {
+
+    }
+
+    @Override
+    public void repairTheMeleeWeapon() {
+
+    }
+
+    @Override
+    public void ThrowIt() {
+
+    }
+
+    @Override
+    public int getAttack() {
+        return 0;
     }
 }
