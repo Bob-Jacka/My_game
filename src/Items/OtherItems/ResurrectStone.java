@@ -14,7 +14,7 @@ public class ResurrectStone implements OtherItems{
     }
 
     @Override
-    public String getName() {
+    public String getItemName() {
         return name;
     }
 }

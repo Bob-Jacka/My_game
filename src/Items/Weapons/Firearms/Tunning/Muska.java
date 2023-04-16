@@ -15,7 +15,7 @@ public class Muska implements Items{
     }
 
     @Override
-    public String getName() {
+    public String getItemName() {
         return null;
     }
 }

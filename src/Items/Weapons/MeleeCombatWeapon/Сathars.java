@@ -21,7 +21,9 @@ public class Сathars implements MeleeCombatWeaponInterface {
     private int sharpening;  ///// заточка
     private String typeOfSword = "Cathars";
 
-    public void GetWeaponParam() {
+
+    @Override
+    public void getParams() {
         System.out.println("Weapon Name is " + this.weaponName);
         System.out.println("Weapon attack is " + this.weaponAttack);
         System.out.println("Weapon weight is " + this.weaponWeight);
@@ -29,18 +31,13 @@ public class Сathars implements MeleeCombatWeaponInterface {
     }
 
     @Override
-    public void getParams() {
-
-    }
-
-    @Override
-    public String getName() {
-        return null;
+    public String getItemName() {
+        return this.weaponName;
     }
 
     @Override
     public void makeItSharp() {
-
+        this.sharpening += 20;
     }
 
     @Override

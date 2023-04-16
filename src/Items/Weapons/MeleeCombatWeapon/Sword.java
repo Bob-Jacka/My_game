@@ -1,5 +1,6 @@
 package Items.Weapons.MeleeCombatWeapon;
 
+import Heroes.Hero;
 import Items.Weapons.MeleeCombatWeaponInterface;
 
 public class Sword implements MeleeCombatWeaponInterface {
@@ -25,7 +26,7 @@ public class Sword implements MeleeCombatWeaponInterface {
 
     @Override
     public void makeItSharp() {
-
+        this.sharpening += 20;
     }
 
     @Override
@@ -47,7 +48,7 @@ public class Sword implements MeleeCombatWeaponInterface {
     }
 
     @Override
-    public String getName() {
+    public String getItemName() {
         return weaponName;
     }
 

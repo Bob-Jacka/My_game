@@ -17,7 +17,7 @@ public class LongRangedScope implements Items {
     }
 
     @Override
-    public String getName() {
+    public String getItemName() {
         return null;
     }
 }

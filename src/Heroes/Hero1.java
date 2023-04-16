@@ -5,29 +5,23 @@ import Items.Armor.Armor;
 import Items.Items;
 import Items.OtherItems.ResurrectStone;
 import Items.Potions.*;
+import Items.Weapons.MeleeCombatWeapon.Sword;
+import Items.Weapons.MeleeCombatWeaponInterface;
 import Items.Weapons.WeaponInterface;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import static java.lang.System.gc;
 
 public class Hero1 implements Hero {
 
-//    public Hero1() {
-//        this.health = 15;
-//        this.name = "standartName";
-//        this.armor = 15;
-//        this.attack = 15;
-//        this.magic = false;
-//        this.inventory = new ArrayList<Items>();
-//        System.out.println("Standart constructor activated");
-//    }
+    public Hero1() {
+    }
 
     public Hero1(String name,  boolean magic) {
         this.name = name;
         this.magic = magic;
-//        this.inventory = new ArrayList<Items>();
-//        System.out.println("advanced Hero1 constructor");
     }
 ////////////////////////////////////////////////////////////////////////
     private String name;
@@ -44,18 +38,19 @@ public class Hero1 implements Hero {
     public ArrayList<WeaponInterface> activeWeapon = new ArrayList<>(1);  /// оружие в руках у героя
     public ArrayList<Armor> activeArmor = new ArrayList<>(1);  /// броня у героя
 
-/////////////////////////Getter/////////////////////////////////
+
+
+    /////////////////////////Getter/////////////////////////////////
     public int getAttack() {
         return attack;
     }
     public String getName() {
-        return "his name is" + name;
+        return name;
     }
     public int getArmor() {
         return armor;
     }
     public boolean getMagic() {
-//        System.out.println("Yes, magic is allowed");
         return magic;
     }
     public int getHealth() {
@@ -91,7 +86,7 @@ public class Hero1 implements Hero {
 
     public void setName(String name) {
         this.name = name;
-        System.out.println("New name is" + this.name);
+        System.out.println("New name is " + this.name);
     }
     public void setResistance(int resistance) {
         this.resistance = resistance;
@@ -181,17 +176,17 @@ public class Hero1 implements Hero {
 //////////////////////////inventory///////////////////////////////////////////
     public void inventoryPut(Items item) {   ///кладёт в инвентарь
         inventory.add(item);
-        System.out.println(item.getName() + " added to inventory");
+        System.out.println(item.getItemName() + " added to inventory");
     }
     public void putOnArmor(Armor anyArmor) {
         this.setArmor(this.getArmor() + anyArmor.getArmorDef());
         this.activeArmor.add(anyArmor);
-        System.out.println(anyArmor.getName() + " puted on");
+        System.out.println(anyArmor.getItemName() + " puted on");
     }
     public void putOnWeapon(WeaponInterface anyWeapon) {
         this.setAttack(this.getAttack() + anyWeapon.getAttack());
         this.activeWeapon.add(anyWeapon);
-        System.out.println(anyWeapon.getName() + " puted on");
+        System.out.println(anyWeapon.getItemName() + " puted on");
     }
     public void getParams() {
         System.out.println("Name: "+ this.name);
@@ -200,14 +195,21 @@ public class Hero1 implements Hero {
         System.out.println("attack: "+ this.attack);
         System.out.println("magic: "+ this.magic);
         System.out.println("resistance: "+ this.resistance);
-        System.out.println("Your level is: Hero1" );
+        System.out.println("Your level is: " + this.getClass());
         System.out.print("Your inventory is: ");
         inventoryCall(this.inventory);
     }
+
     protected static void inventoryCall(ArrayList<Items> inventory) {
         if (!inventory.isEmpty()) {
-            for (Items inventoryItem: inventory) {
-                System.out.println(inventoryItem.getName() + ',');
+            if(inventory.size() > 1) {
+                for (Items inventoryItem: inventory) {
+                    System.out.println(inventoryItem.getItemName() + ',');
+                }
+            } else if(inventory.size() == 1) {
+                for (Items inventoryItem: inventory) {
+                    System.out.println(inventoryItem.getItemName());
+                }
             }
         } else {
             System.out.println("There is no items");
@@ -215,7 +217,7 @@ public class Hero1 implements Hero {
     }
     ///////////////////////////////////////////////////////////////
     public void healByHealthPotion(Items healthPotion) {
-        if (this.inventory.contains(healthPotion)) {
+        if (this.inventory.contains(healthPotion.getClass())) {
             this.health += HealthPotion.getHealthToRecover();
             if (this.health >= 100) {   ////maybe problems
                 this.health = 100;
@@ -227,7 +229,7 @@ public class Hero1 implements Hero {
         }
     }
     public void resurrect() {
-        if (inventory.contains(ResurrectStone.class)) {
+        if (this.inventory.contains(ResurrectStone.class)) {
             this.inventory.remove(ResurrectStone.class);
             System.out.println("Resurrect!");
         } else {
@@ -237,7 +239,7 @@ public class Hero1 implements Hero {
 ///////////////////////LevelUp/////////////////////////////////////////
     public Hero2 levelUpToHero2() {
         gc();
-        return new Hero2("peasant " + this.name, this.health+150, this.armor+120,
+        return new Hero2(this.name, this.health+150, this.armor+120,
                 this.attack+80, this.magic, this.resistance+30);
     }
 

@@ -16,7 +16,7 @@ public class QuestItem implements Items {
         System.out.println(this.quantity);
     }
     @Override
-    public String getName() {
+    public String getItemName() {
         return this.name;
     }
 }

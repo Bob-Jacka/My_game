@@ -15,7 +15,7 @@ public class muzzleBrake implements Items {  /////Дульный тормоз
     }
 
     @Override
-    public String getName() {
+    public String getItemName() {
         return null;
     }
 }

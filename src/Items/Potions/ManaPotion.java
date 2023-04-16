@@ -1,6 +1,8 @@
 package Items.Potions;
 
-public class ManaPotion extends Potion {
+import Items.Items;
+
+public class ManaPotion implements Items {
 
     public ManaPotion(String itemName, double recharge, int duration, int manaToRecover) {
         this.itemName = itemName;
@@ -12,4 +14,14 @@ public class ManaPotion extends Potion {
     private double recharge;
     private int duration;
     private int manaToRecover;
+
+    @Override
+    public void getParams() {
+
+    }
+
+    @Override
+    public String getItemName() {
+        return this.itemName;
+    }
 }

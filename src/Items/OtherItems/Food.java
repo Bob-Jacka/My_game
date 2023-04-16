@@ -16,7 +16,7 @@ public class Food implements OtherItems{
     }
 
     @Override
-    public String getName() {
+    public String getItemName() {
         return null;
     }
 }

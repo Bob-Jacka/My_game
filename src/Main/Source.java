@@ -1,9 +1,10 @@
-package SourceFile;
+package Main;
 
 import Dictionary.RandomArmorName;
 import Dictionary.RandomFoodName;
 import Dictionary.RandomNpcName;
 import Enemies.Enemy;
+import Heroes.Hero;
 import Heroes.Hero1;
 import Items.Armor.*;
 import Items.*;
@@ -16,11 +17,11 @@ import Items.Weapons.Firearms.Tunning.muzzleBrake;
 import Items.Weapons.MeleeCombatWeapon.Sword;
 import NPC.StartNPC;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
 
 
 
@@ -87,8 +88,8 @@ public class Source {
         return new Hero1(name_actual, magic_actual);
     }
 
-    public void enterNewLocation() {
-        System.out.println("You've entering new location");
+    public void enterNewLocation(String LocationName) {
+        System.out.println("You've entering " + LocationName);
     }
 
 
@@ -141,57 +142,58 @@ public class Source {
     private static final File toSaveFile
         = new File("/home/kirill/IdeaProjects/untitled/src/Saving_Files/save1.txt");
 
-    protected static void whatInformationToSave() throws IOException {
-        Hero1 valera = new Hero1("Valera",true); ///// test, delete later
+    protected static void whatInformationToSave(Hero1 valera) throws IOException {
+//        Hero1 valera = new Hero1("Valera",true); ///// test, delete later  ///заглушка
         try {
             FileWriter writeSaveFile = new FileWriter(toSaveFile);
 
 ////Parameters to save
-
-            writeSaveFile.write(valera.getName());   ///save name
-            writeSaveFile.write("|");
-
-            writeSaveFile.write(String.format("%d", valera.getHealth()));  //save health int
-            writeSaveFile.write("|");
-
-            //            writeSaveFile.write(valera.getArmor());
-            writeSaveFile.write(String.format("%d", valera.getArmor()));  ///save armor int
+            writeSaveFile.write(valera.getHealth());
+//            writeSaveFile.write(String.format("%d", valera.getHealth()));  //save health int
             writeSaveFile.write("|");
 
 
-//          writeSaveFile.write(valera.getAttack());
-            writeSaveFile.write(String.format("%d", valera.getAttack()));  ///save attack  int
+//            writeSaveFile.write(String.format("%d", valera.getArmor()));  ///save armor int
+            writeSaveFile.write(valera.getArmor());
             writeSaveFile.write("|");
 
-
-            writeSaveFile.write(String.format("%s", valera.getMagic()));  ///save magic boolean
+            writeSaveFile.write(valera.getAttack());
+//            writeSaveFile.write(String.format("%d", valera.getAttack()));  ///save attack  int
             writeSaveFile.write("|");
 
-//          writeSaveFile.write(valera.getResistance());
-            writeSaveFile.write(String.format("%d", valera.getResistance()));  ///save resistance int
+            if(valera.getMagic() == true) {     ///save magic boolean
+                writeSaveFile.write(1);
+                writeSaveFile.write("|");
+            } else if (valera.getMagic() == false) {
+                writeSaveFile.write(0);
+                writeSaveFile.write("|");
+            }
+            writeSaveFile.write(valera.getResistance());
+//            writeSaveFile.write(String.format("%d", valera.getResistance()));  ///save resistance int
             writeSaveFile.write("|");
 
-            writeSaveFile.write(String.format("%d", valera.getMana()));  ///save resistance int
+//            writeSaveFile.write(String.format("%d", valera.getMana()));  ///save resistance int
+            writeSaveFile.write(valera.getMana());
             writeSaveFile.write("|");
 
-            //            writeSaveFile.write(valera.getExperience());
-            writeSaveFile.write(String.format("%d", valera.getExperience()));  ///save experience int
+            writeSaveFile.write(valera.getExperience());
+//            writeSaveFile.write(String.format("%d", valera.getExperience()));  ///save experience int
             writeSaveFile.write("|");
 
 //            writeSaveFile.write(valera.getActiveQuest()); /// save active quest
-            writeSaveFile.write("|");
+//            writeSaveFile.write("|");
 
-            writeSaveFile.write(String.format("%h", valera.questList));  ///save QuestList
-            writeSaveFile.write("|");
+//            writeSaveFile.write(String.format("%h", valera.questList));  ///save QuestList
+//            writeSaveFile.write("|");
 
 //
 //   PLACE FOR SAVE INVENTORY
 //
-            writeSaveFile.write(String.format("%h", valera.getActiveWeapon()));  ///save weapon
-            writeSaveFile.write("|");
-
-            writeSaveFile.write(String.format("%h", valera.getActiveArmor()));  ///save armor
-            writeSaveFile.write("|");
+//            writeSaveFile.write(String.format("%h", valera.getActiveWeapon()));  ///save weapon
+//            writeSaveFile.write("|");
+//
+//            writeSaveFile.write(String.format("%h", valera.getActiveArmor()));  ///save armor
+//            writeSaveFile.write("|");
 
             ////close file stream
             writeSaveFile.close();
@@ -212,27 +214,98 @@ public class Source {
             System.out.println("File deleted");
         }
     }
-    public static void SaveTheGame() throws IOException {
+    public static void SaveTheGame(Hero1 valera) throws IOException {
 //        Scanner ScannerForSave = new Scanner(System.in);
 //        System.out.println("Are you sure? yes/no ");      ///does not work in Test framework
 //        String askForSave = ScannerForSave.nextLine();
-        String askForSave = "yes";
-        if (askForSave.equals("yes")) {
+        /**
+         * This method contains two private functions and saving the game in txt file
+         * /home/kirill/IdeaProjects/untitled/src/Saving_Files/save1.txt this path provides saving of the game*/
+//        if (askForSave.equals("yes")) {
             if (toSaveFile.exists()) {
                 System.out.println("Rewriting save file");
                 Source.deleteWrittenSaveFile();
-                Source.whatInformationToSave();
+                Source.whatInformationToSave(valera);
             } else if (!toSaveFile.exists()) {
-                Source.whatInformationToSave();
+                Source.whatInformationToSave(valera);
             }
-        } else if (askForSave.equals("no")) {
-            System.out.println("Cancel saving");
-        }
+//        } else if (askForSave.equals("no")) {   ///   does not work in Test framework
+//            System.out.println("Cancel saving");   //// does not work in Test framework
+//        }
     }
 
+    public static Hero1 LoadGame(String askForLoad, Hero1 afterLoad) throws FileNotFoundException {
+        /**
+         * This method makes load of the game by reading save file byte by byte and return Hero object
+         */
+//        Hero1 afterLoad = new Hero1();
+        if (askForLoad.equals("yes")) {
+            try {
+                ArrayList<Integer> dataList = new ArrayList<>();
+                FileReader loadReader = new FileReader(toSaveFile);
+                for (char i = 0; i != toSaveFile.length(); i++) {
+                    int fileData = loadReader.read();
+//                    System.out.println(fileData);  /// delete to убрать в выводе данные
+                    dataList.add(fileData);
+                } //What parameters to load
+                afterLoad.setName(afterLoad.getName());
+                afterLoad.setHealth(dataList.get(0));  //Health
+                afterLoad.setArmor(dataList.get(2));       //Armor
+                afterLoad.setAttack(dataList.get(4));
+                if (dataList.get(6) == 1) {
+                    afterLoad.setMagic(true);
+                } else {  ///Magic
+                    afterLoad.setMagic(false);
+                }
+                afterLoad.setResistance(dataList.get(8));
+                afterLoad.setMana(dataList.get(10));
+                afterLoad.setExperience(dataList.get(12));
+                loadReader.close();
+            } catch (IOException e) {
+                e.getStackTrace();
+            } finally {
+                System.out.println("File loaded");
+            }
 
-    public void LoadGame() {}
+        } else if (askForLoad.equals("no")) {
+            System.out.println("It is your choice");
+        }
+        return afterLoad;
+    }
 ///////////////////////////////////////////////////////////////////////
+
+
+    public static boolean quitGame(boolean isAutoSave, boolean isQuitGame, Hero1 valera) throws IOException {
+//        boolean isAutoSave = true;  ///specially for Junit ,  delete later
+//        boolean isQuitGame = false;  ///specially for Junit ,  delete later
+        if(isAutoSave == true) {
+            SaveTheGame(valera);
+        }
+        System.out.println("Outing the game");
+        return Main.isQuitGame = true;
+    }
+
+    public static boolean configurateGameOptions(boolean isAutoSave) throws IOException {
+        boolean isClose = false;
+        System.out.print("What would you like to change? ");
+        System.out.println("What can you do\n" +
+                        "1. change auto save parameter\n" +
+                        "2. close configuration\n" +
+                        "HINT: just type number of the clause");
+        while(isClose != true) {
+            Scanner isChange = new Scanner(System.in);
+            int askFor = isChange.nextInt();
+            switch (askFor) {
+                case 1:
+                    Main.isAutoSave = true;
+                    break;
+                case 2:
+                    isClose = true;
+                    break;
+            }
+        }
+        return Main.isAutoSave;
+    }
 }
 
 

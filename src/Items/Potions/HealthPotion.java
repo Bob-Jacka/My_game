@@ -1,6 +1,8 @@
 package Items.Potions;
 
-public class HealthPotion extends Potion {
+import Items.Items;
+
+public class HealthPotion implements Items {
 
 
     public HealthPotion(String itemName, double recharge, int duration, int healthToRecover) {
@@ -15,32 +17,32 @@ public class HealthPotion extends Potion {
     private int duration;
     private static int healthToRecover;
 
-    @Override
+
     public String getItemName() {
         return itemName;
     }
 
-    @Override
+
     public void setItemName(String itemName) {
         this.itemName = itemName;
     }
 
-    @Override
+
     public double getRecharge() {
         return recharge;
     }
 
-    @Override
+
     public void setRecharge(double recharge) {
         this.recharge = recharge;
     }
 
-    @Override
+
     public int getDuration() {
         return duration;
     }
 
-    @Override
+
     public void setDuration(int duration) {
         this.duration = duration;
     }
@@ -53,11 +55,12 @@ public class HealthPotion extends Potion {
         this.healthToRecover = healthToRecover;
     }
 
-//    public void getPotionParam() {
-//        System.out.println("Potion Name is " + this.itemName);
-//        System.out.println("Potion duration is " + this.duration);
-//        System.out.println("Potion recharge is " + this.recharge);
-//
-//
-//    }
+
+    public void getParams() {
+        System.out.println("Potion Name is " + this.itemName);
+        System.out.println("Potion duration is " + this.duration);
+        System.out.println("Potion recharge is " + this.recharge);
+
+
+    }
 }

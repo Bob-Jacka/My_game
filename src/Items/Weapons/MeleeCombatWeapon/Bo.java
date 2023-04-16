@@ -45,11 +45,14 @@ public class Bo implements MeleeCombatWeaponInterface {
 
     @Override
     public void getParams() {
-
+        System.out.println("Weapon Name is " + this.weaponName);
+        System.out.println("Weapon attack is " + this.weaponAttack);
+        System.out.println("Weapon weight is " + this.weaponWeight);
+        System.out.println("Weapon sharpening is " + this.sharpening);
     }
 
     @Override
-    public String getName() {
+    public String getItemName() {
         return null;
     }
 

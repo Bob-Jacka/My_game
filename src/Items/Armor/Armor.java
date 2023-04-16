@@ -21,7 +21,7 @@ public class Armor implements Items {
     private int strenght;
 
     /////////////////////////////////////////////
-    public String getName() {
+    public String getItemName() {
         return armorName;
     }
 
