@@ -11,8 +11,9 @@ import Items.Weapons.MeleeCombatWeapon.Sword;
 import Items.Weapons.WeaponInterface;
 import Main.Source;
 import jdk.jfr.Label;
-import org.junit.*;
-import org.junit.runners.Parameterized;
+import org.junit.Before;
+import org.junit.Test;
+
 
 import java.io.IOException;
 
@@ -23,7 +24,7 @@ public class Testing {
     private Items item1;
     private Items item2;
     private Source source;
-    @Parameterized.Parameter private String potionName;
+    private String potionName;
 
     @Before
     public void CreateHero1() {

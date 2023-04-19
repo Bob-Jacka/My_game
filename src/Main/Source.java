@@ -39,8 +39,7 @@ public class Source {
             return new HealthPotion("HealthPotion", DoubleValue, 1, IntegerValue);
         } else if (generationRate < 70) {
             return new ManaPotion("HealthPotion", DoubleValue, 1, IntegerValue);
-        }
-        else {
+        } else {
             System.out.println("There is no potions");
             return null;
         }
@@ -64,8 +63,7 @@ public class Source {
             return new IronArmor(RandomArmorName.getRandomNPCName(), 80);
         } else if (generationRate > 60 && generationRate < 85) {
             return new LeatherArmor(RandomArmorName.getRandomNPCName(), 80);
-        }
-        else {
+        } else {
             System.out.println("There is nothing interesting");
             return null;
         }
@@ -87,11 +85,6 @@ public class Source {
         }
         return new Hero1(name_actual, magic_actual);
     }
-
-    public void enterNewLocation(String LocationName) {
-        System.out.println("You've entering " + LocationName);
-    }
-
 
 
     public Enemy generateEnemy() {
@@ -121,16 +114,18 @@ public class Source {
             return null;
         }
     }
+
     public Items GenerateTunning() {
         int generationRate = random.nextInt(90);
         if (generationRate > 50) {
             return new Muska(20, "Muska");
         } else if (generationRate > 50 && generationRate < 80) {
             return new OpticalScope("Callimator", 50);
-        } else if (generationRate == 50){
-            return new muzzleBrake( 100);
+        } else if (generationRate == 50) {
+            return new muzzleBrake(100);
         } else return null;
     }
+
     public static StartNPC GenerateStartNPC() {
         return new StartNPC(RandomNpcName.getRandomNPCName());
     }
@@ -140,7 +135,7 @@ public class Source {
 
     ///file where save of the game
     private static final File toSaveFile
-        = new File("/home/kirill/IdeaProjects/untitled/src/Saving_Files/save1.txt");
+            = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/save1.txt");
 
     protected static void whatInformationToSave(Hero1 valera) throws IOException {
 //        Hero1 valera = new Hero1("Valera",true); ///// test, delete later  ///заглушка
@@ -161,7 +156,7 @@ public class Source {
 //            writeSaveFile.write(String.format("%d", valera.getAttack()));  ///save attack  int
             writeSaveFile.write("|");
 
-            if(valera.getMagic() == true) {     ///save magic boolean
+            if (valera.getMagic() == true) {     ///save magic boolean
                 writeSaveFile.write(1);
                 writeSaveFile.write("|");
             } else if (valera.getMagic() == false) {
@@ -205,7 +200,8 @@ public class Source {
         }
 
     }
-    protected static void deleteWrittenSaveFile() {
+
+    private static void deleteWrittenSaveFile() {
         try {
             toSaveFile.delete();
         } catch (Exception e) {
@@ -214,6 +210,7 @@ public class Source {
             System.out.println("File deleted");
         }
     }
+
     public static void SaveTheGame(Hero1 valera) throws IOException {
 //        Scanner ScannerForSave = new Scanner(System.in);
 //        System.out.println("Are you sure? yes/no ");      ///does not work in Test framework
@@ -222,13 +219,13 @@ public class Source {
          * This method contains two private functions and saving the game in txt file
          * /home/kirill/IdeaProjects/untitled/src/Saving_Files/save1.txt this path provides saving of the game*/
 //        if (askForSave.equals("yes")) {
-            if (toSaveFile.exists()) {
-                System.out.println("Rewriting save file");
-                Source.deleteWrittenSaveFile();
-                Source.whatInformationToSave(valera);
-            } else if (!toSaveFile.exists()) {
-                Source.whatInformationToSave(valera);
-            }
+        if (toSaveFile.exists()) {
+            System.out.println("Rewriting save file");
+            Source.deleteWrittenSaveFile();
+            Source.whatInformationToSave(valera);
+        } else if (!toSaveFile.exists()) {
+            Source.whatInformationToSave(valera);
+        }
 //        } else if (askForSave.equals("no")) {   ///   does not work in Test framework
 //            System.out.println("Cancel saving");   //// does not work in Test framework
 //        }
@@ -278,7 +275,7 @@ public class Source {
     public static boolean quitGame(boolean isAutoSave, boolean isQuitGame, Hero1 valera) throws IOException {
 //        boolean isAutoSave = true;  ///specially for Junit ,  delete later
 //        boolean isQuitGame = false;  ///specially for Junit ,  delete later
-        if(isAutoSave == true) {
+        if (isAutoSave == true) {
             SaveTheGame(valera);
         }
         System.out.println("Outing the game");
@@ -289,10 +286,10 @@ public class Source {
         boolean isClose = false;
         System.out.print("What would you like to change? ");
         System.out.println("What can you do\n" +
-                        "1. change auto save parameter\n" +
-                        "2. close configuration\n" +
-                        "HINT: just type number of the clause");
-        while(isClose != true) {
+                "1. change auto save parameter\n" +
+                "2. close configuration\n" +
+                "HINT: just type number of the clause");
+        while (isClose != true) {
             Scanner isChange = new Scanner(System.in);
             int askFor = isChange.nextInt();
             switch (askFor) {
@@ -305,6 +302,158 @@ public class Source {
             }
         }
         return Main.isAutoSave;
+    }
+
+    public static void moving() {
+        boolean isClose = false;
+        while (!isClose) {
+            System.out.println("What location you need\n" +
+                    "1. move forward\n" +
+                    "2. move left\n" +
+                    "3. move right\n" +
+                    "4. move backward\n" +
+                    "5. exit moving\n" +
+                    "HINT: just type number of the clause");
+            Scanner questionMove = new Scanner(System.in);
+            int askForMove = questionMove.nextInt();
+            switch (askForMove) {
+                case 1:
+                    System.out.println(Main.person + "move forward");
+                    break;
+                case 2:
+                    System.out.println(Main.person + "move left");
+                    break;
+                case 3:
+                    System.out.println(Main.person + "move right");
+                    break;
+                case 4:
+                    System.out.println(Main.person + "move backward");
+                    break;
+                case 5:
+                    System.out.println("Outing move menu");
+                    isClose = true;
+                    break;
+            }
+        }
+    }
+
+    private static void enterNewLocation(String LocationName) {
+        System.out.println("You've entering " + LocationName);
+    }
+
+    public static void enterLocation() {
+        System.out.println("What location you need\n" +
+                "1. skyrim\n" +
+                "2. hammerfall\n" +
+                "3. ogrimar\n" +
+                "HINT: just type number of the clause");
+        Scanner questionForLocation = new Scanner(System.in);
+        int askForLocation = questionForLocation.nextInt();
+        switch (askForLocation) {
+            case 1:
+                Source.enterNewLocation("skyrim");
+                break;
+            case 2:
+                Source.enterNewLocation("Hammerfall");
+                break;
+            case 3:
+                Source.enterNewLocation("ogrimar");
+                break;
+        }
+
+    }
+
+    private static void params(Hero1 person) {
+        boolean isClose = false;
+        while (!isClose) {
+            System.out.println();
+            System.out.println("Which params would you like to see?");
+            System.out.println(
+                    "1. Hero params\n" +
+                            "2. Weapon params\n" +
+                            "3. Armor params\n" +
+                            "4. exit params menu\n" +
+                            "HINT: just type number of the clause");
+            System.out.println();
+            Scanner askForParams = new Scanner(System.in);
+            int ParamNum = askForParams.nextInt();  /// action ask
+            switch (ParamNum) {
+                case 1:
+                    person.getParams();
+                    break;
+                case 2:
+                    if (person.activeWeapon.isEmpty()) {
+                        System.out.println("There is no active weapon");
+                    } else {
+                        person.activeWeapon.get(0).getParams();
+                    }
+                    break;
+                case 3:
+                    if (person.activeArmor.isEmpty()) {
+                        System.out.println("There is no active armor");
+                    } else {
+                        person.activeArmor.get(0).getParams();
+                    }
+                    break;
+                case 4:
+                    isClose = true;
+                    break;
+            }
+        }
+    }
+
+    public static void hero_menu() {
+        boolean isClose = false;
+        while (isClose != true) {
+            System.out.println("Here are hero actions\n" +
+                    "1. get params\n" +
+                    "2. go to the city\n" +
+                    "3. Quest menu\n" +
+                    "4. exit menu\n" +
+                    "HINT: just type number of the clause");
+            Scanner askForaAction = new Scanner(System.in);
+            int actionNum = askForaAction.nextInt();  /// action ask
+            switch (actionNum) {
+                case 1:
+                    Source.params(Main.person);
+                    break;
+                case 2:
+                    Source.enterLocation();
+                    break;
+                case 3:
+                    Main.person.getActiveQuest();
+                    break;
+                case 4:
+                    isClose = true;
+                    break;
+            }
+        }
+    }
+
+    public static void saveMenu() throws IOException {
+        boolean isClose = false;
+        while (isClose != true) {
+            System.out.println("Do you need save or load\n" +
+                    "1. save the game\n" +
+                    "2. Load the game\n" +
+                    "5. exit\n" +
+                    "HINT: just type number of the clause");
+            Scanner askForSaveOrLoad = new Scanner(System.in);
+            int actionNum = askForSaveOrLoad.nextInt();  /// action ask
+            switch (actionNum) {
+                case 1:
+                    Source.SaveTheGame(Main.person);
+                    isClose = true;
+                    break;
+                case 2:
+                    Main.person = Source.LoadGame("yes", Main.person);
+                    isClose = true;
+                    break;
+                case 3:
+                    isClose = true;
+                    break;
+            }
+        }
     }
 }
 
