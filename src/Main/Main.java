@@ -2,6 +2,7 @@ package Main;
 
 import Heroes.Hero1;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -10,27 +11,50 @@ public class Main {
     static boolean isQuitGame = false;
     static Source source = new Source();
     static Hero1 person = new Hero1();
+    static File saveFile = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/save1.txt");
+
     public static void main(String[] args) throws IOException, InterruptedException {
 
         //Start game
 
 
-        System.out.println("1. create hero\n" +
-                "2.What race do you like?\n" +
-                "HINT: just type number of the clause");
+        if (saveFile.exists()) {
+            System.out.println("Файл сохранения найден, хотите ли загрузить сохранение? yes/no ");
+            Scanner questionForLoad = new Scanner(System.in);
+            String askForLoad = questionForLoad.nextLine();
 
-        System.out.println(" ");   /// TODO сделать проверку на существование файла сахранения и вопрос хотите ли загрузить игру или создать новую игру
-        System.out.print("To create Hero enter yes/no ");
-        Scanner createHero = new Scanner(System.in);
-        String askForCreateHero = createHero.nextLine();
-        if (askForCreateHero.equals("yes")) {
-            person = source.CreateHero1();
+            if (askForLoad.equals("yes")) {
+                person = Source.LoadGame(askForLoad, person);
+            } else if (askForLoad.equals("no")) {
+                System.out.println();
+                System.out.print("To create Hero enter yes/no ");
+                Scanner createHero = new Scanner(System.in);
+                String askForCreateHero = createHero.nextLine();
+                if (askForCreateHero.equals("yes")) {
+                    person = source.CreateHero1();
+                } else {
+                    throw new RuntimeException("There is no no answer");
+                }
+            }
         } else {
-            System.out.println("it is your choice");
+            System.out.println();
+            System.out.println("New game");
+            System.out.println("1. create hero\n" +
+                    "2.What race do you like?\n" +
+                    "HINT: just type number of the clause");
+            System.out.println();
+            System.out.print("To create Hero enter yes/no ");
+            Scanner createHero = new Scanner(System.in);
+            String askForCreateHero = createHero.nextLine();
+            if (askForCreateHero.equals("yes")) {
+                person = source.CreateHero1();
+            } else {
+                throw new RuntimeException("it is your choice");
+            }
         }
 
         //The game
-        while(isQuitGame == false) {
+        while (isQuitGame == false) {
             System.out.println();
             System.out.println("What can you do\n" +
                     "1. move\n" +
@@ -61,8 +85,8 @@ public class Main {
 //                    person.putOnWeapon();
 //                    break;
                 case 6:
-                    if(isAutoSave == false) {
-                        System.out.println("Attention, the game option auto save is disable");
+                    if (isAutoSave == false) {  //TODO сделать чтобы если файл был недавно сохранён, то предупреждение не отображается
+                        System.out.println("Attention, the game option auto save is disabled");
                         System.out.println("The game will not be saved");
                         Thread.sleep(3_000);
                         isQuitGame = Source.quitGame(isAutoSave, isQuitGame, person);

@@ -30,6 +30,8 @@ public class Source {
     Random random = new Random(50);
     int IntegerValue = random.nextInt(5, 90);
     Double DoubleValue = random.nextDouble(1.0, 5.0);
+    private static File toSaveFile
+            = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/save1.txt");
 
 
     public Items GeneratePotion() {
@@ -134,8 +136,7 @@ public class Source {
 //////////////////Save and load game////////////////////////////
 
     ///file where save of the game
-    private static final File toSaveFile
-            = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/save1.txt");
+
 
     protected static void whatInformationToSave(Hero1 valera) throws IOException {
 //        Hero1 valera = new Hero1("Valera",true); ///// test, delete later  ///заглушка
@@ -287,7 +288,8 @@ public class Source {
         System.out.print("What would you like to change? ");
         System.out.println("What can you do\n" +
                 "1. change auto save parameter\n" +
-                "2. close configuration\n" +
+                "2. change save path\n" +
+                "3. close configuration\n" +
                 "HINT: just type number of the clause");
         while (isClose != true) {
             Scanner isChange = new Scanner(System.in);
@@ -297,6 +299,14 @@ public class Source {
                     Main.isAutoSave = true;
                     break;
                 case 2:
+                    System.out.println("Enter new saveFile name");
+                    System.out.println("You're currently in /home/kirill/IdeaProjects/My_game/src/Saving_Files/");
+                    Scanner askForNewSavePath = new Scanner(System.in);
+                    String newSavePath = askForNewSavePath.nextLine();
+                    toSaveFile = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/" + newSavePath);
+                    isClose = true;
+                    break;
+                case 3:
                     isClose = true;
                     break;
             }
@@ -436,7 +446,7 @@ public class Source {
             System.out.println("Do you need save or load\n" +
                     "1. save the game\n" +
                     "2. Load the game\n" +
-                    "5. exit\n" +
+                    "3. exit\n" +
                     "HINT: just type number of the clause");
             Scanner askForSaveOrLoad = new Scanner(System.in);
             int actionNum = askForSaveOrLoad.nextInt();  /// action ask
