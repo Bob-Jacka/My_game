@@ -1,9 +1,12 @@
 package Main;
 
+import Enemies.Enemy;
 import Heroes.Hero1;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -12,6 +15,8 @@ public class Main {
     static Source source = new Source();
     static Hero1 person = new Hero1();
     static File saveFile = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/save1.txt");
+    public static boolean isInBattle = false;
+//    private static LocalDateTime ldtMain = LocalDateTime.now();
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
@@ -33,7 +38,7 @@ public class Main {
                 if (askForCreateHero.equals("yes")) {
                     person = source.CreateHero1();
                 } else {
-                    throw new RuntimeException("There is no no answer");
+                    throw null;
                 }
             }
         } else {
@@ -49,12 +54,16 @@ public class Main {
             if (askForCreateHero.equals("yes")) {
                 person = source.CreateHero1();
             } else {
-                throw new RuntimeException("it is your choice");
+                throw null;
             }
         }
 
         //The game
         while (isQuitGame == false) {
+
+            //TODO сделать чтобы генерация противника была более частая
+              //TODO сделать чтобы баттл мод не был зависим от наличия противника
+
             System.out.println();
             System.out.println("What can you do\n" +
                     "1. move\n" +
@@ -85,7 +94,8 @@ public class Main {
 //                    person.putOnWeapon();
 //                    break;
                 case 6:
-                    if (isAutoSave == false) {  //TODO сделать чтобы если файл был недавно сохранён, то предупреждение не отображается
+//                    && (Integer.parseInt((Source.currentTime)) != Integer.parseInt(ldtMain.toString()))
+                    if ((isAutoSave == false)) {  //TODO сделать чтобы если файл был недавно сохранён, то предупреждение не отображается
                         System.out.println("Attention, the game option auto save is disabled");
                         System.out.println("The game will not be saved");
                         Thread.sleep(3_000);
@@ -98,4 +108,6 @@ public class Main {
             }
         }
     }
+
 }
+

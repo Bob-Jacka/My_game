@@ -8,6 +8,7 @@ import Items.Potions.*;
 import Items.Weapons.MeleeCombatWeapon.Sword;
 import Items.Weapons.MeleeCombatWeaponInterface;
 import Items.Weapons.WeaponInterface;
+import Main.Main;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -102,7 +103,7 @@ public class Hero1 implements Hero {
 //            enemy.dead();
 //        }
 //    }
-    public void attack(Enemy enemy) {
+    public void attack(Enemy enemy) {  //Todo удалить эти методы атаки
 //        System.out.println("Do you really want to attack enemy (yes/no) ");
 //        Scanner questionAttack = new Scanner(System.in);
 //        Scanner questionAttack = new Scanner(System.in);

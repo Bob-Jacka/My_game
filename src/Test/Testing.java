@@ -1,6 +1,7 @@
 package Test;
 
 import Dictionary.QuestItems.QuestItem;
+import Enemies.Enemy;
 import Heroes.Hero1;
 import Heroes.Hero2;
 import Heroes.Hero3;
@@ -150,6 +151,12 @@ public class Testing {
         valera.getParams();
     }
 
+    @Test
+    public void attacking() {
+        Enemy enemy = source.generateEnemy();
+        Source.attackEnemy(valera, enemy);
+        enemy.getParams();
+    }
 
 
 }

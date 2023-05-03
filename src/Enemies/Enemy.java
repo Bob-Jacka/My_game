@@ -1,11 +1,9 @@
 package Enemies;
 
 public class Enemy {
-    public Enemy(String name, boolean magic, int resistance) {
-        this.name = name;
-//      this.armor = armor;
+    public Enemy(String name, boolean magic) {
+        this.name = name;  //TODO проблема при генерации противника, вызывается стандартный конструктор
         this.magic = magic;
-        this.resistance = resistance;
     }
     public Enemy() {
         System.out.println("Basic constructor");
@@ -14,9 +12,9 @@ public class Enemy {
     private String name;
     private int health = 100;
     private int armor = 40;
-    private int attack = 30;
+    private int attack = 5;
     private boolean magic;
-    private int resistance;
+    private int resistance = 15;
 
     /////////////////////////Getter/////////////////////////////////
     public int getAttack() {
@@ -57,7 +55,7 @@ public class Enemy {
 
     public void setName(String name) {
         this.name = name;
-        System.out.println("New name is" + name);
+        System.out.println("New name is " + name);
     }
     public void setResistance(int resistance) {
         this.resistance = resistance;
@@ -89,7 +87,7 @@ public class Enemy {
 
     public void dead() {
         if (this.health == 0) {
-            System.out.println(this.name + "is dead");
+            System.out.println(this.name + " is dead");
         }
     }
     public void getParams() {

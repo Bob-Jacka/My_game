@@ -4,7 +4,6 @@ import Dictionary.RandomArmorName;
 import Dictionary.RandomFoodName;
 import Dictionary.RandomNpcName;
 import Enemies.Enemy;
-import Heroes.Hero;
 import Heroes.Hero1;
 import Items.Armor.*;
 import Items.*;
@@ -18,20 +17,20 @@ import Items.Weapons.MeleeCombatWeapon.Sword;
 import NPC.StartNPC;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
-
-
+import java.time.LocalDateTime;
+import java.util.*;
 
 
 public class Source {
 
-    Random random = new Random(50);
+    static Random random = new Random(50);
     int IntegerValue = random.nextInt(5, 90);
     Double DoubleValue = random.nextDouble(1.0, 5.0);
     private static File toSaveFile
             = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/save1.txt");
+
+    private static LocalDateTime LDT = LocalDateTime.now();
+//    public static String currentTime = ldt.toString();
 
 
     public Items GeneratePotion() {
@@ -89,15 +88,8 @@ public class Source {
     }
 
 
-    public Enemy generateEnemy() {
-        int genEn = random.nextInt(1, 50);
-        if (genEn > 50) {
-            System.out.println("An enemy appeared ");
-            return new Enemy();
-        } else {
-            System.out.printf("You're lucky, there is no enemy ");
-        }
-        return null;
+    public static Enemy generateEnemy() {
+        return new Enemy();
     }
 
     public Items GenerateOtherItems() {
@@ -144,17 +136,15 @@ public class Source {
             FileWriter writeSaveFile = new FileWriter(toSaveFile);
 
 ////Parameters to save
+
+            writeSaveFile.write("|");
             writeSaveFile.write(valera.getHealth());
-//            writeSaveFile.write(String.format("%d", valera.getHealth()));  //save health int
             writeSaveFile.write("|");
 
-
-//            writeSaveFile.write(String.format("%d", valera.getArmor()));  ///save armor int
             writeSaveFile.write(valera.getArmor());
             writeSaveFile.write("|");
 
             writeSaveFile.write(valera.getAttack());
-//            writeSaveFile.write(String.format("%d", valera.getAttack()));  ///save attack  int
             writeSaveFile.write("|");
 
             if (valera.getMagic() == true) {     ///save magic boolean
@@ -165,17 +155,23 @@ public class Source {
                 writeSaveFile.write("|");
             }
             writeSaveFile.write(valera.getResistance());
-//            writeSaveFile.write(String.format("%d", valera.getResistance()));  ///save resistance int
             writeSaveFile.write("|");
 
-//            writeSaveFile.write(String.format("%d", valera.getMana()));  ///save resistance int
+
             writeSaveFile.write(valera.getMana());
             writeSaveFile.write("|");
 
             writeSaveFile.write(valera.getExperience());
-//            writeSaveFile.write(String.format("%d", valera.getExperience()));  ///save experience int
             writeSaveFile.write("|");
 
+
+            writeSaveFile.write(valera.getName().length());  //длина имени
+            writeSaveFile.write("|");
+            writeSaveFile.write(valera.getName());
+            writeSaveFile.write("|");
+
+            /// Save local date to save file
+            writeSaveFile.write(String.valueOf(LDT));
 //            writeSaveFile.write(valera.getActiveQuest()); /// save active quest
 //            writeSaveFile.write("|");
 
@@ -241,30 +237,31 @@ public class Source {
             try {
                 ArrayList<Integer> dataList = new ArrayList<>();
                 FileReader loadReader = new FileReader(toSaveFile);
+
                 for (char i = 0; i != toSaveFile.length(); i++) {
                     int fileData = loadReader.read();
 //                    System.out.println(fileData);  /// delete to убрать в выводе данные
                     dataList.add(fileData);
+
                 } //What parameters to load
-                afterLoad.setName(afterLoad.getName());
-                afterLoad.setHealth(dataList.get(0));  //Health
-                afterLoad.setArmor(dataList.get(2));       //Armor
-                afterLoad.setAttack(dataList.get(4));
-                if (dataList.get(6) == 1) {
+                afterLoad.setName(String.valueOf(dataList.get(0)));  // name  //TODO исправить, потому что возращает New name is null
+                afterLoad.setHealth(dataList.get(1));  //Health
+                afterLoad.setArmor(dataList.get(3));       //Armor
+                afterLoad.setAttack(dataList.get(5));
+                if (dataList.get(8) == 1) {
                     afterLoad.setMagic(true);
                 } else {  ///Magic
                     afterLoad.setMagic(false);
                 }
-                afterLoad.setResistance(dataList.get(8));
-                afterLoad.setMana(dataList.get(10));
-                afterLoad.setExperience(dataList.get(12));
+                afterLoad.setResistance(dataList.get(9));
+                afterLoad.setMana(dataList.get(11));
+                afterLoad.setExperience(dataList.get(13));
                 loadReader.close();
             } catch (IOException e) {
                 e.getStackTrace();
             } finally {
                 System.out.println("File loaded");
             }
-
         } else if (askForLoad.equals("no")) {
             System.out.println("It is your choice");
         }
@@ -272,6 +269,24 @@ public class Source {
     }
 ///////////////////////////////////////////////////////////////////////
 
+
+//    private <E> String AsciiDecoder(List<E> list) {
+//        ArrayList<Character> arr = new ArrayList<>();
+//        for(E elem: list) {
+//            switch ((String) elem) {
+//                case "86":
+//                arr.add('V');
+//                break;
+//                case "86":
+//                    arr.add('V');
+//                    break;
+//                case "86":
+//                    arr.add('V');
+//                    break;
+//
+//            }
+//        }
+//    }
 
     public static boolean quitGame(boolean isAutoSave, boolean isQuitGame, Hero1 valera) throws IOException {
 //        boolean isAutoSave = true;  ///specially for Junit ,  delete later
@@ -314,7 +329,25 @@ public class Source {
         return Main.isAutoSave;
     }
 
+    public static void fight() {
+        Enemy enemy = Source.generateEnemy();
+        Main.isInBattle = true;
+        System.out.println("You're currently in Battle mode");
+        while (Main.isInBattle != false) {
+            Source.attackEnemy(Main.person, enemy);
+            System.out.println("You're won!");
+            Main.person.getParams();
+            Main.isInBattle = false;
+        }
+    }
+
+
+
     public static void moving() {
+        /**
+         * This method is built for moving hero
+         * Also contains chance of activating battle mode
+         */
         boolean isClose = false;
         while (!isClose) {
             System.out.println("What location you need\n" +
@@ -326,18 +359,39 @@ public class Source {
                     "HINT: just type number of the clause");
             Scanner questionMove = new Scanner(System.in);
             int askForMove = questionMove.nextInt();
+            Random rand = new Random();
+            int randint = rand.nextInt(1, 100);
             switch (askForMove) {
                 case 1:
-                    System.out.println(Main.person + "move forward");
+                    System.out.println(Main.person.getName() + " moving forward");
+                    System.out.println(randint); //TODO для отладки удалить позже
+                    if (randint < 25) {
+                        fight();
+                        isClose = true;
+                    } else if (randint > 25) {
+                        System.out.println("You're lucky, there is no enemy ");
+                    }
                     break;
                 case 2:
-                    System.out.println(Main.person + "move left");
+                    System.out.println(Main.person.getName() + " moving left");
+                    if (randint < 8) {
+                        fight();
+                        isClose = true;
+                    }
                     break;
                 case 3:
-                    System.out.println(Main.person + "move right");
+                    System.out.println(Main.person.getName() + " moving right");
+                    if (randint < 8) {
+                        fight();
+                        isClose = true;
+                    }
                     break;
                 case 4:
-                    System.out.println(Main.person + "move backward");
+                    System.out.println(Main.person.getName() + " moving backward");
+                    if (randint < 5) {
+                        fight();
+                        isClose = true;
+                    }
                     break;
                 case 5:
                     System.out.println("Outing move menu");
@@ -465,7 +519,39 @@ public class Source {
             }
         }
     }
+
+    public static void attackEnemy(Hero1 valera, Enemy enemy) {
+
+        System.out.println("Do you really want to attack enemy (yes/no) ");
+//        System.out.println("Do you really want to Auto attack enemy (yes/no) ");  //TODO сделать пошаговую битву
+        Scanner questionAttack = new Scanner(System.in);
+        if (questionAttack.nextLine().equals("yes")) {
+            enemy.setHealth(((enemy.getHealth() + enemy.getResistance())));
+            valera.setHealth(((valera.getHealth() + valera.getResistance())));
+            while (enemy.getHealth() >= 0) {
+                enemy.setHealth(enemy.getHealth() - valera.getAttack());
+                System.out.println(enemy.getHealth());
+                valera.setHealth(valera.getHealth() - enemy.getAttack());
+                System.out.println(valera.getHealth());
+                if (enemy.getHealth() <= 0) {
+                    enemy.dead();
+                } else if (valera.getHealth() == 0) {
+                    valera.dead();
+                    Main.isQuitGame = true;   //TODO когда будут готовы камни воскрешения переписать этот метод
+                    System.out.println("The game is out, you lose");
+                }
+            }
+            if ((valera.getHealth() - valera.getResistance()) <= 0) {
+                valera.setHealth(10);
+            } else if ((valera.getHealth() - valera.getResistance()) > 10) {
+                valera.setHealth(((valera.getHealth() - valera.getResistance())));
+            }
+        } else if (questionAttack.nextLine().equals("no")) {
+            System.out.println("It is your choice");
+        }
+    }
 }
+
 
 
 
