@@ -29,8 +29,8 @@ public class Source {
     private static File toSaveFile
             = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/save1.txt");
 
-    private static LocalDateTime LDT = LocalDateTime.now();
-//    public static String currentTime = ldt.toString();
+   // private static LocalDateTime LDT = LocalDateTime.now();
+
 
 
     public Items GeneratePotion() {
@@ -171,7 +171,7 @@ public class Source {
             writeSaveFile.write("|");
 
             /// Save local date to save file
-            writeSaveFile.write(String.valueOf(LDT));
+            //writeSaveFile.write(String.valueOf(LDT));  //Date
 //            writeSaveFile.write(valera.getActiveQuest()); /// save active quest
 //            writeSaveFile.write("|");
 
@@ -244,7 +244,7 @@ public class Source {
                     dataList.add(fileData);
 
                 } //What parameters to load
-                afterLoad.setName(String.valueOf(dataList.get(0)));  // name  //TODO исправить, потому что возращает New name is null
+                afterLoad.setName(AsciiDecoder.decode(dataList.subList(17,23)));  // name  //TODO исправить, потому что возращает New name is null
                 afterLoad.setHealth(dataList.get(1));  //Health
                 afterLoad.setArmor(dataList.get(3));       //Armor
                 afterLoad.setAttack(dataList.get(5));
@@ -268,25 +268,6 @@ public class Source {
         return afterLoad;
     }
 ///////////////////////////////////////////////////////////////////////
-
-
-//    private <E> String AsciiDecoder(List<E> list) {
-//        ArrayList<Character> arr = new ArrayList<>();
-//        for(E elem: list) {
-//            switch ((String) elem) {
-//                case "86":
-//                arr.add('V');
-//                break;
-//                case "86":
-//                    arr.add('V');
-//                    break;
-//                case "86":
-//                    arr.add('V');
-//                    break;
-//
-//            }
-//        }
-//    }
 
     public static boolean quitGame(boolean isAutoSave, boolean isQuitGame, Hero1 valera) throws IOException {
 //        boolean isAutoSave = true;  ///specially for Junit ,  delete later
@@ -530,9 +511,9 @@ public class Source {
             valera.setHealth(((valera.getHealth() + valera.getResistance())));
             while (enemy.getHealth() >= 0) {
                 enemy.setHealth(enemy.getHealth() - valera.getAttack());
-                System.out.println(enemy.getHealth());
+                System.out.println(enemy.getHealth());  //TODO отладачная информация
                 valera.setHealth(valera.getHealth() - enemy.getAttack());
-                System.out.println(valera.getHealth());
+                System.out.println(valera.getHealth());  //TODO отладачная информация
                 if (enemy.getHealth() <= 0) {
                     enemy.dead();
                 } else if (valera.getHealth() == 0) {
