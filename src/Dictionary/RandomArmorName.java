@@ -3,7 +3,7 @@ package Dictionary;
 import java.util.Random;
 
 public class RandomArmorName {
-    public static String getRandomNPCName() {
+    public static String getRandomArmorName() {
         Random random = new Random();
         int randomSpeech = random.nextInt(RandomArmorName.ArmorName.length);
         return ArmorName[randomSpeech];

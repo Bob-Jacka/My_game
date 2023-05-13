@@ -20,6 +20,12 @@ public class Armor implements Items {
     private int mana;
     private int strenght;
 
+    @Override
+    public void getParams() {
+        System.out.println("Armor name is " + this.armorName);
+        System.out.println("Armor defence is " + this.armorDef);
+    }
+
     /////////////////////////////////////////////
     public String getItemName() {
         return armorName;
@@ -42,13 +48,5 @@ public class Armor implements Items {
             System.out.println("Не пробито");
             }
     }
-
-    @Override
-    public void getParams() {
-
-    }
-
-
-
 
 }

@@ -2,10 +2,10 @@ package NPC;
 
 import Dictionary.Quest;
 import Dictionary.RandomNpcSpeech;
-import Heroes.Hero;
+import Heroes.Hero1;
+import Items.Armor.ClothArmor;
+import Items.Weapons.MeleeCombatWeapon.Sword;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
 
 public class StartNPC implements NPC {
     private final String name;
@@ -15,33 +15,30 @@ public class StartNPC implements NPC {
 
     public StartNPC(String name) {
         this.name = name;
-        System.out.println("StartNPC is created");
     }
 
     @Override
-    public void takeQuest() throws NoSuchFieldException {
+    public void takeQuest(Hero1 person) {
         if (isQuestTaken == false) {
-            try {
-                System.out.println("С пробуждением, рада тебя видеть, у меня есть задание для тебя");
-                System.out.println(Arrays.toString(Quest.Quest1));  //maybe problems
-                this.isQuestTaken = true;
-                //adding quest to activeQuest
-                Field fieldActiveQuest = Hero.class.getField("activeQuest");
-                fieldActiveQuest.set(Quest.Quest1, Quest.Quest1);   ///// this place is problematic
-                //adding quest to questList
-                Field fieldListQuest = Hero.class.getField("questList");
-                fieldListQuest.set(Quest.Quest1, Quest.Quest1);   ///// this place is problematic
-            } catch (NoSuchFieldException e) {
-                e.getStackTrace();
-                System.out.println("Quest is ungettable");
-            } catch (IllegalAccessException e) {
-                e.getStackTrace();
-                System.out.println("Quest is ungettable");
-            }
+            System.out.println();
+            System.out.println("С пробуждением, рада тебя видеть, у меня есть задание для тебя");
+            System.out.println(Quest.Quest1);
+            //adding quest to activeQuest
+//                Field fieldActiveQuest = Hero.class.getField("activeQuest");
+//                fieldActiveQuest.set(Quest.Quest1, Quest.Quest1);   ///// this place is problematic
+            //adding quest to questList
+//                Field fieldListQuest = Hero.class.getField("questList");
+//                fieldListQuest.set(Quest.Quest1, Quest.Quest1);   ///// this place is problematic
+            person.setActiveQuest(Quest.Quest1);
+            person.addToQuestList(Quest.Quest1);
+            this.isQuestTaken = true;
+            System.out.println();
+            System.out.println("Возьми это оружие и броню, они тебе пригодятся");
+            person.putOnWeapon( new Sword("training sword", 15, 1.5f, 20));
+            person.putOnArmor( new ClothArmor("training armor", 10));
         } else {
             System.out.println("Задание уже взято");
         }
-
     }
 
     @Override
@@ -51,9 +48,8 @@ public class StartNPC implements NPC {
 
     @Override
     public void talk() {
-        System.out.println(RandomNpcSpeech.getRandomSpeech()); ////make random choose
+        System.out.println(RandomNpcSpeech.getRandomSpeech()); ////make random choice
     }
-
 
     @Override
     public String getName() {

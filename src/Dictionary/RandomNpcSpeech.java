@@ -2,6 +2,7 @@ package Dictionary;
 
 import java.util.Random;
 
+
 public abstract class RandomNpcSpeech {
     public static String getRandomSpeech() {
         Random random = new Random();

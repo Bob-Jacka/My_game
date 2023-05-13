@@ -6,7 +6,6 @@ import Items.Weapons.MeleeCombatWeaponInterface;
 public class Sword implements MeleeCombatWeaponInterface {
 
 //    public Sword() {
-//        System.out.println("Weapon created");
 //    }
 
     public Sword(String weaponName, int weaponAttack, float weaponWeight, int sharpening) {
@@ -14,9 +13,25 @@ public class Sword implements MeleeCombatWeaponInterface {
         this.weaponAttack = weaponAttack;
         this.weaponWeight = weaponWeight;
         this.sharpening = sharpening;
-        System.out.println(this.weaponName + " Created");
     }
-///////////////////////////////////////////////////////////
+
+    public void setWeaponName(String weaponName) {
+        this.weaponName = weaponName;
+    }
+
+    public void setWeaponAttack(int weaponAttack) {
+        this.weaponAttack = weaponAttack;
+    }
+
+    public void setWeaponWeight(float weaponWeight) {
+        this.weaponWeight = weaponWeight;
+    }
+
+    public void setSharpening(int sharpening) {
+        this.sharpening = sharpening;
+    }
+
+    ///////////////////////////////////////////////////////////
     private String weaponName;
     private int weaponAttack;
     private float weaponWeight;

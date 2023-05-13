@@ -34,8 +34,9 @@ public class Hero1 implements Hero {
     private int mana = 100;
     private int experience = 0;
     public String activeQuest = null;
-    public ArrayList<String> questList = new ArrayList<String>();  ///для квестов
-    public ArrayList<Items> inventory = new ArrayList<Items>();   //// инвентарь
+    private int inventoryCapacity = 10;
+    public ArrayList<String> questList = new ArrayList<>();  ///для квестов
+    public ArrayList<Items> inventory = new ArrayList<>(inventoryCapacity);   //// инвентарь
     public ArrayList<WeaponInterface> activeWeapon = new ArrayList<>(1);  /// оружие в руках у героя
     public ArrayList<Armor> activeArmor = new ArrayList<>(1);  /// броня у героя
 
@@ -87,7 +88,6 @@ public class Hero1 implements Hero {
 
     public void setName(String name) {
         this.name = name;
-        System.out.println("New name is " + this.name);
     }
     public void setResistance(int resistance) {
         this.resistance = resistance;
@@ -95,6 +95,9 @@ public class Hero1 implements Hero {
     public void setExperience(int experience) {this.experience = experience;}
 
     public void setMana(int mana) {this.mana = mana;}
+    public void setInventoryCapacity(int newCapacity) {
+        this.inventoryCapacity = newCapacity;
+    }
 /////////////////////////////////////////////////////////////////////////////
 //    public void attack(Enemy enemy) {
 //        System.out.println("Attacking");
@@ -173,7 +176,11 @@ public class Hero1 implements Hero {
     }
     public void passTheQuest (String quest) {
         this.questList.remove(quest);
-        System.out.println("quest is passed");
+        System.out.println("Quest is passed");
+    }
+    public void addToQuestList(String quest) {
+        this.questList.add(quest);
+        System.out.println("Quest added");
     }
     public void rejectTheQuest() throws NoSuchFieldException {
 //        Field field = StartNPC.class.getField("isQuestTaken");
@@ -207,7 +214,7 @@ public class Hero1 implements Hero {
         inventoryCall(this.inventory);
     }
 
-    protected static void inventoryCall(ArrayList<Items> inventory) {
+     void inventoryCall(ArrayList<Items> inventory) {
         if (!inventory.isEmpty()) {
             if(inventory.size() > 1) {
                 for (Items inventoryItem: inventory) {

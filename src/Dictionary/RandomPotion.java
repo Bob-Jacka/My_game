@@ -16,7 +16,7 @@ public class RandomPotion {
 
     public static String[] RandomPotionName = new String[]{"WHITE_HONEY", "WOLF", "THUNDER", "RAFARIS_POTIOON",
             "iWE","SWALLOW","KISS","MOONLIGHT","TAWNY_OWL"};
-    public static String getRandomFoodName() {
+    public static String getRandomPotionName() {
         Random random = new Random();
         int randomSpeech = random.nextInt(RandomPotion.RandomPotionName.length);
         return RandomPotionName[randomSpeech];

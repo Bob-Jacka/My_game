@@ -1,8 +1,10 @@
 package Main;
-
+/////Dictionaries
 import Dictionary.RandomArmorName;
 import Dictionary.RandomFoodName;
 import Dictionary.RandomNpcName;
+import Dictionary.RandomPotion;
+//////
 import Enemies.Enemy;
 import Heroes.Hero1;
 import Items.Armor.*;
@@ -16,54 +18,58 @@ import Items.Weapons.Firearms.Tunning.muzzleBrake;
 import Items.Weapons.MeleeCombatWeapon.Sword;
 import NPC.StartNPC;
 
+
 import java.io.*;
-import java.time.LocalDateTime;
 import java.util.*;
 
 
 public class Source {
 
     static Random random = new Random(50);
-    int IntegerValue = random.nextInt(5, 90);
-    Double DoubleValue = random.nextDouble(1.0, 5.0);
-    private static File toSaveFile
+    static int IntegerValue = random.nextInt(5, 90);
+    static Double DoubleValue = random.nextDouble(1.0, 5.0);
+    private static File DefaultSaveFilePath
             = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/save1.txt");
 
    // private static LocalDateTime LDT = LocalDateTime.now();
+    private static int mapArea;
+    private static final ArrayList<HashMap<String, Integer>> MAP = new ArrayList<>(mapArea*mapArea);
 
 
 
-    public Items GeneratePotion() {
-//        Random random = new Random();
+    public static Items GeneratePotion() {
         int generationRate = random.nextInt(90);
         if (generationRate > 70) {
-            return new HealthPotion("HealthPotion", DoubleValue, 1, IntegerValue);
+            return new HealthPotion(RandomPotion.getRandomPotionName(), DoubleValue, 1, IntegerValue);
         } else if (generationRate < 70) {
-            return new ManaPotion("HealthPotion", DoubleValue, 1, IntegerValue);
+            return new ManaPotion(RandomPotion.getRandomPotionName(), DoubleValue, 1, IntegerValue);
         } else {
             System.out.println("There is no potions");
             return null;
         }
     }
 
-    public Items GenerateWeapon() {
+    public static Items GenerateWeapon() {
 //        Random random = new Random();
         int generationRate = random.nextInt(90);
         if (generationRate > 75) {
             return new Sword("Sword", 15, 20, 50);
-        } else {
+        } else if (generationRate > 80){
             return new Sword("Sword", 40, 15, 50);
+        } else {
+            System.out.println("There is nothing interesting");
+            return null;
         }
     }
 
 
-    public Items GenerateArmor() {
+    public static Items GenerateArmor() {
 //        Random random = new Random();
         int generationRate = random.nextInt(90);
         if (generationRate > 85) {
-            return new IronArmor(RandomArmorName.getRandomNPCName(), 80);
+            return new IronArmor(RandomArmorName.getRandomArmorName(), 80);
         } else if (generationRate > 60 && generationRate < 85) {
-            return new LeatherArmor(RandomArmorName.getRandomNPCName(), 80);
+            return new LeatherArmor(RandomArmorName.getRandomArmorName(), 80);
         } else {
             System.out.println("There is nothing interesting");
             return null;
@@ -71,6 +77,7 @@ public class Source {
     }
 
     public Hero1 CreateHero1() {
+        System.out.println("Only latin letters and no numbers allowed");
         System.out.print("Enter your hero name: ");
         Scanner name = new Scanner(System.in);
         String name_actual = name.next();
@@ -92,8 +99,7 @@ public class Source {
         return new Enemy();
     }
 
-    public Items GenerateOtherItems() {
-//        Random random = new Random();
+    public static Items GenerateOtherItems() {
         int generationRate = random.nextInt(90);
         if (generationRate > 85) {
             return new Food(RandomFoodName.getRandomFoodName(), 30, false);
@@ -109,7 +115,7 @@ public class Source {
         }
     }
 
-    public Items GenerateTunning() {
+    public static Items GenerateTunning() {
         int generationRate = random.nextInt(90);
         if (generationRate > 50) {
             return new Muska(20, "Muska");
@@ -119,21 +125,29 @@ public class Source {
             return new muzzleBrake(100);
         } else return null;
     }
-
+////NPC////////////////////////////////////////////////////////////
     public static StartNPC GenerateStartNPC() {
         return new StartNPC(RandomNpcName.getRandomNPCName());
     }
 
+//    public static NPCclass GenerateNpc() {
+//        int generationRate = random.nextInt(100);
+//        if(generationRate < 10) {
+//            return new NPCclass(RandomNpcName.getRandomNPCName());
+//        } else {
+//            return null;
+//        }
+//    }
 
 //////////////////Save and load game////////////////////////////
 
     ///file where save of the game
 
 
-    protected static void whatInformationToSave(Hero1 valera) throws IOException {
+    private static void whatInformationToSave(Hero1 valera) {
 //        Hero1 valera = new Hero1("Valera",true); ///// test, delete later  ///заглушка
         try {
-            FileWriter writeSaveFile = new FileWriter(toSaveFile);
+            FileWriter writeSaveFile = new FileWriter(DefaultSaveFilePath);
 
 ////Parameters to save
 
@@ -200,7 +214,7 @@ public class Source {
 
     private static void deleteWrittenSaveFile() {
         try {
-            toSaveFile.delete();
+            DefaultSaveFilePath.delete();
         } catch (Exception e) {
             e.getStackTrace();
         } finally {
@@ -216,11 +230,11 @@ public class Source {
          * This method contains two private functions and saving the game in txt file
          * /home/kirill/IdeaProjects/untitled/src/Saving_Files/save1.txt this path provides saving of the game*/
 //        if (askForSave.equals("yes")) {
-        if (toSaveFile.exists()) {
+        if (DefaultSaveFilePath.exists()) {
             System.out.println("Rewriting save file");
             Source.deleteWrittenSaveFile();
             Source.whatInformationToSave(valera);
-        } else if (!toSaveFile.exists()) {
+        } else if (!DefaultSaveFilePath.exists()) {
             Source.whatInformationToSave(valera);
         }
 //        } else if (askForSave.equals("no")) {   ///   does not work in Test framework
@@ -236,9 +250,9 @@ public class Source {
         if (askForLoad.equals("yes")) {
             try {
                 ArrayList<Integer> dataList = new ArrayList<>();
-                FileReader loadReader = new FileReader(toSaveFile);
+                FileReader loadReader = new FileReader(DefaultSaveFilePath);
 
-                for (char i = 0; i != toSaveFile.length(); i++) {
+                for (char i = 0; i != DefaultSaveFilePath.length(); i++) {
                     int fileData = loadReader.read();
 //                    System.out.println(fileData);  /// delete to убрать в выводе данные
                     dataList.add(fileData);
@@ -269,7 +283,7 @@ public class Source {
     }
 ///////////////////////////////////////////////////////////////////////
 
-    public static boolean quitGame(boolean isAutoSave, boolean isQuitGame, Hero1 valera) throws IOException {
+    public static boolean quitGame(boolean isAutoSave, Hero1 valera) throws IOException {
 //        boolean isAutoSave = true;  ///specially for Junit ,  delete later
 //        boolean isQuitGame = false;  ///specially for Junit ,  delete later
         if (isAutoSave == true) {
@@ -292,14 +306,24 @@ public class Source {
             int askFor = isChange.nextInt();
             switch (askFor) {
                 case 1:
-                    Main.isAutoSave = true;
-                    break;
+                    if(Main.isAutoSave == false) {
+                        System.out.println("Auto save enabled");
+                        Main.isAutoSave = true;
+                        isClose = true;
+                        break;
+                    } else {
+                        System.out.println("Auto save disabled");
+                        Main.isAutoSave = false;
+                        isClose = true;
+                        break;
+                    }
+
                 case 2:
                     System.out.println("Enter new saveFile name");
                     System.out.println("You're currently in /home/kirill/IdeaProjects/My_game/src/Saving_Files/");
                     Scanner askForNewSavePath = new Scanner(System.in);
                     String newSavePath = askForNewSavePath.nextLine();
-                    toSaveFile = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/" + newSavePath);
+                    DefaultSaveFilePath = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/" + newSavePath);
                     isClose = true;
                     break;
                 case 3:
@@ -310,7 +334,7 @@ public class Source {
         return Main.isAutoSave;
     }
 
-    public static void fight() {
+    public static void fight() throws IOException {
         Enemy enemy = Source.generateEnemy();
         Main.isInBattle = true;
         System.out.println("You're currently in Battle mode");
@@ -324,7 +348,7 @@ public class Source {
 
 
 
-    public static void moving() {
+    public static void moving() throws IOException {
         /**
          * This method is built for moving hero
          * Also contains chance of activating battle mode
@@ -352,6 +376,7 @@ public class Source {
                     } else if (randint > 25) {
                         System.out.println("You're lucky, there is no enemy ");
                     }
+                    Main.forwardCoordinates += 1;
                     break;
                 case 2:
                     System.out.println(Main.person.getName() + " moving left");
@@ -359,6 +384,7 @@ public class Source {
                         fight();
                         isClose = true;
                     }
+                    Main.leftCoordinates += 1;
                     break;
                 case 3:
                     System.out.println(Main.person.getName() + " moving right");
@@ -366,6 +392,7 @@ public class Source {
                         fight();
                         isClose = true;
                     }
+                    Main.rightCoordinates += 1;
                     break;
                 case 4:
                     System.out.println(Main.person.getName() + " moving backward");
@@ -373,6 +400,7 @@ public class Source {
                         fight();
                         isClose = true;
                     }
+                    Main.backwardCoordinates += 1;
                     break;
                 case 5:
                     System.out.println("Outing move menu");
@@ -501,7 +529,7 @@ public class Source {
         }
     }
 
-    public static void attackEnemy(Hero1 valera, Enemy enemy) {
+    public static void attackEnemy(Hero1 valera, Enemy enemy) throws IOException {
 
         System.out.println("Do you really want to attack enemy (yes/no) ");
 //        System.out.println("Do you really want to Auto attack enemy (yes/no) ");  //TODO сделать пошаговую битву
@@ -511,11 +539,15 @@ public class Source {
             valera.setHealth(((valera.getHealth() + valera.getResistance())));
             while (enemy.getHealth() >= 0) {
                 enemy.setHealth(enemy.getHealth() - valera.getAttack());
-                System.out.println(enemy.getHealth());  //TODO отладачная информация
+                System.out.println("Enemy has heath " + enemy.getHealth());  //TODO отладачная информация
                 valera.setHealth(valera.getHealth() - enemy.getAttack());
-                System.out.println(valera.getHealth());  //TODO отладачная информация
+                System.out.println("Hero has heath " + valera.getHealth());  //TODO отладачная информация
                 if (enemy.getHealth() <= 0) {
                     enemy.dead();
+                    if(Main.isAutoSave == true) {
+                        System.out.println(" After fight saving game");
+                        SaveTheGame(valera);
+                    }
                 } else if (valera.getHealth() == 0) {
                     valera.dead();
                     Main.isQuitGame = true;   //TODO когда будут готовы камни воскрешения переписать этот метод
@@ -528,8 +560,31 @@ public class Source {
                 valera.setHealth(((valera.getHealth() - valera.getResistance())));
             }
         } else if (questionAttack.nextLine().equals("no")) {
+            valera.setHealth((int)(valera.getHealth() * 0.75));
             System.out.println("It is your choice");
         }
+    }
+
+    public void createMap(int mapCapacity) {
+        char sign = 'x';
+        Source.mapArea = mapCapacity*mapCapacity;
+        HashMap<String, Integer> emptyMap = new HashMap<>();
+        emptyMap.put("IsNpc", 0);
+        emptyMap.put("Iscity", 0);
+        emptyMap.put("Isdung", 0);
+
+        for(int i = 0; i <= (mapArea); i++) {
+            MAP.add(emptyMap);
+        }
+        for(int z = 0; z < mapCapacity; z++) {
+            for(int x = 0; x < mapCapacity-1; x++){
+                System.out.print(sign);
+            }
+            System.out.println(sign);
+        }
+
+
+        //TODO create map constructor
     }
 }
 

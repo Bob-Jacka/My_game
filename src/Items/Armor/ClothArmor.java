@@ -1,8 +1,10 @@
 package Items.Armor;
 
+import Items.Items;
+
 import java.util.Random;
 
-public class ClothArmor extends Armor{
+public class ClothArmor extends Armor implements Items {
     public ClothArmor(String armorName, int armorDef) {
         this.armorName = armorName;
         this.armorDef = armorDef;
@@ -21,6 +23,16 @@ public class ClothArmor extends Armor{
         else {
             System.out.println("Не пробито");
         }
+    }
+    @Override
+    public String getItemName() {
+        return this.armorName;
+    }
+
+    @Override
+    public void getParams() {
+        System.out.println("Armor name is " + this.armorName);
+        System.out.println("Armor defence is " + this.armorDef);
     }
 }
 

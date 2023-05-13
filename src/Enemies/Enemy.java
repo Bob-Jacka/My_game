@@ -86,9 +86,7 @@ public class Enemy {
     }
 
     public void dead() {
-        if (this.health == 0) {
-            System.out.println(this.name + " is dead");
-        }
+        System.out.println(this.name + " is dead");
     }
     public void getParams() {
         System.out.println("Name: "+this.name);

@@ -24,4 +24,15 @@ public class LeatherArmor extends Armor {
             System.out.println("Не пробито");
         }
     }
+
+    @Override
+    public String getItemName() {
+        return this.armorName;
+    }
+
+    @Override
+    public void getParams() {
+        System.out.println("Armor name is " + this.armorName);
+        System.out.println("Armor defence is " + this.armorDef);
+    }
 }

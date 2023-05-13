@@ -152,7 +152,7 @@ public class Testing {
     }
 
     @Test
-    public void attacking() {
+    public void attacking() throws IOException {
         Enemy enemy = source.generateEnemy();
         Source.attackEnemy(valera, enemy);
         enemy.getParams();
