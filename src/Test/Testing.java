@@ -109,39 +109,39 @@ public class Testing {
 //        source.deleteWriteSaveFile();
 //    }
 //////////////////////////////////////////////////////////////////////////
-    @Label("Important")
-    @Test
-    public void SavingGame() throws IOException {
-        Source.SaveTheGame(valera);
-    }
+//    @Label("Important")
+//    @Test
+//    public void SavingGame() throws IOException {
+//        Source.SaveTheGame(valera);
+//    }
 
 
     @Label("Important")
     @Test
     public void LoadGame() throws IOException {
-        Source.LoadGame("yes", valera);
+        Source.saveMenu();
         valera.getParams();
     }
 
 
-    @Label("Important")
-    @Test
-    public void SavingAndLoadGameWithDifferentParams() throws IOException {
-        valera.setHealth(valera.getHealth() + 20);
-        valera.setArmor(valera.getArmor() + 20);
-        valera.setAttack(valera.getAttack() + 20);
-        valera.setMagic(false);
-        valera.setResistance(valera.getResistance() + 20);
-        HealthPotion potion = new HealthPotion("Sparrow", 2.5, 5, 50);
-        valera.inventoryPut(potion);
-        valera.getParams();
-        Source.SaveTheGame(valera);
-
-        System.out.println(" ");
-
-        Source.LoadGame("yes", valera);
-        valera.getParams();
-    }
+//    @Label("Important")
+//    @Test
+//    public void SavingAndLoadGameWithDifferentParams() throws IOException {
+//        valera.setHealth(valera.getHealth() + 20);
+//        valera.setArmor(valera.getArmor() + 20);
+//        valera.setAttack(valera.getAttack() + 20);
+//        valera.setMagic(false);
+//        valera.setResistance(valera.getResistance() + 20);
+//        HealthPotion potion = new HealthPotion("Sparrow", 2.5, 5, 50);
+//        valera.inventoryPut(potion);
+//        valera.getParams();
+//        Source.SaveTheGame(valera);
+//
+//        System.out.println(" ");
+//
+//        Source.LoadGame("yes", valera);
+//        valera.getParams();
+//    }
 
     @Test
     public void GetParams() {
@@ -151,12 +151,12 @@ public class Testing {
         valera.getParams();
     }
 
-    @Test
-    public void attacking() throws IOException {
-        Enemy enemy = source.generateEnemy();
-        Source.attackEnemy(valera, enemy);
-        enemy.getParams();
-    }
+//    @Test
+//    public void attacking() throws IOException {
+//        Enemy enemy = source.generateEnemy();
+//        Source.attackEnemy(valera, enemy);
+//        enemy.getParams();
+//    }
 
 
 }

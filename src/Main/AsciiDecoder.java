@@ -67,17 +67,17 @@ public class AsciiDecoder {
         asciiMap.put(121, 'y');
         asciiMap.put(122, 'z');
 
-       for (int elem: arr) {
-           if (asciiMap.containsKey(elem)) {
-               wordToReturn.add(asciiMap.get(elem));
-           } else {
-               System.out.println("An error in decoding save name");
-           }
-       }
+        for (int elem : arr) {
+            if (asciiMap.containsKey(elem)) {
+                wordToReturn.add(asciiMap.get(elem));
+            } else {
+                System.out.println("An error in decoding save name");
+            }
+        }
         StringBuilder strb = new StringBuilder();
-       for (char i: wordToReturn) {
-           strb.append(i);
-       }
+        for (char i : wordToReturn) {
+            strb.append(i);
+        }
         return strb.toString();
     }
 }

@@ -4,7 +4,7 @@ import Dictionary.Quest;
 import Heroes.Hero1;
 
 public interface NPC {
-    String name = null;
+    String name = "StandardNPCName";
     int health = 100;
     int attack = 20;
     boolean isQuestTaken = false;  /// по стандарту false - квест не взят

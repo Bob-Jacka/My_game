@@ -166,9 +166,14 @@ public class Hero1 implements Hero {
         return null;
     }
     public void getQuestsList() {
-        for (String quest: questList) {
-            System.out.println(quest);
+        if(!questList.isEmpty()) {
+            for (String quest: questList) {
+                System.out.println(quest);
+            }
+        } else {
+            System.out.println("There are no quests here");
         }
+
     }
     public void setActiveQuest(String quest) {
         this.activeQuest = quest;
@@ -214,7 +219,7 @@ public class Hero1 implements Hero {
         inventoryCall(this.inventory);
     }
 
-     void inventoryCall(ArrayList<Items> inventory) {
+     public void inventoryCall(ArrayList<Items> inventory) {
         if (!inventory.isEmpty()) {
             if(inventory.size() > 1) {
                 for (Items inventoryItem: inventory) {

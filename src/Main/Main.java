@@ -3,7 +3,6 @@ package Main;
 import Heroes.Hero1;
 import NPC.StartNPC;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -21,6 +20,7 @@ public class Main {
     static short backwardCoordinates = 0;
     static short leftCoordinates = 0;
     static short rightCoordinates = 0;
+
     public static void main(String[] args) throws IOException, InterruptedException {
 
         //Start game
@@ -52,10 +52,10 @@ public class Main {
                     System.exit(1);
                 }
             }
-            if(!person.getActiveQuest().isEmpty()) {
+//            if (person.getActiveQuest().isEmpty()) {
                 StartNPC startNPC = Source.GenerateStartNPC();  ///встреча с нпс
                 startNPC.takeQuest(person);
-            }
+//            }
 
 
             //The game
@@ -74,36 +74,37 @@ public class Main {
                         "HINT: just type number of the clause");
 
                 System.out.println();
-                Scanner askForAction = new Scanner(System.in);
-                int action = askForAction.nextInt();  /// action ask
-                switch (action) {
+//                Scanner askForAction = new Scanner(System.in);
+//                int action = askForAction.nextInt();  /// action ask
+                switch (new Scanner(System.in).nextInt()) {
                     case 1:
-                        Source.moving();
+                        Source.movingMenu();
                         break;
                     case 2:
-                        Source.hero_menu();
+                        Source.heroMenu();
                         break;
                     case 3:
                         Source.saveMenu();
                         break;
                     case 4:
-                        isAutoSave = Source.configurateGameOptions(isAutoSave);
+                        isAutoSave = Source.configurateGameOptionsMenu(isAutoSave);
                         break;
 //                case 5:
 //                    person.putOnWeapon();
 //                    break;
                     case 6:
 //                    && (Integer.parseInt((Source.currentTime)) != Integer.parseInt(ldtMain.toString()))
-                        if ((isAutoSave == false)) {  //TODO сделать чтобы если файл был недавно сохранён, то предупреждение не отображается
-                            System.out.println("Attention, the game option auto save is disabled");
-                            System.out.println("The game will not be saved");
-                            Thread.sleep(3_000);
-                            isQuitGame = Source.quitGame(isAutoSave, person);
-                            break;
-                        } else {
-                            isQuitGame = Source.quitGame(isAutoSave, person);
-                            break;
-                        }
+//                        if ((isAutoSave == false)) {  //TODO сделать чтобы если файл был недавно сохранён, то предупреждение не отображается
+//                            System.out.println("Attention, the game option auto save is disabled");
+//                            System.out.println("The game will not be saved");
+//                            Thread.sleep(3_000);
+//                            isQuitGame = Source.quitGameMenu(isAutoSave, person);
+//                            break;
+//                        } else {
+//                            isQuitGame = Source.quitGameMenu(isAutoSave, person);
+//                            break;
+//                        }
+                        isQuitGame = Source.quitGameMenu(isAutoSave, person);
                 }
             }
         }
