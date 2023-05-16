@@ -3,13 +3,13 @@ package NPC;
 import Dictionary.Quest;
 import Heroes.Hero1;
 
-public interface NPC {
+public abstract class NPC {
     String name = "StandardNPCName";
     int health = 100;
     int attack = 20;
     boolean isQuestTaken = false;  /// по стандарту false - квест не взят
 
-    default void takeQuest(Hero1 person) {
+    void takeQuest(Hero1 person) {
             if (isQuestTaken == false) {
                 System.out.println();
                 System.out.println(" ");
@@ -19,7 +19,7 @@ public interface NPC {
                 person.setActiveQuest(Quest.Quest2);
                 //adding quest to questList
                 person.addToQuestList(Quest.Quest2);
-                //this.isQuestTaken = true;
+                this.isQuestTaken = true;
                 System.out.println("Возьми это оружие и броню, они тебе пригодятся");
 
             } else {
@@ -28,11 +28,15 @@ public interface NPC {
         }
 
 
-    default void attackEnemy() {
+    void attackEnemy() {
         System.out.println(this.name + " is attacking enemy");
     };
-    void talk();
-    default String getName() {return this.name;};
-    default int getHealth() {return this.health;};
-    default int getAttack() {return this.attack;};
+
+    void talk() {
+
+    }
+
+    String getName() {return this.name;};
+    int getHealth() {return this.health;};
+    int getAttack() {return this.attack;};
 }

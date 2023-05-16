@@ -7,7 +7,7 @@ import Items.Armor.ClothArmor;
 import Items.Weapons.MeleeCombatWeapon.Sword;
 
 
-public class StartNPC implements NPC {
+public class StartNPC extends NPC {
     private final String name;
     private final int health = 100;
     private final int attack = 10;

@@ -1,5 +1,6 @@
 package Test;
 
+import Dictionary.Quest;
 import Dictionary.QuestItems.QuestItem;
 import Enemies.Enemy;
 import Heroes.Hero1;
@@ -109,20 +110,21 @@ public class Testing {
 //        source.deleteWriteSaveFile();
 //    }
 //////////////////////////////////////////////////////////////////////////
-//    @Label("Important")
-//    @Test
-//    public void SavingGame() throws IOException {
-//        Source.SaveTheGame(valera);
-//    }
+
 
 
     @Label("Important")
     @Test
     public void LoadGame() throws IOException {
-        Source.saveMenu();
+        Source.TestLoad(valera);
         valera.getParams();
     }
-
+    @Label("Important")
+    @Test
+    public void SavingGame() throws IOException {
+        valera.setActiveQuest(Quest.Quest1);
+        Source.TestSave(valera);
+    }
 
 //    @Label("Important")
 //    @Test

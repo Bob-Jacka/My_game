@@ -13,7 +13,7 @@ public class Main {
     static Source source = new Source();
     static Hero1 person = new Hero1();
     static File saveFile = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/save1.txt");
-    public static boolean isInBattle = false;
+    static boolean isInBattle = false;
 
     //    private static LocalDateTime ldtMain = LocalDateTime.now();
     static short forwardCoordinates = 0;
@@ -24,7 +24,6 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         //Start game
-
 
         if (saveFile.exists()) {
             System.out.println("Файл сохранения найден, хотите ли загрузить сохранение? yes/no ");
@@ -37,9 +36,10 @@ public class Main {
             } else {
                 System.out.println();
                 System.out.println("New game");
-                System.out.println("1. create hero\n" +
-                        "2.What race do you like?\n" +
-                        "HINT: just type number of the clause");
+                System.out.println("""
+                        1. create hero
+                        2.What race do you like?
+                        HINT: just type number of the clause""");
                 System.out.println();
                 System.out.print("To create Hero enter yes/no ");
                 Scanner createHero = new Scanner(System.in);
@@ -52,26 +52,25 @@ public class Main {
                     System.exit(1);
                 }
             }
-//            if (person.getActiveQuest().isEmpty()) {
+            if (person.getActiveQuest() == null) {
                 StartNPC startNPC = Source.GenerateStartNPC();  ///встреча с нпс
                 startNPC.takeQuest(person);
-//            }
+            }
 
 
             //The game
             while (isQuitGame == false) {
 
-                //TODO сделать чтобы баттл мод не был зависим от наличия противника
-
                 System.out.println();
-                System.out.println("What can you do\n" +
-                        "1. move\n" +
-                        "2. Hero menu\n" +
-                        "3. save or load the game\n" +
-                        "4. configurate the game\n" +
-                        "5. put on weapon\n" +
-                        "6. quit game\n" +
-                        "HINT: just type number of the clause");
+                System.out.println("""
+                        What can you do
+                        1. Move
+                        2. Hero menu
+                        3. save or load the game
+                        4. configurate the game
+                        5. put on weapon
+                        6. quit game
+                        HINT: just type number of the clause""");
 
                 System.out.println();
 //                Scanner askForAction = new Scanner(System.in);
@@ -87,7 +86,7 @@ public class Main {
                         Source.saveMenu();
                         break;
                     case 4:
-                        isAutoSave = Source.configurateGameOptionsMenu(isAutoSave);
+                        isAutoSave = Source.configurateGameOptionsMenu();
                         break;
 //                case 5:
 //                    person.putOnWeapon();

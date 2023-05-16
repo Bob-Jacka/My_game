@@ -10,6 +10,7 @@ public class AsciiDecoder {
 
         ArrayList<Character> wordToReturn = new ArrayList<>();
         HashMap<Integer, Character> asciiMap = new HashMap<>();
+        asciiMap.put(32, ' ');
         asciiMap.put(66, 'B');
         asciiMap.put(65, 'A');
         asciiMap.put(67, 'C');

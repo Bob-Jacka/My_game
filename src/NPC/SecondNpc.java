@@ -3,7 +3,7 @@ package NPC;
 import Dictionary.Quest;
 import Heroes.Hero1;
 
-public class SecondNpc implements NPC{
+public class SecondNpc extends NPC {
     private final String name;
     private final int health = 100;
     private final int attack = 10;
@@ -26,7 +26,7 @@ public class SecondNpc implements NPC{
                 //adding quest to questList
                 person.addToQuestList(Quest.Quest2);
                 this.isQuestTaken = true;
-                System.out.println("Возьми это оружие и броню, они тебе пригодятся");
+//                System.out.println("Возьми это оружие и броню, они тебе пригодятся");
 
             } else {
                 System.out.println("Задание уже взято");
@@ -36,7 +36,7 @@ public class SecondNpc implements NPC{
 
     @Override
     public void attackEnemy() {
-        NPC.super.attackEnemy();
+
     }
 
     @Override
@@ -46,16 +46,16 @@ public class SecondNpc implements NPC{
 
     @Override
     public String getName() {
-        return NPC.super.getName();
+        return this.name;
     }
 
     @Override
     public int getHealth() {
-        return NPC.super.getHealth();
+        return this.health;
     }
 
     @Override
     public int getAttack() {
-        return NPC.super.getAttack();
+        return this.attack;
     }
 }

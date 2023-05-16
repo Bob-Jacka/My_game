@@ -2,6 +2,6 @@ package Dictionary;
 
 public class Quest {
 
-    public static String Quest1 = "Тебе нужно убить 10 волков";
-    public static String Quest2 = "Тебе нужно собрать 15 ракушек";
+    public static String Quest1 = "You need to kill 10 wolfs";
+    public static String Quest2 = "You need to collect 15 shells";
 }
