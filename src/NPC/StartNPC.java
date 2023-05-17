@@ -34,6 +34,8 @@ public class StartNPC extends NPC {
             this.isQuestTaken = true;
             System.out.println();
             System.out.println("Возьми это оружие и броню, они тебе пригодятся");
+            System.out.println("training sword added to the inventory");
+            System.out.println("training armor added to the inventory");
             person.putOnWeapon( new Sword("training sword", 15, 1.5f, 20));
             person.putOnArmor( new ClothArmor("training armor", 10));
         } else {

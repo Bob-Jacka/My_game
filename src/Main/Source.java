@@ -77,7 +77,7 @@ public class Source {
         }
     }
 
-    public Hero1 CreateHero1() {
+    public static Hero1 CreateHero1() {
         System.out.println("Only latin letters and no numbers allowed");
         System.out.print("Enter your hero name: ");
         Scanner name = new Scanner(System.in);
@@ -561,7 +561,6 @@ public class Source {
             BufferedWriter bf = new BufferedWriter(writeSaveFile);
 ////Parameters to save
 
-/////TEST////////////////////////////////////////////////////////////////////////////////////////
             bf.write("|");
             bf.write(valera.getHealth());  ///1
             bf.write("|");
@@ -621,43 +620,10 @@ public class Source {
             bf.newLine();
             bf.write(String.valueOf(Main.isAutoSave));  //запись параметра системы
 
-/////TEST///////////////////////////////////////////////////////////////////////////////////
-//            writeSaveFile.write("|");
-//            writeSaveFile.write(valera.getHealth());  ///1
-//            writeSaveFile.write("|");
-//
-//            writeSaveFile.write(valera.getArmor()); //3
-//            writeSaveFile.write("|");
-//
-//            writeSaveFile.write(valera.getAttack());  //5
-//            writeSaveFile.write("|");
-//
-//            if (valera.getMagic() == true) {     ///save magic boolean  //7
-//                writeSaveFile.write(1);
-//                writeSaveFile.write("|");
-//            } else if (valera.getMagic() == false) {
-//                writeSaveFile.write(0);
-//                writeSaveFile.write("|");
-//            }
-//            writeSaveFile.write(valera.getResistance());  //9
-//            writeSaveFile.write("|");
-//
-//            writeSaveFile.write(valera.getMana());  //11
-//            writeSaveFile.write("|");
-//
-//            writeSaveFile.write(valera.getExperience());  //12
-//            writeSaveFile.write("|");
-//
-//            writeSaveFile.write(valera.getName().length());  //длина имени  //14
-//            writeSaveFile.write("|");
-//            writeSaveFile.write(valera.getName());  //16
-//            writeSaveFile.write("|");
-//
-
-
+            bf.newLine();
+            bf.write(String.valueOf(Main.saveFile));  //Save file
             /// Save local date to save file
             //writeSaveFile.write(String.valueOf(LDT));  //Date
-//            writeSaveFile.write(valera.getActiveQuest()); /// save active quest
 //            writeSaveFile.write("|");
 
 //            writeSaveFile.write(String.format("%h", valera.questList));  ///save QuestList
@@ -727,16 +693,17 @@ public class Source {
                 BufferedReader br = new BufferedReader(loadReader);
 
                 for (char i = 0; i != DefaultSaveFilePath.length(); i++) {
-                    if(i == '\n') {
-//                        dataList.add(Integer.valueOf(br.readLine()));
-                    }
+//                    if(i == '\n') {
+//                        activeQuest.add(Integer.valueOf(br.readLine()));
+//                    }
                     int fileData = br.read();
                     //System.out.println(fileData);
                     dataList.add(fileData);
 
-
-                } //What parameters to load
-                afterLoad.setName(AsciiDecoder.decode(dataList.subList(17, dataList.lastIndexOf( 124))));  // name  //TODO исправить, потому что возращает New name is null
+                }
+                //What parameters to load
+//                System.out.println(activeQuest); //TODO delete
+                afterLoad.setName(AsciiDecoder.decode(dataList.subList(17, dataList.lastIndexOf( 124))));  // name
                 afterLoad.setHealth(dataList.get(1));  //Health
                 afterLoad.setArmor(dataList.get(3));       //Armor
                 afterLoad.setAttack(dataList.get(5));
@@ -749,7 +716,7 @@ public class Source {
                 afterLoad.setMana(dataList.get(11));
                 afterLoad.setExperience(dataList.get(13));
                 //TODO загрузить другие строки
-                //afterLoad.setActiveQuest(AsciiDecoder.decode(dataList.subList(17, dataList.lastIndexOf( 124))));
+//                afterLoad.setActiveQuest(AsciiDecoder.decode(dataList.subList(17, dataList.lastIndexOf( 124))));
 //                afterLoad.putOnWeapon();
 //                afterLoad.putOnArmor();
 
@@ -771,12 +738,12 @@ public class Source {
 
 
     /////////////////Map category///////////////////////////////////////////////////////////////////////////
-    public void createMap(int mapCapacity) {
+    public static void createMap(int mapCapacity) {
         Source.mapArea = mapCapacity * mapCapacity;
         HashMap<String, Integer> emptyMap = new HashMap<>();
         emptyMap.put("IsNpc", 0);
-        emptyMap.put("Iscity", 0);
-        emptyMap.put("Isdung", 0);
+        emptyMap.put("IsCity", 0);
+        emptyMap.put("IsDung", 0);  //dungeon?
 
         for (int i = 0; i <= (mapArea); i++) {
             MAP.add(emptyMap);
