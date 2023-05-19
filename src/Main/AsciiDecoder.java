@@ -4,13 +4,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 public class AsciiDecoder {
     public static String decode(List<Integer> arr) {
 
         ArrayList<Character> wordToReturn = new ArrayList<>();
         HashMap<Integer, Character> asciiMap = new HashMap<>();
         asciiMap.put(32, ' ');
+        asciiMap.put(36, '$');
+        asciiMap.put(33, '!');
+        asciiMap.put(64, '@');
+        asciiMap.put(38, '&');
+        asciiMap.put(49, '1');
+        asciiMap.put(48, '0');
+        asciiMap.put(47, '/');
+        asciiMap.put(46, '.');
+        asciiMap.put(95, '_');
+        asciiMap.put(35, '#');
+        asciiMap.put(126, '~');
+        asciiMap.put(0, '0');
+
         asciiMap.put(66, 'B');
         asciiMap.put(65, 'A');
         asciiMap.put(67, 'C');
@@ -72,7 +84,8 @@ public class AsciiDecoder {
             if (asciiMap.containsKey(elem)) {
                 wordToReturn.add(asciiMap.get(elem));
             } else {
-                System.out.println("An error in decoding save name");
+//                wordToReturn.add(asciiMap.get(elem));
+                System.out.println("An error in decoding save data");
             }
         }
         StringBuilder strb = new StringBuilder();

@@ -11,6 +11,7 @@ import Items.Items;
 import Items.Potions.HealthPotion;
 import Items.Weapons.MeleeCombatWeapon.Sword;
 import Items.Weapons.WeaponInterface;
+import Main.Main;
 import Main.Source;
 import jdk.jfr.Label;
 import org.junit.Before;
@@ -117,12 +118,26 @@ public class Testing {
     @Test
     public void LoadGame() throws IOException {
         Source.TestLoad(valera);
-        valera.getParams();
+//        valera.getParams();
+//        valera.getActiveQuest();
+//        System.out.println(Main.isAutoSave);
+//        Main.forwardCoordinates = 1;
+//        Main.rightCoordinates = 5;
+//        Main.leftCoordinates = 10;
+//        Main.backwardCoordinates = 15;
+        System.out.println(Main.forwardCoordinates);
+        System.out.println(Main.rightCoordinates);
+        System.out.println(Main.backwardCoordinates);
+        System.out.println(Main.leftCoordinates);
     }
     @Label("Important")
     @Test
     public void SavingGame() throws IOException {
-        valera.setActiveQuest(Quest.Quest1);
+//        valera.setActiveQuest(Quest.Quest1);
+//        Main.forwardCoordinates = 1;
+//        Main.rightCoordinates = 5;
+//        Main.leftCoordinates = 10;
+//        Main.backwardCoordinates = 15;
         Source.TestSave(valera);
     }
 

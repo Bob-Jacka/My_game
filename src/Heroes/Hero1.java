@@ -152,9 +152,7 @@ public class Hero1 implements Hero {
 
     ///////////////QuestMethods/////////////////////////////////////////////
     public String getActiveQuest() {
-        if (activeQuest == null) {
-            System.out.println("There is no active quest yet");
-        } else {
+        if (activeQuest != null) {
             System.out.println("Your active quest is " + this.activeQuest);
             return this.activeQuest;
         }
