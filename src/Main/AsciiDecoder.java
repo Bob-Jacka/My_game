@@ -3,12 +3,12 @@ package Main;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+@Deprecated
 public class AsciiDecoder {
-    public static String decode(List<Integer> arr) {
+    static StringBuilder strb = new StringBuilder();
+    static HashMap<Integer, Character> asciiMap = new HashMap<>();
 
-        ArrayList<Character> wordToReturn = new ArrayList<>();
-        HashMap<Integer, Character> asciiMap = new HashMap<>();
+    public static String decodeList(List<Integer> arr) {
         asciiMap.put(32, ' ');
         asciiMap.put(36, '$');
         asciiMap.put(33, '!');
@@ -22,6 +22,7 @@ public class AsciiDecoder {
         asciiMap.put(35, '#');
         asciiMap.put(126, '~');
         asciiMap.put(0, '0');
+        asciiMap.put(42, '*');
 
         asciiMap.put(66, 'B');
         asciiMap.put(65, 'A');
@@ -82,16 +83,26 @@ public class AsciiDecoder {
 
         for (int elem : arr) {
             if (asciiMap.containsKey(elem)) {
-                wordToReturn.add(asciiMap.get(elem));
+                strb.append((asciiMap.get(elem)));
             } else {
-//                wordToReturn.add(asciiMap.get(elem));
                 System.out.println("An error in decoding save data");
             }
         }
-        StringBuilder strb = new StringBuilder();
-        for (char i : wordToReturn) {
-            strb.append(i);
-        }
         return strb.toString();
+//        StringBuilder strb = new StringBuilder();
+//        for (char i : wordToReturn) {
+//            strb.append(i);
+//        }
+//        return strb.toString();
+//    }
+    }
+    public static String decodeChar(int cha) {
+        for(int elem = 0; elem <= asciiMap.size(); elem++) {
+            if(asciiMap.containsKey(cha)) {
+                return String.valueOf(elem);
+            }
+        }
+        System.out.println("An error in decoding save data");
+        return String.valueOf(0);
     }
 }

@@ -11,7 +11,7 @@ public class ClothArmor extends Armor implements Items {
     }
     private final String armorName;
 
-    private int armorDef;
+    private final int armorDef;
     private int armoragility;
     private int mana;
     private int strenght;
@@ -33,6 +33,10 @@ public class ClothArmor extends Armor implements Items {
     public void getParams() {
         System.out.println("Armor name is " + this.armorName);
         System.out.println("Armor defence is " + this.armorDef);
+    }
+    @Override
+    public int getArmorDef() {
+        return this.armorDef;
     }
 }
 

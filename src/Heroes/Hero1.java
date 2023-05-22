@@ -160,19 +160,17 @@ public class Hero1 implements Hero {
     }
 
     public void getQuestsList() {
-        if (!questList.isEmpty()) {
+        if (questList.size() != 0) {
             for (String quest : questList) {
                 System.out.println(quest);
             }
         } else {
             System.out.println("There are no quests here");
         }
-
     }
 
     public void setActiveQuest(String quest) {
         this.activeQuest = quest;
-        System.out.println("Active quest changed");
     }
 
     public void passTheQuest(String quest) {
@@ -189,7 +187,6 @@ public class Hero1 implements Hero {
 //        Field field = StartNPC.class.getField("isQuestTaken");
 //        field.set(Object quest, );
     }
-
 //////////////////////////inventory///////////////////////////////////////////
     public void inventoryPut(Items item) {   ///кладёт в инвентарь
         inventory.add(item);
@@ -210,11 +207,12 @@ public class Hero1 implements Hero {
 
     public void getParams() {
         System.out.println("Name: " + this.name);
-        System.out.println("health: " + this.health);
-        System.out.println("armor: " + this.armor);
-        System.out.println("attack: " + this.attack);
-        System.out.println("magic: " + this.magic);
-        System.out.println("resistance: " + this.resistance);
+        System.out.println("Health: " + this.health);
+        System.out.println("Armor: " + this.armor);
+        System.out.println("Attack: " + this.attack);
+        System.out.println("Magic: " + this.magic);
+        System.out.println("Resistance: " + this.resistance);
+        System.out.println("Experience: " + this.experience);
         System.out.println("Your level is: " + this.getClass());
         System.out.print("Your inventory is: ");
         inventoryCall(this.inventory);

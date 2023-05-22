@@ -6,24 +6,27 @@ import Dictionary.RandomArmorName;
 import Dictionary.RandomFoodName;
 import Dictionary.RandomNpcName;
 import Dictionary.RandomPotion;
-//////
 import Enemies.Enemy;
 import Heroes.Hero1;
-import Items.Armor.*;
-import Items.*;
+import Items.Armor.IronArmor;
+import Items.Armor.LeatherArmor;
+import Items.Items;
 import Items.OtherItems.Food;
 import Items.OtherItems.ResurrectStone;
-import Items.Potions.*;
+import Items.Potions.HealthPotion;
+import Items.Potions.ManaPotion;
 import Items.Weapons.Firearms.Tunning.Muska;
 import Items.Weapons.Firearms.Tunning.OpticalScope;
 import Items.Weapons.Firearms.Tunning.muzzleBrake;
 import Items.Weapons.MeleeCombatWeapon.Sword;
 import NPC.StartNPC;
 
-
 import java.io.*;
-import java.net.URI;
-import java.util.*;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
+import java.util.Scanner;
 
 
 public class Source {
@@ -35,7 +38,7 @@ public class Source {
     private static int mapArea = 3;  //default value of the map
     private static final ArrayList<HashMap<String, Integer>> MAP = new ArrayList<>(mapArea * mapArea);
 
-/////////////////////Generate Category//////////////////////////////////////////////////////////
+    /////////////////////Generate Category//////////////////////////////////////////////////////////
     public static Items GeneratePotion() {
         int generationRate = random.nextInt(90);
         if (generationRate > 70) {
@@ -557,107 +560,88 @@ public class Source {
     private static void whatInformationToSave(Hero1 valera) {
 //        Hero1 valera = new Hero1("Valera",true); ///// test, delete later  ///заглушка
         try {
-            FileWriter writeSaveFile = new FileWriter(Main.saveFileHeroParams);
-            BufferedWriter bf = new BufferedWriter(writeSaveFile);
+//            FileWriter writeSaveFile = new FileWriter(Main.saveFileHeroParams);
+            BufferedWriter bf = new BufferedWriter(new FileWriter(Main.saveFileHeroParams));
 ////Parameters to save
-            bf.write('|');
-            bf.write(valera.getHealth());  ///1
-            bf.write('|');
+            bf.write(valera.getName());  //0
+            bf.newLine();
 
-            bf.write(valera.getArmor()); //3
-            bf.write('|');
+            bf.write(String.valueOf(valera.getHealth()));  ///1
+            bf.newLine();
 
-            bf.write(valera.getAttack());  //5
-            bf.write('|');
+            bf.write(String.valueOf(valera.getArmor())); //2
+            bf.newLine();
 
-            if (valera.getMagic()) {     ///save magic boolean  //7
-                bf.write(1);
-                bf.write('|');
+            bf.write(String.valueOf(valera.getAttack()));  //3
+            bf.newLine();
+
+            if (valera.getMagic()) {     ///save magic boolean  //4
+                bf.write(String.valueOf(true));
+                bf.newLine();
             } else if (valera.getMagic() == false) {
-                bf.write(0);
-                bf.write('|');
+                bf.write(String.valueOf(false));
+                bf.newLine();
+                ;
             }
-            bf.write(valera.getResistance());  //9
-            bf.write('|');
+            bf.write(String.valueOf(valera.getResistance()));  //5
+            bf.newLine();
 
-            bf.write(valera.getMana());  //11
-            bf.write('|');
+            bf.write(String.valueOf(valera.getMana()));  //6
+            bf.newLine();
 
-            bf.write(valera.getExperience());  //12
-            bf.write('|');
+            bf.write(String.valueOf(valera.getExperience()));  //7
 
-            bf.write(valera.getName().length());  //длина имени  //14
-            bf.write('|');
-            bf.write(valera.getName());  //16
-            bf.write('|');
+//            bf.write(valera.getName().length());  //длина имени  //14
+
 
             if (valera.getActiveQuest() == null) {   ///Active quest save
                 bf.newLine();
-                bf.write('!');
                 bf.write("null");
-                bf.write('!');
             } else if (valera.getActiveQuest() != null) {
                 bf.newLine();
-                bf.write('!');
                 bf.write(valera.getActiveQuest());
-                bf.write('!');
             }
 
-            if (valera.getActiveArmor().isEmpty()) {
+            if (valera.getActiveArmor().size() == 0) {  // isEmpty
                 bf.newLine();
-                bf.write('@');
                 bf.write("null");
-                bf.write('@');
             } else {
                 bf.newLine();
-                bf.write('@');
                 bf.write(valera.getActiveArmor().get(0).getItemName());
                 bf.write((valera.getActiveArmor().get(0).getArmorDef()));
-                bf.write('@');
             }
-
-            if (valera.getActiveWeapon().isEmpty()) {
+            if (valera.getActiveWeapon().size() == 0) {    // isEmpty
                 bf.newLine();
-                bf.write('$');
                 bf.write("null");
-                bf.write('$');
             } else {
                 bf.newLine();
-                bf.write('$');
                 bf.write(valera.getActiveWeapon().get(0).getItemName());
                 bf.write((valera.getActiveWeapon().get(0).getAttack()));
-                bf.write('$');
             }
             bf.newLine();
-            bf.write("#");
             bf.write(String.valueOf(Main.isAutoSave));  //запись параметра системы
-            bf.write("#");
-
             bf.newLine();
-            bf.write("&");
             bf.write(String.valueOf(Main.saveFileHeroParams));  //Save file
-            bf.write("&");
 
             /////COORDINATES
             bf.newLine();
-            bf.write(Main.forwardCoordinates); // load forward coordinates
+            bf.write(String.valueOf(Main.forwardCoordinates)); // load forward coordinates
 //            bf.write("|");
-            bf.write(Main.rightCoordinates); // load right coordinates
+            bf.newLine();
+            bf.write(String.valueOf(Main.rightCoordinates)); // load right coordinates
 //            bf.write("|");
-            bf.write(Main.backwardCoordinates); // load back coordinates
+            bf.newLine();
+            bf.write(String.valueOf(Main.backwardCoordinates)); // load back coordinates
 //            bf.write("|");
-            bf.write(Main.leftCoordinates); // load left coordinates
+            bf.newLine();
+            bf.write(String.valueOf(Main.leftCoordinates)); // load left coordinates
 //          bf.write("|");
             /////COORDINATES
 
             /// Save local date to save file
             //bf.write(String.valueOf(LDT));  //Date
-//            bf.write("|");
-
-//            writeSaveFile.write(String.format("%h", valera.questList));  ///save QuestList
-//            writeSaveFile.write("|");
             bf.close();   ////close file stream
-            writeSaveFile.close();
+//            writeSaveFile.close();
         } catch (IOException e) {
             e.getStackTrace();
             System.out.println("There are problems on saving data");
@@ -671,29 +655,27 @@ public class Source {
             Main.saveFileHeroParams.delete();
         } catch (Exception e) {
             e.getStackTrace();
-        } finally {
-            System.out.println("File deleted");
         }
     }
 
     private static void SaveTheGame(Hero1 valera) throws IOException {
-//        Scanner ScannerForSave = new Scanner(System.in);
-//        System.out.println("Are you sure? yes/no ");      ///does not work in Test framework
-//        String askForSave = ScannerForSave.nextLine();
+        Scanner ScannerForSave = new Scanner(System.in);
+        System.out.println("Are you sure? yes/no ");      ///does not work in Test framework
+        String askForSave = ScannerForSave.nextLine();
         /**
          * This method contains two private functions and saving the game in txt file
          * /home/kirill/IdeaProjects/untitled/src/Saving_Files/save1.txt this path provides saving of the game*/
-//        if (askForSave.equals("yes")) {
-        if (Main.saveFileHeroParams.exists()) {
-            System.out.println("Rewriting save file");
-            Source.deleteWrittenSaveFile();
-            Source.whatInformationToSave(valera);
-        } else if (!Main.saveFileHeroParams.exists()) {
-            Source.whatInformationToSave(valera);
+        if (askForSave.equals("yes")) {   ///   does not work in Test framework
+            if (Main.saveFileHeroParams.exists()) {
+                System.out.println("Rewriting save file");
+                Source.deleteWrittenSaveFile();
+                Source.whatInformationToSave(valera);
+            } else if (!Main.saveFileHeroParams.exists()) {
+                Source.whatInformationToSave(valera);
+            }
+        } else if (askForSave.equals("no")) {   ///   does not work in Test framework
+            System.out.println("Cancel saving");   //// does not work in Test framework
         }
-//        } else if (askForSave.equals("no")) {   ///   does not work in Test framework
-//            System.out.println("Cancel saving");   //// does not work in Test framework
-//        }
     }
 
     static Hero1 LoadGame(String askForLoad, Hero1 afterLoad) {
@@ -702,69 +684,59 @@ public class Source {
          */
         if (askForLoad.equals("yes")) {
             try {
-                ArrayList<Integer> dataList = new ArrayList<>();
-                ArrayList<Integer> activeQuest = new ArrayList<>();
-                ArrayList<Integer> activeArmor = new ArrayList<>();
-                ArrayList<Integer> activeWeapon = new ArrayList<>();
-
-                FileReader loadReader = new FileReader(Main.saveFileHeroParams);
-                BufferedReader br = new BufferedReader(loadReader);
-
-                for (char i = 0; i != Main.saveFileHeroParams.length(); i++) {
-//                    if(i == '\n') {
-//                        activeQuest.add(Integer.valueOf(br.readLine()));
-//                    }
-                    int fileData = br.read();
-//                    System.out.println(fileData);  //Отладочная информация
-                    dataList.add(fileData);
-
-                }
+                BufferedReader br = new BufferedReader(new FileReader(Main.saveFileHeroParams));
                 //What parameters to load
-//                System.out.println(activeQuest); //TODO delete
-                afterLoad.setName(AsciiDecoder.decode(dataList.subList(17, dataList.lastIndexOf(124))));  // name
-                afterLoad.setHealth(dataList.get(1));  //Health
-                afterLoad.setArmor(dataList.get(3));       //Armor
-                afterLoad.setAttack(dataList.get(5));
-                if (dataList.get(8) == 1) {
+                String HeroParamsName = br.readLine();  //name
+                String HeroParamsHealth = br.readLine();  //health
+                String HeroParamsArmor = br.readLine();   //armor
+                String HeroParamsAttack = br.readLine();  //attack
+                String HeroParamsMagic = br.readLine();  //isMagic
+                String HeroParamsResistance = br.readLine();  //resistance
+                String HeroParamsMana = br.readLine();  //mana
+                String HeroParamsExperience = br.readLine();  //exp
+
+                String activeQuest = br.readLine();
+                String activeArmor = br.readLine();
+                String activeWeapon = br.readLine();
+                String isAutoSaveTheGame = br.readLine();
+                String gameSaveFile = br.readLine();
+                String forwardCoordinates = br.readLine();
+                String rightCoordinates = br.readLine();
+                String backwardCoordinates = br.readLine();
+                String leftCoordinates = br.readLine();
+
+                ///Hero Params
+                if (!activeArmor.equals("null")) {
+                    afterLoad.setActiveQuest(activeQuest);
+                }
+//                if(!activeWeapon.equals("null")) {
+//                    afterLoad.putOnWeapon(activeWeapon);
+//                }
+                if (!activeQuest.equals("null")) {
+                    afterLoad.setActiveQuest(activeQuest);
+                }
+                afterLoad.setName(HeroParamsName);  // name
+                afterLoad.setHealth(Integer.parseInt(HeroParamsHealth));
+                afterLoad.setArmor(Integer.parseInt(HeroParamsArmor));       //Armor
+                afterLoad.setAttack(Integer.parseInt(HeroParamsAttack));
+                if (HeroParamsMagic.equals("true")) {
                     afterLoad.setMagic(true);
                 } else {  ///Magic
                     afterLoad.setMagic(false);
                 }
-                afterLoad.setResistance(dataList.get(9));
-                afterLoad.setMana(dataList.get(11));
-                afterLoad.setExperience(dataList.get(13));
+                afterLoad.setResistance(Integer.parseInt(HeroParamsResistance));
+                afterLoad.setMana(Integer.parseInt(HeroParamsMana));
+                afterLoad.setExperience(Integer.parseInt(HeroParamsExperience));
 
-                //load game params //TODO загрузить другие строки
-                afterLoad.setActiveQuest(AsciiDecoder.decode(dataList.subList((dataList.indexOf(33)), dataList.lastIndexOf( 33))).substring(1));
-                Main.saveFileHeroParams = new File(AsciiDecoder.decode(dataList.subList((dataList.indexOf(38)), dataList.lastIndexOf(38))).substring(1));
-                Main.isAutoSave = AsciiDecoder.decode(dataList.subList((dataList.indexOf(35)), dataList.lastIndexOf(35))).substring(1).equals("true");
-                //Coordinates load
-                if(AsciiDecoder.decode(Collections.singletonList(dataList.get(126))).equals('0')) {  //TODO при изменении параметров выше, будет ошибка
-                    Main.forwardCoordinates = 0;
-                } else {
-                    Main.forwardCoordinates = Short.parseShort(AsciiDecoder.decode(Collections.singletonList(dataList.get(126))));
-                }
-                if(AsciiDecoder.decode(Collections.singletonList(dataList.get(127))).equals('0')) {
-                    Main.rightCoordinates = 0;
-                } else {
-                    Main.rightCoordinates = Short.parseShort(AsciiDecoder.decode(Collections.singletonList(dataList.get(127))));
-                }
-                if(AsciiDecoder.decode(Collections.singletonList(dataList.get(128))).equals('0')) {
-                    Main.backwardCoordinates = 0;
-                } else {
-                    Main.backwardCoordinates = Short.parseShort(AsciiDecoder.decode(Collections.singletonList(dataList.get(128))));
-                }
-                if(AsciiDecoder.decode(Collections.singletonList(dataList.get(129))).equals('0')) {
-                    Main.leftCoordinates = 0;
-                } else {
-                    Main.leftCoordinates = Short.parseShort(AsciiDecoder.decode(Collections.singletonList(dataList.get(129))));
-                }
-
-//                afterLoad.putOnWeapon();
-//                afterLoad.putOnArmor();
+                ///Game params
+                Main.saveFileHeroParams = new File(gameSaveFile);
+                Main.isAutoSave = Boolean.parseBoolean(isAutoSaveTheGame);
+                Main.forwardCoordinates = Short.parseShort(forwardCoordinates);
+                Main.rightCoordinates = Short.parseShort(rightCoordinates);
+                Main.backwardCoordinates = Short.parseShort(backwardCoordinates);
+                Main.leftCoordinates = Short.parseShort(leftCoordinates);
 
                 br.close();
-                loadReader.close();
             } catch (IOException e) {
                 e.getStackTrace();
             } finally {
@@ -780,7 +752,7 @@ public class Source {
 
     /////////////////Map category///////////////////////////////////////////////////////////////////////////
     public static void createMap(int mapCapacity) {  ///TODO заполнение карты нпс и городами
-        if(mapCapacity < mapArea) {
+        if (mapCapacity < mapArea) {
             System.out.println("Минимальная площадь карты это 5");
             Scanner newMapCapacity = new Scanner(System.in);
             createMap(newMapCapacity.nextInt());
@@ -795,10 +767,9 @@ public class Source {
                 MAP.add(emptyMap);
             }
         }
-
     }
 
-    private static void viewMap() {
+    public static void viewMap() {
         char sign = 'x';
         for (int z = 0; z < (mapArea % 2); z++) {
             for (int x = 0; x < (mapArea / 2) - 1; x++) {
@@ -807,6 +778,6 @@ public class Source {
             System.out.println(sign);
         }
     }
-
 /////////////////Map category Close///////////////////////////////////////////////////////////////////////////
 }
+

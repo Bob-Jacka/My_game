@@ -118,17 +118,17 @@ public class Testing {
     @Test
     public void LoadGame() throws IOException {
         Source.TestLoad(valera);
-//        valera.getParams();
+        valera.getParams();
 //        valera.getActiveQuest();
 //        System.out.println(Main.isAutoSave);
 //        Main.forwardCoordinates = 1;
 //        Main.rightCoordinates = 5;
 //        Main.leftCoordinates = 10;
 //        Main.backwardCoordinates = 15;
-        System.out.println(Main.forwardCoordinates);
-        System.out.println(Main.rightCoordinates);
-        System.out.println(Main.backwardCoordinates);
-        System.out.println(Main.leftCoordinates);
+//        System.out.println(Main.forwardCoordinates);
+//        System.out.println(Main.rightCoordinates);
+//        System.out.println(Main.backwardCoordinates);
+//        System.out.println(Main.leftCoordinates);
     }
     @Label("Important")
     @Test

@@ -12,7 +12,7 @@ public class Main {
     public static boolean isAutoSave = false;  // if false no autosave
     static boolean isQuitGame = false;
     static Hero1 person = new Hero1();
-    static File saveFileHeroParams = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/saveHeroParams.txt"); //"/home/kirill/IdeaProjects/My_game/src/Saving_Files/save1.txt"
+    static File saveFileHeroParams = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/saveHeroParams.txt");
 //    static File saveFileGameConfig = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/saveGameConfig.txt");
     static boolean isInBattle = false;
 
@@ -42,7 +42,6 @@ public class Main {
                     System.out.println("Файл сохранения найден, хотите ли загрузить сохранение? yes/no ");
                     Scanner questionForLoad = new Scanner(System.in);
                     String askForLoad = questionForLoad.nextLine();
-
                     if (askForLoad.equals("yes")) {
                         person = Source.LoadGame(askForLoad, person);
                         //TODO загрузка карты из сохранения
@@ -53,11 +52,12 @@ public class Main {
                 case 2:
                     System.out.println();
                     System.out.println("New game");
-                    System.out.println("""
-                            1. create hero
-                            2.What race do you like?
-                            HINT: just type number of the clause""");
                     System.out.println();
+//                    System.out.println("""
+//                            1. create hero
+//                            2.What race do you like?
+//                            HINT: just type number of the clause""");
+//                    System.out.println();
                     System.out.print("To create Hero enter yes/no ");
                     Scanner createHero = new Scanner(System.in);
                     String askForCreateHero = createHero.nextLine();
@@ -68,6 +68,7 @@ public class Main {
                     } else {
                         System.exit(1);
                     }
+                    break;
                 case 3:
                     Source.configurateGameOptionsMenu();
                     break;
@@ -89,11 +90,12 @@ public class Main {
                 case 1:
                     System.out.println();
                     System.out.println("New game");
-                    System.out.println("""
-                            1. create hero
-                            2.What race do you like?
-                            HINT: just type number of the clause""");
                     System.out.println();
+//                    System.out.println("""
+//                            1. create hero
+//                            2.What race do you like?
+//                            HINT: just type number of the clause""");
+//                    System.out.println();
                     System.out.print("To create Hero enter yes/no ");
                     Scanner createHero = new Scanner(System.in);
                     String askForCreateHero = createHero.nextLine();
