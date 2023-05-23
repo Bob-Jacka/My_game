@@ -42,4 +42,9 @@ public class Musket implements RangedCombatWeaponInterface {
     public int getAttack() {
         return this.attack;
     }
+
+    @Override
+    public String getTypeOfWeapon() {
+        return typeOfFireArm;
+    }
 }

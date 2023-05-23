@@ -36,8 +36,8 @@ public class StartNPC extends NPC {
             System.out.println("Возьми это оружие и броню, они тебе пригодятся");
             System.out.println("training sword added to the inventory");
             System.out.println("training armor added to the inventory");
-            person.putOnWeapon( new Sword("training sword", 15, 1.5f, 20));
-            person.putOnArmor( new ClothArmor("training armor", 10));
+            person.putOnWeapon( new Sword("training_sword", 15, 1.5f, 20));
+            person.putOnArmor( new ClothArmor("training_armor", 10));
         } else {
             System.out.println("Задание уже взято");
         }

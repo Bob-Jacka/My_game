@@ -14,6 +14,7 @@ public class LeatherArmor extends Armor {
     private int armoragility;
     private int mana;
     private int strenght;
+    private final String typeOfArmor = "Leather";
     
     public void penetrate() {
         Random random = new Random();
@@ -28,6 +29,10 @@ public class LeatherArmor extends Armor {
     @Override
     public String getItemName() {
         return this.armorName;
+    }
+    @Override
+    public String getTypeOfArmor() {
+        return typeOfArmor;
     }
 
     @Override

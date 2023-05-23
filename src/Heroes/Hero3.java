@@ -64,7 +64,7 @@ public class Hero3 extends Hero2 implements Hero{
         System.out.println("resistance: " + this.resistance);
         System.out.println("Your level is: Hero3");
         System.out.print("Your inventory is: ");
-        inventoryCall(this.inventory);
+        inventoryCall();
     }
     public void resurrect() {
         if (inventory.contains(ResurrectStone.class)) {

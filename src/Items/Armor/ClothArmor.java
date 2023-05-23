@@ -15,6 +15,7 @@ public class ClothArmor extends Armor implements Items {
     private int armoragility;
     private int mana;
     private int strenght;
+    private final String typeOfArmor = "Cloth";
     public void penetrate() {
         Random random = new Random();
         if(random.nextBoolean()) {
@@ -28,7 +29,10 @@ public class ClothArmor extends Armor implements Items {
     public String getItemName() {
         return this.armorName;
     }
-
+    @Override
+    public String getTypeOfArmor() {
+        return typeOfArmor;
+    }
     @Override
     public void getParams() {
         System.out.println("Armor name is " + this.armorName);

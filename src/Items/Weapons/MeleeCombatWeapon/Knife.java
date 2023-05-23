@@ -6,7 +6,10 @@ public class Knife implements MeleeCombatWeaponInterface {
     public Knife() {
         System.out.println("Weapon created");
     }
-
+    public Knife(String weaponName, int weaponAttack) {
+        this.weaponName = weaponName;
+        this.weaponAttack = weaponAttack;
+    }
     public Knife(String weaponName, int weaponAttack, float weaponWeight, int sharpening) {
         this.weaponName = weaponName;
         this.weaponAttack = weaponAttack;
@@ -37,7 +40,10 @@ public class Knife implements MeleeCombatWeaponInterface {
     public void repairTheMeleeWeapon() {
 
     }
-
+    @Override
+    public String getTypeOfWeapon() {
+        return typeOfSword;
+    }
     @Override
     public void ThrowIt() {
 

@@ -2,19 +2,23 @@ package Items.Weapons.MeleeCombatWeapon;
 
 import Items.Weapons.MeleeCombatWeaponInterface;
 
-public class Сathars implements MeleeCombatWeaponInterface {
-    public Сathars() {
+public class Cathars implements MeleeCombatWeaponInterface {
+    public Cathars() {
         System.out.println("Weapon created");
     }
 
-    public Сathars(String weaponName, int weaponAttack, float weaponWeight, int sharpening) {
+    public Cathars(String weaponName, int weaponAttack, float weaponWeight, int sharpening) {
         this.weaponName = weaponName;
         this.weaponAttack = weaponAttack;
         this.weaponWeight = weaponWeight;
         this.sharpening = sharpening;
         System.out.println(this.weaponName + " Created");
     }
-    ///////////////////////////////////////////////////////////
+    public Cathars(String weaponName, int weaponAttack) {
+        this.weaponName = weaponName;
+        this.weaponAttack = weaponAttack;
+    }
+///////////////////////////////////////////////////////////
     private String weaponName;
     private int weaponAttack;
     private float weaponWeight;
@@ -44,7 +48,10 @@ public class Сathars implements MeleeCombatWeaponInterface {
     public void repairTheMeleeWeapon() {
 
     }
-
+    @Override
+    public String getTypeOfWeapon() {
+        return typeOfSword;
+    }
     @Override
     public void ThrowIt() {
 

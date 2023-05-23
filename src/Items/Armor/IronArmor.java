@@ -13,6 +13,7 @@ public class IronArmor extends Armor{
     private int armoragility;
     private int mana;
     private int strenght;
+    private String typeOfArmor = "Iron";
 
 
     public void penetrate() {
@@ -29,7 +30,10 @@ public class IronArmor extends Armor{
     public String getItemName() {
         return this.armorName;
     }
-
+    @Override
+    public String getTypeOfArmor() {
+        return typeOfArmor;
+    }
     @Override
     public void getParams() {
         System.out.println("Armor name is " + this.armorName);

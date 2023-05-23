@@ -205,6 +205,16 @@ public class Hero1 implements Hero {
 //        System.out.println(anyWeapon.getItemName() + " puted on");
     }
 
+    public void takeOffArmor(Armor anyArmor) {
+        this.setArmor(this.getArmor() - anyArmor.getArmorDef());
+        this.activeArmor.remove(anyArmor);
+    }
+
+    public void takeOffWeapon(WeaponInterface anyWeapon) {
+        this.setAttack(this.getAttack() - anyWeapon.getAttack());
+        this.activeWeapon.remove(anyWeapon);
+    }
+
     public void getParams() {
         System.out.println("Name: " + this.name);
         System.out.println("Health: " + this.health);
@@ -215,10 +225,10 @@ public class Hero1 implements Hero {
         System.out.println("Experience: " + this.experience);
         System.out.println("Your level is: " + this.getClass());
         System.out.print("Your inventory is: ");
-        inventoryCall(this.inventory);
+        inventoryCall();
     }
 
-    public void inventoryCall(ArrayList<Items> inventory) {
+    public void inventoryCall() {
         if (!inventory.isEmpty()) {
             if (inventory.size() > 1) {
                 for (Items inventoryItem : inventory) {

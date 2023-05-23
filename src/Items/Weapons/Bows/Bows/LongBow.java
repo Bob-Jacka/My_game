@@ -42,4 +42,9 @@ public class LongBow implements RangedCombatWeaponInterface {
     public int getAttack() {
         return 0;
     }
+
+    @Override
+    public String getTypeOfWeapon() {
+        return typeOfBow;
+    }
 }

@@ -34,7 +34,10 @@ public class Musketon implements RangedCombatWeaponInterface {
     public void HoldTheArrow() {
 
     }
-
+    @Override
+    public String getTypeOfWeapon() {
+        return typeOfFireArm;
+    }
     @Override
     public void repairTheRangedWeapon() {
 

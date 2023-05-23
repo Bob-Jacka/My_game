@@ -1,12 +1,12 @@
 package Items.Weapons.MeleeCombatWeapon;
-
-import Heroes.Hero;
 import Items.Weapons.MeleeCombatWeaponInterface;
 
 public class Sword implements MeleeCombatWeaponInterface {
 
-//    public Sword() {
-//    }
+    public Sword(String weaponName, int weaponAttack) {
+        this.weaponName = weaponName;
+        this.weaponAttack = weaponAttack;
+    }
 
     public Sword(String weaponName, int weaponAttack, float weaponWeight, int sharpening) {
         this.weaponName = weaponName;
@@ -36,9 +36,11 @@ public class Sword implements MeleeCombatWeaponInterface {
     private int weaponAttack;
     private float weaponWeight;
     private int sharpening;  ///// заточка
-    private String typeOfSword = "Sword";
-
-
+    private final String typeOfSword = "Sword";
+    @Override
+    public String getTypeOfWeapon() {
+        return typeOfSword;
+    }
     @Override
     public void makeItSharp() {
         this.sharpening += 20;

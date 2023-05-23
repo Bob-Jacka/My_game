@@ -19,6 +19,7 @@ public class Armor implements Items {
     private int armorAgility;
     private int mana;
     private int strenght;
+    private String typeOfArmor;
 
     @Override
     public void getParams() {
@@ -38,7 +39,9 @@ public class Armor implements Items {
         this.armorDef = armorDef;
     }
 
-
+    public String getTypeOfArmor() {
+        return typeOfArmor;
+    }
     public void penetrate() {
         Random random = new Random();
         if(random.nextBoolean()) {

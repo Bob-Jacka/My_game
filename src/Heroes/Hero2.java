@@ -48,17 +48,17 @@ public class Hero2 extends Hero1 implements Hero{
         }
     }
 
-//    public void getParams() {
-//        System.out.println("Name: " + this.name);
-//        System.out.println("health: " + this.health);
-//        System.out.println("armor: " + this.armor);
-//        System.out.println("attack: " + this.attack);
-//        System.out.println("magic: " + this.magic);
-//        System.out.println("resistance: " + this.resistance);
-//        System.out.println("Your level is: Hero2");
-//        System.out.print("Your inventory is: ");
-//        inventoryCall(this.inventory);
-//    }
+    public void getParams() {
+        System.out.println("Name: " + this.name);
+        System.out.println("health: " + this.health);
+        System.out.println("armor: " + this.armor);
+        System.out.println("attack: " + this.attack);
+        System.out.println("magic: " + this.magic);
+        System.out.println("resistance: " + this.resistance);
+        System.out.println("Your level is: Hero2");
+        System.out.print("Your inventory is: ");
+        inventoryCall();
+    }
 
     public Hero3 levelUpToHero3() {
         gc();

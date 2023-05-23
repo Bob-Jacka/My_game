@@ -3,31 +3,26 @@ package Main;
 import Heroes.Hero1;
 import NPC.StartNPC;
 
-import javax.naming.spi.DirectoryManager;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static boolean isAutoSave = false;  // if false no autosave
+    public static boolean isAutoSave;  // if false no autosave
     static boolean isQuitGame = false;
     static Hero1 person = new Hero1();
-    static File saveFileHeroParams = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/saveHeroParams.txt");
-//    static File saveFileGameConfig = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/saveGameConfig.txt");
+    static File saveFile = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/saveHeroParams.txt");
     static boolean isInBattle = false;
-
-    //    private static LocalDateTime ldtMain = LocalDateTime.now();
-    public static short forwardCoordinates = 0; //TODO сделать кординаты пакетно видимыми
-    public static short backwardCoordinates = 0;
-    public static short leftCoordinates = 0;
-    public static short rightCoordinates = 0;
+    static short forwardCoordinates = 0;
+    static short backwardCoordinates = 0;
+    static short leftCoordinates = 0;
+    static short rightCoordinates = 0;
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
         //Start game
 
-
-        if (saveFileHeroParams.exists()) {  ///if save file exists
+        if (saveFile.exists() && saveFile.length() != 0L) {  ///if save file exists
             System.out.println("""
                     Welcome to the game
                     1. Continue the game
@@ -36,6 +31,7 @@ public class Main {
                     4. Exit
                     HINT: just type number of the clause
                     """);
+            System.out.println();
             Scanner welcomeScanner = new Scanner(System.in);
             switch (welcomeScanner.nextInt()) {
                 case 1:
@@ -53,17 +49,12 @@ public class Main {
                     System.out.println();
                     System.out.println("New game");
                     System.out.println();
-//                    System.out.println("""
-//                            1. create hero
-//                            2.What race do you like?
-//                            HINT: just type number of the clause""");
-//                    System.out.println();
                     System.out.print("To create Hero enter yes/no ");
                     Scanner createHero = new Scanner(System.in);
                     String askForCreateHero = createHero.nextLine();
                     if (askForCreateHero.equals("yes")) {
                         person = Source.CreateHero1();
-                        System.out.print("укажите величину карты ");    /// создание карты
+                        System.out.print("Укажите величину карты ");    /// создание карты
                         Source.createMap(new Scanner(System.in).nextInt());
                     } else {
                         System.exit(1);
@@ -77,7 +68,7 @@ public class Main {
                     break;
             }
 
-        } else if (!saveFileHeroParams.exists()) {  ///if save file does not exist
+        } else {  ///if save file does not exist
             System.out.println();
             System.out.println("""
                     Welcome to the game
@@ -85,23 +76,19 @@ public class Main {
                     2. Settings
                     3. Exit
                     HINT: just type number of the clause""");
+            System.out.println();
             Scanner welcomeScanner = new Scanner(System.in);
             switch (welcomeScanner.nextInt()) {
                 case 1:
                     System.out.println();
                     System.out.println("New game");
                     System.out.println();
-//                    System.out.println("""
-//                            1. create hero
-//                            2.What race do you like?
-//                            HINT: just type number of the clause""");
-//                    System.out.println();
                     System.out.print("To create Hero enter yes/no ");
                     Scanner createHero = new Scanner(System.in);
                     String askForCreateHero = createHero.nextLine();
                     if (askForCreateHero.equals("yes")) {
                         person = Source.CreateHero1();
-                        System.out.print("укажите величину карты ");    /// создание карты
+                        System.out.print("Укажите величину карты ");    /// создание карты
                         Source.createMap(new Scanner(System.in).nextInt());
                     } else {
                         System.exit(1);
@@ -122,13 +109,12 @@ public class Main {
 
         //The game
         while (!isQuitGame) {
-
             System.out.println();
             System.out.println("""
                     What can you do
                     1. Move
                     2. Hero menu
-                    3. inventory
+                    3. Inventory
                     4. Save or load the game
                     5. Settings
                     6. Quit game
@@ -142,41 +128,14 @@ public class Main {
                 case 2:
                     Source.heroMenu();
                     break;
+                case 3:
+                    Source.inventoryMenu();
+                    break;
                 case 4:
                     Source.saveMenu();
                     break;
                 case 5:
                     Source.configurateGameOptionsMenu();
-                    break;
-                case 3:
-                    boolean isClose = false;
-                    while(!isClose) {
-                        System.out.println("""
-                            Inventory menu
-                            1. Open inventory
-                            2. Put on armor
-                            3. Put on weapon
-                            4. exit inventory menu
-                            HINT: just type number of the clause""");
-                        switch (new Scanner(System.in).nextInt()) {
-                            case 1:
-                                person.inventoryCall(person.inventory);
-                                isClose = true;
-                                break;
-//                            case 2:
-//                                person.putOnArmor();
-//                                isClose = true;
-//                                break;
-//                            case 3:
-//                                person.putOnWeapon();
-//                                isClose = true;
-//                                break;
-                            case 4:
-                                isClose = true;
-                                break;
-                        }
-                    }
-//                    Source.inventoryMenu();
                     break;
                 case 6:
                     Source.quitGameMenu(isAutoSave, person);//TODO сделать чтобы если файл был недавно сохранён, то предупреждение не отображается
