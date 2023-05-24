@@ -4,3 +4,4 @@ out/
 .idea/
 #src/.idea/uiDesigner.xml
 #src/.idea/workspace.xml
+src/Main/AsciiDecoder

@@ -23,7 +23,6 @@ import Items.Weapons.MeleeCombatWeapon.*;
 import NPC.StartNPC;
 
 import java.io.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -31,15 +30,13 @@ import java.util.Scanner;
 
 
 public class Source {
-
-    static Random random = new Random(50);
+    static Random random = new Random(1000);
     static int IntegerValue = random.nextInt(5, 90);
     static Double DoubleValue = random.nextDouble(1.0, 5.0);
-//    private static String LDT = LocalDateTime.now().toString();
-    private static int mapArea = 3;  //default value of the map
-    private static final ArrayList<HashMap<String, Integer>> MAP = new ArrayList<>(mapArea * mapArea);
+    private static int MapArea = 3;  //default value of the map
+    private static ArrayList<ArrayList<Integer>> MAP = new ArrayList<>(MapArea * MapArea);
 
-    /////////////////////Generate Category//////////////////////////////////////////////////////////
+/////////////////////Generate Category//////////////////////////////////////////////////////////
     public static Items GeneratePotion() {
         int generationRate = random.nextInt(90);
         if (generationRate > 70) {
@@ -51,9 +48,7 @@ public class Source {
             return null;
         }
     }
-
     public static Items GenerateWeapon() {
-//        Random random = new Random();
         int generationRate = random.nextInt(90);
         if (generationRate > 75) {
             return new Sword("Sword", 15, 20, 50);
@@ -64,9 +59,7 @@ public class Source {
             return null;
         }
     }
-
     public static Items GenerateArmor() {
-//        Random random = new Random();
         int generationRate = random.nextInt(90);
         if (generationRate > 85) {
             return new IronArmor(RandomArmorName.getRandomArmorName(), 80);
@@ -77,7 +70,6 @@ public class Source {
             return null;
         }
     }
-
     public static Hero1 CreateHero1() {
         System.out.println("Only latin letters and no numbers allowed");
         System.out.print("Enter your hero name: ");
@@ -95,11 +87,9 @@ public class Source {
         }
         return new Hero1(name_actual, magic_actual);
     }
-
     private static Enemy generateEnemy() {
         return new Enemy();
     }
-
     public static Items GenerateOtherItems() {
         int generationRate = random.nextInt(90);
         if (generationRate > 85) {
@@ -115,7 +105,6 @@ public class Source {
             return null;
         }
     }
-
     public static Items GenerateTunning() {
         int generationRate = random.nextInt(90);
         if (generationRate > 50) {
@@ -126,8 +115,7 @@ public class Source {
             return new muzzleBrake(100);
         } else return null;
     }
-
-    ////NPC////////////////////////////////////////////////////////////
+////NPC////////////////////////////////////////////////////////////
     public static StartNPC GenerateStartNPC() {
         return new StartNPC(RandomNpcName.getRandomNPCName());
     }
@@ -165,9 +153,9 @@ public class Source {
         System.out.print("What would you like to change? ");
         System.out.println("""
                 What can you do
-                1. change auto save parameter
-                2. change save path
-                3. close configuration
+                1. Change auto save parameter
+                2. Change save path
+                3. Close configuration
                 HINT: just type number of the clause""");
         System.out.println();
         while (!isClose) {
@@ -452,7 +440,7 @@ public class Source {
     }
 //////////////////Menu Category Close///////////////////////////////////////////////////////
 
-//////////////////Fight Category///////////////////////////////////////////////////////////////
+    //////////////////Fight Category///////////////////////////////////////////////////////////////
     private static void fight() throws IOException, InterruptedException {
         Enemy enemy = Source.generateEnemy();
         int enemyHealth = enemy.getHealth();
@@ -577,7 +565,7 @@ public class Source {
 
 //////////////////Fight Category Close///////////////////////////////////////////////////////////////
 
-/////////////////Save and load Category///////////////////////////////////////////////////////////////
+    /////////////////Save and load Category///////////////////////////////////////////////////////////////
     public static void TestLoad(Hero1 valera) {
         LoadGame("yes", valera);
     }
@@ -651,7 +639,9 @@ public class Source {
             bf.newLine();
             bf.write(String.valueOf(Main.isAutoSave));  //запись параметра системы
             bf.newLine();
-            bf.write(String.valueOf(Main.saveFile));  //Save file
+            bf.write(String.valueOf(MapArea));
+            bf.newLine();
+            bf.write(String.valueOf(Main.saveFile));  //Save file path
 
             /////COORDINATES
             bf.newLine();
@@ -664,6 +654,13 @@ public class Source {
             bf.write(String.valueOf(Main.leftCoordinates)); // load left coordinates
             bf.write(' ');
             /////COORDINATES
+
+            ///Map
+            for(int i = 0; i<MAP.size(); i++) {
+                bf.newLine();
+                bf.write(String.valueOf(MAP.get(i)));
+
+            }
 
             bf.close();   ////close file stream
         } catch (IOException e) {
@@ -683,13 +680,13 @@ public class Source {
     }
 
     private static void SaveTheGame(Hero1 valera) throws IOException {
-        Scanner ScannerForSave = new Scanner(System.in);
-        System.out.println("Are you sure? yes/no ");      ///does not work in Test framework
-        String askForSave = ScannerForSave.nextLine();
+//        Scanner ScannerForSave = new Scanner(System.in);
+//        System.out.println("Are you sure? yes/no ");      ///does not work in Test framework
+//        String askForSave = ScannerForSave.nextLine();
         /**
          * This method contains two private functions and saving the game in txt file
          * /home/kirill/IdeaProjects/untitled/src/Saving_Files/save1.txt this path provides saving of the game*/
-        if (askForSave.equals("yes")) {   ///   does not work in Test framework
+//        if (askForSave.equals("yes")) {   ///   does not work in Test framework
             if (Main.saveFile.exists()) {
                 System.out.println("Rewriting save file");
                 Source.deleteWrittenSaveFile();
@@ -697,9 +694,9 @@ public class Source {
             } else if (!Main.saveFile.exists()) {
                 Source.whatInformationToSave(valera);
             }
-        } else if (askForSave.equals("no")) {   ///   does not work in Test framework
-            System.out.println("Cancel saving");   //// does not work in Test framework
-        }
+//        } else if (askForSave.equals("no")) {   ///   does not work in Test framework
+//            System.out.println("Cancel saving");   //// does not work in Test framework
+//        }
     }
 
     static Hero1 LoadGame(String askForLoad, Hero1 afterLoad) {
@@ -716,9 +713,12 @@ public class Source {
                 String[] activeArmor = br.readLine().split(" ");
                 String[] activeWeapon = br.readLine().split(" ");
                 String isAutoSaveTheGame = br.readLine();
+                String mapaArea = br.readLine();
                 String gameSaveFile = br.readLine();
                 String[] Coordinates = br.readLine().split(" ");
 
+                ArrayList<ArrayList<Integer>> afterLoadMap = new ArrayList<>(Integer.parseInt(mapaArea) * Integer.parseInt(mapaArea));
+                ///TODO Остановился здесь, сделать загрузку из сохранения для карты
                 ///Hero Params
                 if (!activeArmor.equals("null")) {
                     switch (activeArmor[2]) {
@@ -779,8 +779,8 @@ public class Source {
                 afterLoad.setResistance(Integer.parseInt(HeroParams[5]));
                 afterLoad.setMana(Integer.parseInt(HeroParams[6]));
                 afterLoad.setExperience(Integer.parseInt(HeroParams[7]));
-
                 ///Game params
+                MapArea = Integer.parseInt(mapaArea);
                 Main.saveFile = new File(gameSaveFile);
                 Main.isAutoSave = Boolean.parseBoolean(isAutoSaveTheGame);
                 ///Coordinates
@@ -788,9 +788,11 @@ public class Source {
                 Main.rightCoordinates = Short.parseShort(Coordinates[1]);
                 Main.backwardCoordinates = Short.parseShort(Coordinates[2]);
                 Main.leftCoordinates = Short.parseShort(Coordinates[3]);
+                MAP = afterLoadMap;
 
                 br.close();
             } catch (IOException e) {
+                System.out.println("Load failed");
                 e.getStackTrace();
             } finally {
                 System.out.println("File loaded");
@@ -803,32 +805,59 @@ public class Source {
 //////////////////Save and Load Category Close///////////////////////////////////////////////////////////////
 
 /////////////////Map category///////////////////////////////////////////////////////////////////////////
-    public static void createMap(int mapCapacity) {  ///TODO заполнение карты нпс и городами
-        if (mapCapacity < mapArea) {
-            System.out.println("Минимальная площадь карты это 5");
-            Scanner newMapCapacity = new Scanner(System.in);
-            createMap(newMapCapacity.nextInt());
-        } else {
-            Source.mapArea = mapCapacity * mapCapacity;
-            HashMap<String, Integer> emptyMap = new HashMap<>();
-            emptyMap.put("IsNpc", 0);
-            emptyMap.put("IsCity", 0);
-            emptyMap.put("IsDung", 0);  //dungeon?
+    public static void createMap(int mapCapacity) {
+       ArrayList<Integer> emptyBlock = new ArrayList();
+        int randint;
+        emptyBlock.add(0);
+        emptyBlock.add(0);
+        emptyBlock.add(0);
 
-            for (int i = 0; i <= (mapArea); i++) {
-                MAP.add(emptyMap);
+        if (mapCapacity < MapArea) {
+            System.out.println("Минимальная площадь карты это " + MapArea);
+            createMap(new Scanner(System.in).nextInt());
+        } else {
+            Source.MapArea = mapCapacity;
+            for (int i = 0; i <= (MapArea * MapArea); i++) {
+                ArrayList<Integer> nonEmptyBlock = (ArrayList<Integer>) emptyBlock.clone();
+                randint = random.nextInt(0, 150);
+//                System.out.println(randint); //TODO отладочная информация
+
+                if (randint > 100 && randint < 150) {
+                    nonEmptyBlock.set(0, 1);
+//                    nonEmptyBlock.put("IsNpc", 1);
+                    MAP.add(nonEmptyBlock);
+//                    System.out.println(nonEmptyBlock); //TODO отладочная информация
+
+                } else if (randint > 50 && randint < 100) {
+//                    nonEmptyBlock.remove("IsCity");
+                    nonEmptyBlock.set(1, 1);
+                    MAP.add(nonEmptyBlock);
+//                    System.out.println(nonEmptyBlock); //TODO отладочная информация
+
+                } else if (randint > 0 && randint < 50) {
+                    nonEmptyBlock.set(2, 1);
+//                    nonEmptyBlock.put("IsDungeon", 1);
+                    MAP.add(nonEmptyBlock);
+//                    System.out.println(nonEmptyBlock); //TODO отладочная информация
+
+                } else {
+                    MAP.add(emptyBlock);
+//                    System.out.println(emptyBlock); //TODO отладочная информация
+                }
             }
         }
     }
-
     public static void viewMap() {
         char sign = 'x';
-        for (int z = 0; z < (mapArea % 2); z++) {
-            for (int x = 0; x < (mapArea / 2) - 1; x++) {
+        for (int z = 0; z < (MapArea % 2); z++) {
+            for (int x = 0; x < (MapArea / 2) - 1; x++) {
                 System.out.print(sign);
             }
             System.out.println(sign);
         }
+    }
+    public static ArrayList<ArrayList<Integer>> getMAP() {  ///TODO для тестов, удалить потом
+        return MAP;
     }
 /////////////////Map category Close///////////////////////////////////////////////////////////////////////////
 }

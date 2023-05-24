@@ -7,6 +7,7 @@ import Heroes.Hero1;
 import Heroes.Hero2;
 import Heroes.Hero3;
 import Items.Armor.Armor;
+import Items.Armor.ClothArmor;
 import Items.Items;
 import Items.Potions.HealthPotion;
 import Items.Weapons.MeleeCombatWeapon.Sword;
@@ -19,6 +20,8 @@ import org.junit.Test;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Testing {
     private Hero1 valera;
@@ -57,14 +60,17 @@ public class Testing {
         valera.putOnWeapon(sword);
         valera.getParams();
     }
+
     @Test
     public void HeroWithArmor() {  ////проверка того, что броня прибавляется герою
-        valera.getParams();;
+        valera.getParams();
+        ;
         armor = new Armor("Unpenetrateble_Lats", 50);
         System.out.println(" ");
         valera.putOnArmor(armor);
         valera.getParams();
     }
+
     @Test
     public void HealHeroByHealthPotion() {   ////PROBLEMS
         valera.hurt();
@@ -83,6 +89,7 @@ public class Testing {
         Hero2 valera2 = valera.levelUpToHero2();
         valera2.getParams();
     }
+
     @Label("Проблемы в имени, они суммируются")
     @Test
     public void LevelUpToHero3() {
@@ -113,7 +120,6 @@ public class Testing {
 //////////////////////////////////////////////////////////////////////////
 
 
-
     @Label("Important")
     @Test
     public void LoadGame() throws IOException {
@@ -130,6 +136,7 @@ public class Testing {
 //        System.out.println(Main.backwardCoordinates);
 //        System.out.println(Main.leftCoordinates);
     }
+
     @Label("Important")
     @Test
     public void SavingGame() throws IOException {
@@ -138,6 +145,13 @@ public class Testing {
 //        Main.rightCoordinates = 5;
 //        Main.leftCoordinates = 10;
 //        Main.backwardCoordinates = 15;
+        Source.createMap(3);
+        ArrayList<ArrayList<Integer>> mapa1 =  Source.getMAP();
+        System.out.println(mapa1);
+        sword = new Sword("Hellraiser", 30, 23.5f, 50);
+        armor = new ClothArmor("Unpenetrateble_Lats", 50);
+        valera.putOnWeapon(sword);
+        valera.putOnArmor(armor);
         Source.TestSave(valera);
     }
 
@@ -168,12 +182,11 @@ public class Testing {
         valera.getParams();
     }
 
-//    @Test
-//    public void attacking() throws IOException {
-//        Enemy enemy = source.generateEnemy();
-//        Source.attackEnemy(valera, enemy);
-//        enemy.getParams();
-//    }
+    @Test
+    public void MapTest() {
+        Source.createMap(3);
+    }
+
 
 
 }

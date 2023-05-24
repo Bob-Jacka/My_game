@@ -57,7 +57,20 @@ public class Main {
                         System.out.print("Укажите величину карты ");    /// создание карты
                         Source.createMap(new Scanner(System.in).nextInt());
                     } else {
-                        System.exit(1);
+                        System.out.print("""
+                        An error occurred, do you want to
+                        1. create hero
+                        2. or exit game
+                        HINT: just type number of the clause
+                                """);
+                        if(new Scanner(System.in).nextInt() == 1) {
+                                person = Source.CreateHero1();
+                                System.out.print("Укажите величину карты ");    /// создание карты
+                                Source.createMap(new Scanner(System.in).nextInt());
+
+                        } else {
+                            System.exit(1);
+                        }
                     }
                     break;
                 case 3:
