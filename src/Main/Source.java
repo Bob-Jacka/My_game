@@ -24,7 +24,6 @@ import NPC.StartNPC;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -36,7 +35,7 @@ public class Source {
     private static int MapArea = 3;  //default value of the map
     private static ArrayList<ArrayList<Integer>> MAP = new ArrayList<>(MapArea * MapArea);
 
-/////////////////////Generate Category//////////////////////////////////////////////////////////
+    /////////////////////Generate Category//////////////////////////////////////////////////////////
     public static Items GeneratePotion() {
         int generationRate = random.nextInt(90);
         if (generationRate > 70) {
@@ -48,6 +47,7 @@ public class Source {
             return null;
         }
     }
+
     public static Items GenerateWeapon() {
         int generationRate = random.nextInt(90);
         if (generationRate > 75) {
@@ -59,6 +59,7 @@ public class Source {
             return null;
         }
     }
+
     public static Items GenerateArmor() {
         int generationRate = random.nextInt(90);
         if (generationRate > 85) {
@@ -70,6 +71,7 @@ public class Source {
             return null;
         }
     }
+
     public static Hero1 CreateHero1() {
         System.out.println("Only latin letters and no numbers allowed");
         System.out.print("Enter your hero name: ");
@@ -87,9 +89,11 @@ public class Source {
         }
         return new Hero1(name_actual, magic_actual);
     }
+
     private static Enemy generateEnemy() {
         return new Enemy();
     }
+
     public static Items GenerateOtherItems() {
         int generationRate = random.nextInt(90);
         if (generationRate > 85) {
@@ -105,6 +109,7 @@ public class Source {
             return null;
         }
     }
+
     public static Items GenerateTunning() {
         int generationRate = random.nextInt(90);
         if (generationRate > 50) {
@@ -115,7 +120,8 @@ public class Source {
             return new muzzleBrake(100);
         } else return null;
     }
-////NPC////////////////////////////////////////////////////////////
+
+    ////NPC////////////////////////////////////////////////////////////
     public static StartNPC GenerateStartNPC() {
         return new StartNPC(RandomNpcName.getRandomNPCName());
     }
@@ -438,9 +444,127 @@ public class Source {
             }
         }
     }
+
+
+    public static void startMenu() {
+        System.out.println("""
+                ████████████████████████░░░▀██▀█████████
+                ██████▀▀▀▀░░░▀▀▀█████▀▀▀▀░░░░▀░░████████
+                █████▄░░░░░░░▄██▀▀░░░░░░░░░▄░░░░░███████
+                █████▀░░░░░▄██▀░░░░░░░░░░░░███▄░░▀██████
+                ███▀░░▄█▄▄███▀░░░░░░░▄███▄░░░▀▀░░░░▀▀███
+                ██▀░░████████░░░░░░░██████░░░░░░░░░░░░██
+                ██░░▄████████▄░░░░░░░████████▄▄▄▄░░░░███
+                █░░░██████████▄░░░░░░░▀█████████████████
+                █░░░▀███████████░░░░░░░░░▀▀█████████████
+                ██░░░████████████▄▄░░░░░░░░░░▀▀█████████
+                ██░░░░██████████████▄░░░░░░░░░░░▀███████
+                ██▄░░░░▀███████████████▄░░░░░░░░░░██████
+                ███▄░░░░░▀███████████████░░░░░░░░░░█████
+                ████▄░░░░░░▀▀████████████░░░░░░░░░▄█████
+                █████▄░░░░░░░░░▀▀▀▀██▀▀▀░░░░░░░░░░██████
+                ███████▄░░░░░░░░░░░░░░░░░░░░░░░░▄███████
+                █████████▄▄░░░░░░░░░░░░░░░░░░░▄█████████
+                ████████████▄▄░░░░░░░░░░░░▄▄████████████
+                """);
+        if (Main.saveFile.exists() && Main.saveFile.length() != 0L) {  ///if save file exists
+            ifSaveFileExists();
+        } else ifSaveFileNotExists();
+    }
+
+    private static void ifSaveFileExists() {
+        System.out.println("""
+                Welcome to the game
+                1. Continue the game
+                2. New game
+                3. Settings
+                4. Exit
+                HINT: just type number of the clause
+                """);
+        System.out.println();
+        switch (new Scanner(System.in).nextInt()) {
+            case 1:
+                System.out.println("Файл сохранения найден, хотите ли загрузить сохранение? yes/no ");
+                Scanner questionForLoad = new Scanner(System.in);
+                String askForLoad = questionForLoad.nextLine();
+                if (askForLoad.equals("yes")) {
+                    Main.person = LoadGame(askForLoad, Main.person);
+                } else {
+                    System.exit(1);
+                }
+                break;
+            case 2:
+                System.out.println();
+                System.out.println("New game");
+                System.out.println();
+                System.out.print("To create Hero enter yes/no ");
+                Scanner createHero = new Scanner(System.in);
+                String askForCreateHero = createHero.nextLine();
+                if (askForCreateHero.equals("yes")) {
+                    Main.person = CreateHero1();
+                    System.out.print("Укажите величину карты ");    /// создание карты
+                    createMap(new Scanner(System.in).nextInt());
+                } else {
+                    System.out.print("""
+                            An error occurred, do you want to
+                            1. create hero
+                            2. or exit game
+                            HINT: just type number of the clause
+                                    """);
+                    if (new Scanner(System.in).nextInt() == 1) {
+                        Main.person = CreateHero1();
+                        System.out.print("Укажите величину карты ");    /// создание карты
+                        createMap(new Scanner(System.in).nextInt());
+
+                    } else {
+                        System.exit(1);
+                    }
+                }
+                break;
+            case 3:
+                Source.configurateGameOptionsMenu();
+                break;
+            case 4:
+                System.exit(1);
+                break;
+        }
+    }
+    private static void ifSaveFileNotExists() {
+        System.out.println("""
+                Welcome to the game
+                1. New game
+                2. Settings
+                3. Exit
+                HINT: just type number of the clause""");
+        System.out.println();
+        switch (new Scanner(System.in).nextInt()) {
+            case 1:
+                System.out.println();
+                System.out.println("New game");
+                System.out.println();
+                System.out.print("To create Hero enter yes/no ");
+                Scanner createHero = new Scanner(System.in);
+                String askForCreateHero = createHero.nextLine();
+                if (askForCreateHero.equals("yes")) {
+                    Main.person = CreateHero1();
+                    System.out.print("Укажите величину карты ");    /// создание карты
+                    createMap(new Scanner(System.in).nextInt());
+                } else {
+                    System.exit(1);
+                }
+                break;
+            case 2:
+                configurateGameOptionsMenu();  ///TODO если сохранения нету, если зайти в настройки и выйти, то игра начнётся без создания персонажа
+                break;
+            case 3:
+                System.exit(1);//TODO если сохранения нету, если выйти, то игра начнётся без создания персонажа
+                break;
+        }
+    }
+
 //////////////////Menu Category Close///////////////////////////////////////////////////////
 
-    //////////////////Fight Category///////////////////////////////////////////////////////////////
+//////////////////Fight Category///////////////////////////////////////////////////////////////
     private static void fight() throws IOException, InterruptedException {
         Enemy enemy = Source.generateEnemy();
         int enemyHealth = enemy.getHealth();
@@ -656,9 +780,9 @@ public class Source {
             /////COORDINATES
 
             ///Map
-            for(int i = 0; i<MAP.size(); i++) {
+            for (int i = 0; i < MAP.size(); i++) {
                 bf.newLine();
-                bf.write(String.valueOf(MAP.get(i)));
+                bf.write(String.valueOf(MAP.get(i)).substring(1, String.valueOf(MAP.get(i)).indexOf("]")));
 
             }
 
@@ -687,13 +811,13 @@ public class Source {
          * This method contains two private functions and saving the game in txt file
          * /home/kirill/IdeaProjects/untitled/src/Saving_Files/save1.txt this path provides saving of the game*/
 //        if (askForSave.equals("yes")) {   ///   does not work in Test framework
-            if (Main.saveFile.exists()) {
-                System.out.println("Rewriting save file");
-                Source.deleteWrittenSaveFile();
-                Source.whatInformationToSave(valera);
-            } else if (!Main.saveFile.exists()) {
-                Source.whatInformationToSave(valera);
-            }
+        if (Main.saveFile.exists()) {
+            System.out.println("Rewriting save file");
+            Source.deleteWrittenSaveFile();
+            Source.whatInformationToSave(valera);
+        } else if (!Main.saveFile.exists()) {
+            Source.whatInformationToSave(valera);
+        }
 //        } else if (askForSave.equals("no")) {   ///   does not work in Test framework
 //            System.out.println("Cancel saving");   //// does not work in Test framework
 //        }
@@ -707,17 +831,31 @@ public class Source {
             try {
                 BufferedReader br = new BufferedReader(new FileReader(Main.saveFile));
                 //What parameters to load
-                String[] HeroParams = br.readLine().split(" ");  //name  ///TODO можно сделать массив строк через сплит
 
+                String[] HeroParams = br.readLine().split(" ");  //All hero params
                 String activeQuest = br.readLine();
                 String[] activeArmor = br.readLine().split(" ");
                 String[] activeWeapon = br.readLine().split(" ");
+                ///Game options
                 String isAutoSaveTheGame = br.readLine();
-                String mapaArea = br.readLine();
+                String mapArea = br.readLine();
                 String gameSaveFile = br.readLine();
                 String[] Coordinates = br.readLine().split(" ");
 
-                ArrayList<ArrayList<Integer>> afterLoadMap = new ArrayList<>(Integer.parseInt(mapaArea) * Integer.parseInt(mapaArea));
+                int doubleMapArea = Integer.parseInt(mapArea) * Integer.parseInt(mapArea);  //mapArea * mapArea
+
+                ArrayList<ArrayList<Integer>> afterLoadMap = new ArrayList<>(doubleMapArea);
+                for (short i = 0; i < (doubleMapArea); i++) {
+                    int defint = 0;
+                    ArrayList<Integer> emptyBlock = new ArrayList<>(3);
+                    String[] splitted = br.readLine().split(", ");
+                    for (String str : splitted) {
+                        defint = Integer.parseInt(str);
+                        emptyBlock.add(defint);
+                    }
+                    afterLoadMap.add(emptyBlock);
+
+                }
                 ///TODO Остановился здесь, сделать загрузку из сохранения для карты
                 ///Hero Params
                 if (!activeArmor.equals("null")) {
@@ -780,7 +918,8 @@ public class Source {
                 afterLoad.setMana(Integer.parseInt(HeroParams[6]));
                 afterLoad.setExperience(Integer.parseInt(HeroParams[7]));
                 ///Game params
-                MapArea = Integer.parseInt(mapaArea);
+                MapArea = Integer.parseInt(mapArea);
+                MAP = afterLoadMap;
                 Main.saveFile = new File(gameSaveFile);
                 Main.isAutoSave = Boolean.parseBoolean(isAutoSaveTheGame);
                 ///Coordinates
@@ -788,7 +927,6 @@ public class Source {
                 Main.rightCoordinates = Short.parseShort(Coordinates[1]);
                 Main.backwardCoordinates = Short.parseShort(Coordinates[2]);
                 Main.leftCoordinates = Short.parseShort(Coordinates[3]);
-                MAP = afterLoadMap;
 
                 br.close();
             } catch (IOException e) {
@@ -804,9 +942,9 @@ public class Source {
     }
 //////////////////Save and Load Category Close///////////////////////////////////////////////////////////////
 
-/////////////////Map category///////////////////////////////////////////////////////////////////////////
+    /////////////////Map category///////////////////////////////////////////////////////////////////////////
     public static void createMap(int mapCapacity) {
-       ArrayList<Integer> emptyBlock = new ArrayList();
+        ArrayList<Integer> emptyBlock = new ArrayList<>();
         int randint;
         emptyBlock.add(0);
         emptyBlock.add(0);
@@ -847,15 +985,17 @@ public class Source {
             }
         }
     }
+
     public static void viewMap() {
         char sign = 'x';
         for (int z = 0; z < (MapArea % 2); z++) {
             for (int x = 0; x < (MapArea / 2) - 1; x++) {
-                System.out.print(sign);
+                System.out.print(MAP.get(x));
             }
             System.out.println(sign);
         }
     }
+
     public static ArrayList<ArrayList<Integer>> getMAP() {  ///TODO для тестов, удалить потом
         return MAP;
     }

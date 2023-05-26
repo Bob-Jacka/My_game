@@ -11,6 +11,14 @@ public class StartNPC extends NPC {
     private final String name;
     private final int health = 100;
     private final int attack = 10;
+
+    public boolean getIsQuestTaken() {
+        return isQuestTaken;
+    }
+    public void setIsQuestTaken(boolean isQuestTaken) {
+        this.isQuestTaken = isQuestTaken;
+    }
+
     private boolean isQuestTaken = false;  /// по стандарту false - квест не взят
 
     public StartNPC(String name) {
@@ -19,16 +27,11 @@ public class StartNPC extends NPC {
 
     @Override
     public void takeQuest(Hero1 person) {
-        if (isQuestTaken == false) {
+        if (!isQuestTaken) {
             System.out.println();
             System.out.println("С пробуждением, рада тебя видеть, у меня есть задание для тебя");
             System.out.println(Quest.Quest1);
-            //adding quest to activeQuest
-//                Field fieldActiveQuest = Hero.class.getField("activeQuest");
-//                fieldActiveQuest.set(Quest.Quest1, Quest.Quest1);   ///// this place is problematic
-            //adding quest to questList
-//                Field fieldListQuest = Hero.class.getField("questList");
-//                fieldListQuest.set(Quest.Quest1, Quest.Quest1);   ///// this place is problematic
+
             person.setActiveQuest(Quest.Quest1);
             person.addToQuestList(Quest.Quest1);
             this.isQuestTaken = true;

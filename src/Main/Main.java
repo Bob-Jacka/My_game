@@ -2,7 +2,6 @@ package Main;
 
 import Heroes.Hero1;
 import NPC.StartNPC;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -21,104 +20,13 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         //Start game
+        Source.startMenu(); //start menu
 
-        if (saveFile.exists() && saveFile.length() != 0L) {  ///if save file exists
-            System.out.println("""
-                    Welcome to the game
-                    1. Continue the game
-                    2. New game
-                    3. Settings
-                    4. Exit
-                    HINT: just type number of the clause
-                    """);
-            System.out.println();
-            Scanner welcomeScanner = new Scanner(System.in);
-            switch (welcomeScanner.nextInt()) {
-                case 1:
-                    System.out.println("Файл сохранения найден, хотите ли загрузить сохранение? yes/no ");
-                    Scanner questionForLoad = new Scanner(System.in);
-                    String askForLoad = questionForLoad.nextLine();
-                    if (askForLoad.equals("yes")) {
-                        person = Source.LoadGame(askForLoad, person);
-                        //TODO загрузка карты из сохранения
-                    } else {
-                        System.exit(1);
-                    }
-                    break;
-                case 2:
-                    System.out.println();
-                    System.out.println("New game");
-                    System.out.println();
-                    System.out.print("To create Hero enter yes/no ");
-                    Scanner createHero = new Scanner(System.in);
-                    String askForCreateHero = createHero.nextLine();
-                    if (askForCreateHero.equals("yes")) {
-                        person = Source.CreateHero1();
-                        System.out.print("Укажите величину карты ");    /// создание карты
-                        Source.createMap(new Scanner(System.in).nextInt());
-                    } else {
-                        System.out.print("""
-                        An error occurred, do you want to
-                        1. create hero
-                        2. or exit game
-                        HINT: just type number of the clause
-                                """);
-                        if(new Scanner(System.in).nextInt() == 1) {
-                                person = Source.CreateHero1();
-                                System.out.print("Укажите величину карты ");    /// создание карты
-                                Source.createMap(new Scanner(System.in).nextInt());
+        StartNPC startNPC = Source.GenerateStartNPC();  ///встреча с нпс
 
-                        } else {
-                            System.exit(1);
-                        }
-                    }
-                    break;
-                case 3:
-                    Source.configurateGameOptionsMenu();
-                    break;
-                case 4:
-                    System.exit(1);
-                    break;
-            }
-
-        } else {  ///if save file does not exist
-            System.out.println();
-            System.out.println("""
-                    Welcome to the game
-                    1. New game
-                    2. Settings
-                    3. Exit
-                    HINT: just type number of the clause""");
-            System.out.println();
-            Scanner welcomeScanner = new Scanner(System.in);
-            switch (welcomeScanner.nextInt()) {
-                case 1:
-                    System.out.println();
-                    System.out.println("New game");
-                    System.out.println();
-                    System.out.print("To create Hero enter yes/no ");
-                    Scanner createHero = new Scanner(System.in);
-                    String askForCreateHero = createHero.nextLine();
-                    if (askForCreateHero.equals("yes")) {
-                        person = Source.CreateHero1();
-                        System.out.print("Укажите величину карты ");    /// создание карты
-                        Source.createMap(new Scanner(System.in).nextInt());
-                    } else {
-                        System.exit(1);
-                    }
-                    break;
-                case 2:
-                    Source.configurateGameOptionsMenu();  ///TODO если сохранения нету, если зайти в настройки и выйти, то игра начнётся без создания персонажа
-                    break;
-                case 3:
-                    System.exit(1);//TODO если сохранения нету, если выйти, то игра начнётся без создания персонажа
-                    break;
-            }
-        }
         if (person.getActiveQuest() == null) {
-            StartNPC startNPC = Source.GenerateStartNPC();  ///встреча с нпс
             startNPC.takeQuest(person);
-        }
+        } else  startNPC.setIsQuestTaken(true);
 
         //The game
         while (!isQuitGame) {
@@ -132,7 +40,6 @@ public class Main {
                     5. Settings
                     6. Quit game
                     HINT: just type number of the clause""");
-
             System.out.println();
             switch (new Scanner(System.in).nextInt()) {
                 case 1:

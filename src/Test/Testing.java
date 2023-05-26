@@ -125,6 +125,7 @@ public class Testing {
     public void LoadGame() throws IOException {
         Source.TestLoad(valera);
         valera.getParams();
+        valera.getActiveQuest();
 //        valera.getActiveQuest();
 //        System.out.println(Main.isAutoSave);
 //        Main.forwardCoordinates = 1;
@@ -147,7 +148,7 @@ public class Testing {
 //        Main.backwardCoordinates = 15;
         Source.createMap(3);
         ArrayList<ArrayList<Integer>> mapa1 =  Source.getMAP();
-        System.out.println(mapa1);
+//        System.out.println(mapa1);
         sword = new Sword("Hellraiser", 30, 23.5f, 50);
         armor = new ClothArmor("Unpenetrateble_Lats", 50);
         valera.putOnWeapon(sword);
