@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class RandomPetName {
 
-    ///////////PetName//////////////
+///////////PetName//////////////
 
     public static String[] RandomPetName = new String[]{"Jorge", "Puffy", "Buddy", "Boomer",
             "Vulcan", "Vesta", "Geta", "Gera",

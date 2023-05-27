@@ -1,16 +1,12 @@
 package Heroes;
 
-import Enemies.Enemy;
 import Items.Armor.Armor;
 import Items.Items;
 import Items.OtherItems.ResurrectStone;
-import Items.Potions.*;
-import Items.Weapons.MeleeCombatWeapon.Sword;
-import Items.Weapons.MeleeCombatWeaponInterface;
+import Items.Potions.HealthPotion;
+import Items.Potions.ManaPotion;
 import Items.Weapons.WeaponInterface;
-import Main.Main;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import static java.lang.System.gc;
@@ -34,15 +30,15 @@ public class Hero1 implements Hero {
     private int resistance = 15;
     private int mana = 100;
     private int experience = 0;
-    public String activeQuest = null;
+    private String activeQuest = null;
     private int inventoryCapacity = 10;
-    public ArrayList<String> questList = new ArrayList<>();  ///для квестов
-    public ArrayList<Items> inventory = new ArrayList<>(inventoryCapacity);   //// инвентарь
-    public ArrayList<WeaponInterface> activeWeapon = new ArrayList<>(1);  /// оружие в руках у героя
-    public ArrayList<Armor> activeArmor = new ArrayList<>(1);  /// броня у героя
+    private ArrayList<String> questList = new ArrayList<>();  ///для квестов
+    protected ArrayList<Items> inventory = new ArrayList<>(inventoryCapacity);   //// инвентарь
+    private ArrayList<WeaponInterface> activeWeapon = new ArrayList<>(1);  /// оружие в руках у героя
+    private ArrayList<Armor> activeArmor = new ArrayList<>(1);  /// броня у героя
 
 
-/////////////////////////Getter/////////////////////////////////
+    /////////////////////////Getter/////////////////////////////////
     public int getAttack() {
         return attack;
     }
@@ -126,6 +122,7 @@ public class Hero1 implements Hero {
             this.armor += 10;
             this.resistance += 5;
             this.mana -= 30;
+            System.out.println("Ваша защита " + this.attack);
         } else {
             System.out.println("Not enough mana: " + this.mana);
         }
@@ -135,6 +132,7 @@ public class Hero1 implements Hero {
         if ((this.magic) && (this.mana >= 40)) {
             this.attack += 10;
             this.mana -= 40;
+            System.out.println("Ваша атака " + this.attack);
         } else {
             System.out.println("Not enough mana: " + this.mana);
         }
@@ -150,15 +148,16 @@ public class Hero1 implements Hero {
     }
 
 
-    ///////////////QuestMethods/////////////////////////////////////////////
+///////////////QuestMethods/////////////////////////////////////////////
     public String getActiveQuest() {
         if (activeQuest != null) {
-            System.out.println("Your active quest is " + this.activeQuest);
             return this.activeQuest;
         }
         return null;
     }
-
+    public ArrayList<String> getQuestListSimple() {
+        return questList;
+    }
     public void getQuestsList() {
         if (questList.size() != 0) {
             for (String quest : questList) {
@@ -184,10 +183,10 @@ public class Hero1 implements Hero {
     }
 
     public void rejectTheQuest() throws NoSuchFieldException {
-//        Field field = StartNPC.class.getField("isQuestTaken");
-//        field.set(Object quest, );
+
     }
-//////////////////////////inventory///////////////////////////////////////////
+
+    //////////////////////////inventory///////////////////////////////////////////
     public void inventoryPut(Items item) {   ///кладёт в инвентарь
         inventory.add(item);
         System.out.println(item.getItemName() + " added to inventory");
@@ -196,13 +195,11 @@ public class Hero1 implements Hero {
     public void putOnArmor(Armor anyArmor) {
         this.setArmor(this.getArmor() + anyArmor.getArmorDef());
         this.activeArmor.add(anyArmor);
-//        System.out.println(anyArmor.getItemName() + " puted on");
     }
 
     public void putOnWeapon(WeaponInterface anyWeapon) {
         this.setAttack(this.getAttack() + anyWeapon.getAttack());
         this.activeWeapon.add(anyWeapon);
-//        System.out.println(anyWeapon.getItemName() + " puted on");
     }
 
     public void takeOffArmor(Armor anyArmor) {
@@ -231,30 +228,38 @@ public class Hero1 implements Hero {
     public void inventoryCall() {
         if (!inventory.isEmpty()) {
             if (inventory.size() > 1) {
-                for (Items inventoryItem : inventory) {
-                    System.out.println(inventoryItem.getItemName() + ',');
+                for (int i = 0; i <= inventory.size(); i++) {
+                    if (i == inventory.size() - 1) System.out.println(inventory.get(i).getItemName());
+                    else if (i != inventory.size()) System.out.println(inventory.get(i).getItemName() + ',');
                 }
             } else if (inventory.size() == 1) {
-                for (Items inventoryItem : inventory) {
-                    System.out.println(inventoryItem.getItemName());
-                }
+                System.out.println(inventory.get(0).getItemName());
             }
-        //inventory. //TODO удалить последюю запитую
-        } else {
-            System.out.println("There is no items");
-        }
+        } else System.out.println("There is no items");
     }
 
-///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
     public void healByHealthPotion(Items healthPotion) {
         if (this.inventory.contains(healthPotion.getClass())) {
             this.health += HealthPotion.getHealthToRecover();
             if (this.health >= 100) {   ////maybe problems
                 this.health = 100;
-                this.inventory.remove(healthPotion); /// this.inventory.remove(HealthPotion.class);
+                this.inventory.remove(healthPotion.getClass()); /// this.inventory.remove(HealthPotion.class);
             }
         } else {
             System.out.println("There is no health potion in the inventory");
+        }
+    }
+
+    public void useManaPotion(Items manaPotion) {
+        if (this.inventory.contains(ManaPotion.class)) {
+            this.health += HealthPotion.getHealthToRecover();
+            if (this.health >= 100) {   ////maybe problems
+                this.health = 100;
+                this.inventory.remove(ManaPotion.class); /// this.inventory.remove(HealthPotion.class);
+            }
+        } else {
+            System.out.println("There is no mana potion in the inventory");
         }
     }
 
@@ -267,12 +272,7 @@ public class Hero1 implements Hero {
         }
     }
 
-    @Override
-    public void attack(Enemy enemy) {
-
-    }
-
-///////////////////////LevelUp/////////////////////////////////////////
+    ///////////////////////LevelUp/////////////////////////////////////////
     public Hero2 levelUpToHero2() {
         gc();
         return new Hero2(this.name, this.health + 150, this.armor + 120,

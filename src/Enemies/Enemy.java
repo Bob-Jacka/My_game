@@ -2,13 +2,12 @@ package Enemies;
 
 public class Enemy {
     public Enemy(String name, boolean magic) {
-        this.name = name;  //TODO проблема при генерации противника, вызывается стандартный конструктор
+        this.name = name;
         this.magic = magic;
     }
     public Enemy() {
-        System.out.println("Basic constructor");
-    }
 
+    }
     private String name;
     private int health = 100;
     private int armor = 40;

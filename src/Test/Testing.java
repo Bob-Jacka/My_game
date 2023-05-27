@@ -1,8 +1,6 @@
 package Test;
 
-import Dictionary.Quest;
 import Dictionary.QuestItems.QuestItem;
-import Enemies.Enemy;
 import Heroes.Hero1;
 import Heroes.Hero2;
 import Heroes.Hero3;
@@ -12,16 +10,13 @@ import Items.Items;
 import Items.Potions.HealthPotion;
 import Items.Weapons.MeleeCombatWeapon.Sword;
 import Items.Weapons.WeaponInterface;
-import Main.Main;
 import Main.Source;
 import jdk.jfr.Label;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Testing {
     private Hero1 valera;
@@ -35,9 +30,12 @@ public class Testing {
     @Before
     public void CreateHero1() {
         valera = new Hero1("Valera", true);
-        Source source = new Source();
     }
-
+    @Test
+    public void getHero2Params() {
+        Hero2 v = valera.levelUpToHero2();
+        v.getParams();
+    }
     @Test
     public void GetWeaponParam() {
         sword = new Sword("Hellraiser", 30, 23.5f, 50);
@@ -147,7 +145,7 @@ public class Testing {
 //        Main.leftCoordinates = 10;
 //        Main.backwardCoordinates = 15;
         Source.createMap(3);
-        ArrayList<ArrayList<Integer>> mapa1 =  Source.getMAP();
+        ArrayList<ArrayList<Integer>> mapa1 = Source.getMAP();
 //        System.out.println(mapa1);
         sword = new Sword("Hellraiser", 30, 23.5f, 50);
         armor = new ClothArmor("Unpenetrateble_Lats", 50);
@@ -187,7 +185,6 @@ public class Testing {
     public void MapTest() {
         Source.createMap(3);
     }
-
 
 
 }

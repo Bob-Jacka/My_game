@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public interface Hero {
     ///////////////methods////////////
     void resurrect();
-    void attack(Enemy enemy);
     void dead();
     void getParams();
     /////QuestMethods///

@@ -26,7 +26,7 @@ public class Main {
 
         if (person.getActiveQuest() == null) {
             startNPC.takeQuest(person);
-        } else  startNPC.setIsQuestTaken(true);
+        } else startNPC.setIsQuestTaken(true);
 
         //The game
         while (!isQuitGame) {
