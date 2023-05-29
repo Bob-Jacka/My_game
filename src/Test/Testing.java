@@ -182,8 +182,10 @@ public class Testing {
     }
 
     @Test
-    public void MapTest() {
-        Source.createMap(3);
+    public void MapTest() throws IOException {
+        Hero1 v = new Hero1("valera", false);
+        Source.TestLoad(v);
+        Source.viewMap();
     }
 
 
