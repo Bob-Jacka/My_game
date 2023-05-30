@@ -1,9 +1,9 @@
 package Test;
 
 import Dictionary.QuestItems.QuestItem;
-import Heroes.Hero1;
-import Heroes.Hero2;
-import Heroes.Hero3;
+import Heroes.Slave;
+import Heroes.Peasant;
+import Heroes.Knight;
 import Items.Armor.Armor;
 import Items.Armor.ClothArmor;
 import Items.Items;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Testing {
-    private Hero1 valera;
+    private Slave valera;
     private WeaponInterface sword;
     private Armor armor;
     private Items item1;
@@ -29,11 +29,11 @@ public class Testing {
 
     @Before
     public void CreateHero1() {
-        valera = new Hero1("Valera", true);
+        valera = new Slave("Valera", true);
     }
     @Test
     public void getHero2Params() {
-        Hero2 v = valera.levelUpToHero2();
+        Peasant v = valera.levelUpToHero2();
         v.getParams();
     }
     @Test
@@ -84,15 +84,15 @@ public class Testing {
 
     @Test
     public void LevelUpToHero2() {
-        Hero2 valera2 = valera.levelUpToHero2();
+        Peasant valera2 = valera.levelUpToHero2();
         valera2.getParams();
     }
 
     @Label("Проблемы в имени, они суммируются")
     @Test
     public void LevelUpToHero3() {
-        Hero2 valera2 = valera.levelUpToHero2();
-        Hero3 valera3 = valera2.levelUpToHero3();
+        Peasant valera2 = valera.levelUpToHero2();
+        Knight valera3 = valera2.levelUpToHero3();
     }
 
     @Label("в инвентарь добавляется null, а не sparrow")
@@ -121,7 +121,7 @@ public class Testing {
     @Label("Important")
     @Test
     public void LoadGame() throws IOException {
-        Source.TestLoad(valera);
+//        Source.TestLoad();
         valera.getParams();
         valera.getActiveQuest();
 //        valera.getActiveQuest();
@@ -144,14 +144,14 @@ public class Testing {
 //        Main.rightCoordinates = 5;
 //        Main.leftCoordinates = 10;
 //        Main.backwardCoordinates = 15;
-        Source.createMap(3);
-        ArrayList<ArrayList<Integer>> mapa1 = Source.getMAP();
+//        Source.createMap(3);
+//        ArrayList<ArrayList<Integer>> mapa1 = Source.getMAP();
 //        System.out.println(mapa1);
         sword = new Sword("Hellraiser", 30, 23.5f, 50);
         armor = new ClothArmor("Unpenetrateble_Lats", 50);
         valera.putOnWeapon(sword);
         valera.putOnArmor(armor);
-        Source.TestSave(valera);
+//        Source.TestSave();
     }
 
 //    @Label("Important")
@@ -183,8 +183,7 @@ public class Testing {
 
     @Test
     public void MapTest() throws IOException {
-        Hero1 v = new Hero1("valera", false);
-        Source.TestLoad(v);
+        Source.LoadGame();
         Source.viewMap();
     }
 

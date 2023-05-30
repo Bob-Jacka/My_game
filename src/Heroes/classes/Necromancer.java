@@ -1,10 +1,9 @@
 package Heroes.classes;
 
-import Heroes.Hero3;
-import Heroes.classes.Summons.Pet;
+import Heroes.Knight;
 import Heroes.classes.Summons.Skeleton;
 
-public class Necromancer extends Hero3 {
+public class Necromancer extends Knight {
     public Necromancer(String name, int health, int armor, int attack, boolean magic, int resistance) {
         super(name, health, armor, attack, magic, resistance);  ////maybe problems
         this.name = name;

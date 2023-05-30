@@ -1,10 +1,9 @@
 package Heroes.classes;
 
-import Heroes.Hero3;
-import Heroes.classes.Summons.Skeleton;
+import Heroes.Knight;
 import Heroes.classes.Summons.Wolf;
 
-public class Hunter extends Hero3 {
+public class Hunter extends Knight {
     public Hunter(String name, int health, int armor, int attack, boolean magic, int resistance) {
         super(name, health, armor, attack, magic, resistance);  ////maybe problems
         this.name = name;

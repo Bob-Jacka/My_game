@@ -11,12 +11,15 @@ import java.util.ArrayList;
 
 import static java.lang.System.gc;
 
-public class Hero1 implements Hero {
-
-    public Hero1() {
+public class Slave implements Hero {
+    /**
+     * First level of the hero
+     * @since 0.0.1
+     */
+    public Slave() {
     }
 
-    public Hero1(String name, boolean magic) {
+    public Slave(String name, boolean magic) {
         this.name = name;
         this.magic = magic;
     }
@@ -32,10 +35,10 @@ public class Hero1 implements Hero {
     private int experience = 0;
     private String activeQuest = null;
     private int inventoryCapacity = 10;
-    private ArrayList<String> questList = new ArrayList<>();  ///для квестов
+    private final ArrayList<String> questList = new ArrayList<>();  ///для квестов
     protected ArrayList<Items> inventory = new ArrayList<>(inventoryCapacity);   //// инвентарь
-    private ArrayList<WeaponInterface> activeWeapon = new ArrayList<>(1);  /// оружие в руках у героя
-    private ArrayList<Armor> activeArmor = new ArrayList<>(1);  /// броня у героя
+    private final ArrayList<WeaponInterface> activeWeapon = new ArrayList<>(1);  /// оружие в руках у героя
+    private final ArrayList<Armor> activeArmor = new ArrayList<>(1);  /// броня у героя
 
 
     /////////////////////////Getter/////////////////////////////////
@@ -273,9 +276,9 @@ public class Hero1 implements Hero {
     }
 
     ///////////////////////LevelUp/////////////////////////////////////////
-    public Hero2 levelUpToHero2() {
+    public Peasant levelUpToHero2() {
         gc();
-        return new Hero2(this.name, this.health + 150, this.armor + 120,
+        return new Peasant(this.name, this.health + 150, this.armor + 120,
                 this.attack + 80, this.magic, this.resistance + 30);
     }
 

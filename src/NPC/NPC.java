@@ -1,7 +1,8 @@
 package NPC;
 
 import Dictionary.Quest;
-import Heroes.Hero1;
+import Heroes.Hero;
+import Heroes.Slave;
 
 public abstract class NPC {
     String name = "StandardNPCName";
@@ -9,7 +10,7 @@ public abstract class NPC {
     int attack = 20;
     boolean isQuestTaken = false;  /// по стандарту false - квест не взят
 
-    void takeQuest(Hero1 person) {
+    void takeQuest(Hero person) {
             if (isQuestTaken == false) {
                 System.out.println();
                 System.out.println(" ");

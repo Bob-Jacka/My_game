@@ -1,7 +1,8 @@
 package NPC;
 
 import Dictionary.Quest;
-import Heroes.Hero1;
+import Heroes.Hero;
+import Heroes.Slave;
 
 public class SecondNpc extends NPC {
     private final String name;
@@ -15,7 +16,7 @@ public class SecondNpc extends NPC {
     }
 
     @Override
-    public void takeQuest(Hero1 person) {
+    public void takeQuest(Hero person) {
             if (isQuestTaken == false) {
                 System.out.println();
                 System.out.println(" ");

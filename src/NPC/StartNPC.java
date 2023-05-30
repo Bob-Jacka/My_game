@@ -2,7 +2,7 @@ package NPC;
 
 import Dictionary.Quest;
 import Dictionary.RandomNpcSpeech;
-import Heroes.Hero1;
+import Heroes.Hero;
 import Items.Armor.ClothArmor;
 import Items.Weapons.MeleeCombatWeapon.Sword;
 
@@ -26,7 +26,7 @@ public class StartNPC extends NPC {
     }
 
     @Override
-    public void takeQuest(Hero1 person) {
+    public void takeQuest(Hero person) {
         if (!isQuestTaken) {
             System.out.println();
             System.out.println("С пробуждением, рада тебя видеть, у меня есть задание для тебя");

@@ -1,8 +1,8 @@
 package Heroes.classes;
 
-import Heroes.Hero3;
+import Heroes.Knight;
 
-public class Warrior extends Hero3 {
+public class Warrior extends Knight {
     public Warrior(String name, int health, int armor, int attack, boolean magic, int resistance) {
         super(name, health, armor, attack, magic, resistance);  ////maybe problems
         this.name = name;

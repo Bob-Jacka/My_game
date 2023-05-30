@@ -2,16 +2,17 @@ package Heroes;
 
 import Items.OtherItems.ResurrectStone;
 
-import java.util.ArrayList;
-
 import static java.lang.System.gc;
 
-public class Hero2 extends Hero1 implements Hero{
-
-    protected Hero2() {
+public class Peasant extends Slave implements Hero{
+    /**
+     * Second level of the hero
+     * @since 0.0.1
+     */
+    public Peasant() {
     }
 
-    protected Hero2(String name, int health, int armor, int attack, boolean magic, int resistance) {
+    protected Peasant(String name, int health, int armor, int attack, boolean magic, int resistance) {
         super(name, magic);    /////////Maybe problems
         this.health = health;
         this.name = super.getName();
@@ -60,9 +61,9 @@ public class Hero2 extends Hero1 implements Hero{
 //        inventoryCall();
 //    }
 
-    public Hero3 levelUpToHero3() {
+    public Knight levelUpToHero3() {
         gc();
-        return new Hero3(this.name, this.health + 150, this.armor + 120,
+        return new Knight(this.name, this.health + 150, this.armor + 120,
                 this.attack + 80, this.magic, this.resistance + 30);
     }
 

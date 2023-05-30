@@ -5,11 +5,15 @@ import Heroes.classes.*;
 import Heroes.classes.Summons.Pet;
 import Items.OtherItems.ResurrectStone;
 
-public class Hero3 extends Hero2 implements Hero{
-        protected Hero3() {
+public class Knight extends Peasant implements Hero{
+    /**
+     * Third level of the hero
+     * @since 0.0.1
+     */
+        public Knight() {
 
         }
-    protected Hero3(String name, int health, int armor, int attack, boolean magic, int resistance) {
+    protected Knight(String name, int health, int armor, int attack, boolean magic, int resistance) {
         super(name, health, armor, attack, magic, resistance);  ////maybe problems
         this.name = name;
         this.health = health;

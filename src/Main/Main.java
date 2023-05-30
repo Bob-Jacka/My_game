@@ -1,6 +1,7 @@
 package Main;
 
-import Heroes.Hero1;
+import Heroes.Hero;
+import Heroes.Slave;
 import NPC.StartNPC;
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +10,7 @@ import java.util.Scanner;
 public class Main {
     public static boolean IS_AUTO_SAVE;  // if false no autosave
     static boolean IS_QUIT_GAME = false;
-    static Hero1 PERSON = new Hero1();
+    static Hero PERSON = new Slave();
     static File SAVE_FILE = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/saveHeroParams.txt");
     static boolean IS_IN_BATTLE = false;
     static short HERO_LOCATION = 0; // местоположение героя на карте
@@ -18,7 +19,6 @@ public class Main {
 
         //Start game
         Source.startMenu(); //start menu
-        if(HERO_LOCATION == 0) Source.getMAP().get(0).add(2); //Задание стартовой позиции героя
 
         StartNPC startNPC = Source.GenerateStartNPC();  ///встреча с нпс
 
@@ -56,7 +56,7 @@ public class Main {
                     Source.configurateGameOptionsMenu();
                     break;
                 case 6:
-                    Source.quitGameMenu(IS_AUTO_SAVE, PERSON);//TODO сделать чтобы если файл был недавно сохранён, то предупреждение не отображается
+                    Source.quitGameMenu(IS_AUTO_SAVE);//TODO сделать чтобы если файл был недавно сохранён, то предупреждение не отображается
                     break;
             }
         }

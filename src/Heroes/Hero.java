@@ -1,7 +1,9 @@
 package Heroes;
 
 import Enemies.Enemy;
+import Items.Armor.Armor;
 import Items.Items;
+import Items.Weapons.WeaponInterface;
 
 import java.util.ArrayList;
 
@@ -12,7 +14,7 @@ public interface Hero {
     void getParams();
     /////QuestMethods///
 //    void getActiveQuest();
-//    void getQuestsList();
+    void getQuestsList();
 //    void setActiveQuest(String quest);
 //    void passTheQuest (String quest);
 
@@ -24,6 +26,7 @@ public interface Hero {
     boolean getMagic();
     int getResistance();
     int getExperience();
+    int getMana();
     /////////////////Setter///////////////////////
     void setHealth(int Health);
     void setArmor(int Armor);
@@ -32,6 +35,17 @@ public interface Hero {
     void setResistance(int Resistance);
     void setExperience(int Exp);
     void setMagic(boolean magic);
-
+    void setMana(int mana);
+    String getActiveQuest();
+    ArrayList<WeaponInterface> getActiveWeapon();
+    ArrayList<Armor> getActiveArmor();
+    void putOnArmor(Armor anyArmor);
+    void putOnWeapon(WeaponInterface anyWeapon);
+    void setActiveQuest(String quest);
+    void addToQuestList(String quest);
+    void inventoryCall();
+    void defendingMagick();
+    void attackMagick();
+    ArrayList<String> getQuestListSimple();
 
 }
