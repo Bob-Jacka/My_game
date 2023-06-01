@@ -8,6 +8,7 @@ public class RandomNpcName {
         int randomSpeech = random.nextInt(RandomNpcName.NPCname.length);
         return NPCname[randomSpeech];
     }
+
     static String[] NPCname = new String[]{"Valera", "Valeamor", "Gendalf", "Saruman"};
 
 }

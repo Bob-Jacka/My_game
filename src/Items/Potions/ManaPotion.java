@@ -10,6 +10,7 @@ public class ManaPotion implements Items {
         this.recharge = recharge;
         this.manaToRecover = manaToRecover;
     }
+
     private String itemName;
     private double recharge;
     private int duration;

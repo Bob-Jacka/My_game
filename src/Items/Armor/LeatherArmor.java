@@ -8,6 +8,7 @@ public class LeatherArmor extends Armor {
         this.armorName = armorName;
         this.armorDef = armorDef;
     }
+
     private final String armorName;
 
     private int armorDef;
@@ -15,13 +16,13 @@ public class LeatherArmor extends Armor {
     private int mana;
     private int strenght;
     private final String typeOfArmor = "Leather";
-    
+
     public void penetrate() {
         Random random = new Random();
-        if(random.nextBoolean()) {
+        if (random.nextBoolean()) {
             System.out.println("Пробито");
-            this.setArmorDef((int) (this.getArmorDef() / 1.7));}
-        else {
+            this.setArmorDef((int) (this.getArmorDef() / 1.7));
+        } else {
             System.out.println("Не пробито");
         }
     }
@@ -30,6 +31,7 @@ public class LeatherArmor extends Armor {
     public String getItemName() {
         return this.armorName;
     }
+
     @Override
     public String getTypeOfArmor() {
         return typeOfArmor;

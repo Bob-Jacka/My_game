@@ -14,6 +14,7 @@ import static java.lang.System.gc;
 public class Slave implements Hero {
     /**
      * First level of the hero
+     *
      * @since 0.0.1
      */
     public Slave() {
@@ -151,16 +152,18 @@ public class Slave implements Hero {
     }
 
 
-///////////////QuestMethods/////////////////////////////////////////////
+    ///////////////QuestMethods/////////////////////////////////////////////
     public String getActiveQuest() {
         if (activeQuest != null) {
             return this.activeQuest;
         }
         return null;
     }
+
     public ArrayList<String> getQuestListSimple() {
         return questList;
     }
+
     public void getQuestsList() {
         if (questList.size() != 0) {
             for (String quest : questList) {
@@ -208,11 +211,13 @@ public class Slave implements Hero {
     public void takeOffArmor(Armor anyArmor) {
         this.setArmor(this.getArmor() - anyArmor.getArmorDef());
         this.activeArmor.remove(anyArmor);
+        this.inventory.add(anyArmor);
     }
 
     public void takeOffWeapon(WeaponInterface anyWeapon) {
         this.setAttack(this.getAttack() - anyWeapon.getAttack());
         this.activeWeapon.remove(anyWeapon);
+        this.inventory.add(anyWeapon);
     }
 
     public void getParams() {

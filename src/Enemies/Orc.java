@@ -2,9 +2,10 @@ package Enemies;
 
 public class Orc extends Enemy {
 
-    private  final int WeaponCoef = 10;
-    private  final int HealthCoef = 10;
+    private final int WeaponCoef = 10;
+    private final int HealthCoef = 10;
     private final boolean magic = false;
+
     public Orc() {
         System.out.println("Enemies.Orc constructor");
     }
@@ -12,7 +13,7 @@ public class Orc extends Enemy {
 
     //@Override
     //public int attack() {
-        //System.out.println(this.getName()+"Attacking");
+    //System.out.println(this.getName()+"Attacking");
     //}
 //    public void defendingMagick() {
 //        if (this.magic) {

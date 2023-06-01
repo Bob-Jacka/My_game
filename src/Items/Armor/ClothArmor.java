@@ -9,6 +9,7 @@ public class ClothArmor extends Armor implements Items {
         this.armorName = armorName;
         this.armorDef = armorDef;
     }
+
     private final String armorName;
 
     private final int armorDef;
@@ -16,28 +17,33 @@ public class ClothArmor extends Armor implements Items {
     private int mana;
     private int strenght;
     private final String typeOfArmor = "Cloth";
+
     public void penetrate() {
         Random random = new Random();
-        if(random.nextBoolean()) {
+        if (random.nextBoolean()) {
             System.out.println("Пробито");
-            this.setArmorDef((int) (this.getArmorDef() / 1.9));}
-        else {
+            this.setArmorDef((int) (this.getArmorDef() / 1.9));
+        } else {
             System.out.println("Не пробито");
         }
     }
+
     @Override
     public String getItemName() {
         return this.armorName;
     }
+
     @Override
     public String getTypeOfArmor() {
         return typeOfArmor;
     }
+
     @Override
     public void getParams() {
         System.out.println("Armor name is " + this.armorName);
         System.out.println("Armor defence is " + this.armorDef);
     }
+
     @Override
     public int getArmorDef() {
         return this.armorDef;

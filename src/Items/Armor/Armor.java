@@ -10,7 +10,8 @@ public class Armor implements Items {
         this.armorName = armorName;
         this.armorDef = armorDef;
     }
-     Armor() {
+
+    Armor() {
 
     }
 
@@ -35,6 +36,7 @@ public class Armor implements Items {
     public int getArmorDef() {
         return armorDef;
     }
+
     public void setArmorDef(int armorDef) {
         this.armorDef = armorDef;
     }
@@ -42,14 +44,15 @@ public class Armor implements Items {
     public String getTypeOfArmor() {
         return typeOfArmor;
     }
+
     public void penetrate() {
         Random random = new Random();
-        if(random.nextBoolean()) {
+        if (random.nextBoolean()) {
             System.out.println("Пробито");
-            this.armorDef = this.armorDef/2;}
-        else {
+            this.armorDef = this.armorDef / 2;
+        } else {
             System.out.println("Не пробито");
-            }
+        }
     }
 
 }

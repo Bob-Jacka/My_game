@@ -12,6 +12,7 @@ public class Chakram implements MeleeCombatWeaponInterface {
         this.weaponName = weaponName;
         this.weaponAttack = weaponAttack;
     }
+
     public Chakram(String weaponName, int weaponAttack, float weaponWeight, int sharpening) {
         this.weaponName = weaponName;
         this.weaponAttack = weaponAttack;
@@ -19,6 +20,7 @@ public class Chakram implements MeleeCombatWeaponInterface {
         this.sharpening = sharpening;
         System.out.println(this.weaponName + " Created");
     }
+
     ///////////////////////////////////////////////////////////
     private String weaponName;
     private int weaponAttack;
@@ -42,10 +44,12 @@ public class Chakram implements MeleeCombatWeaponInterface {
     public void repairTheMeleeWeapon() {
 
     }
+
     @Override
     public String getTypeOfWeapon() {
         return typeOfSword;
     }
+
     @Override
     public void ThrowIt() {
 

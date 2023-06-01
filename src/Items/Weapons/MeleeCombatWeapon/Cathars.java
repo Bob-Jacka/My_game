@@ -14,11 +14,13 @@ public class Cathars implements MeleeCombatWeaponInterface {
         this.sharpening = sharpening;
         System.out.println(this.weaponName + " Created");
     }
+
     public Cathars(String weaponName, int weaponAttack) {
         this.weaponName = weaponName;
         this.weaponAttack = weaponAttack;
     }
-///////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////
     private String weaponName;
     private int weaponAttack;
     private float weaponWeight;
@@ -48,10 +50,12 @@ public class Cathars implements MeleeCombatWeaponInterface {
     public void repairTheMeleeWeapon() {
 
     }
+
     @Override
     public String getTypeOfWeapon() {
         return typeOfSword;
     }
+
     @Override
     public void ThrowIt() {
 

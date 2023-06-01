@@ -8,5 +8,6 @@ public class RandomArmorName {
         int randomSpeech = random.nextInt(RandomArmorName.ArmorName.length);
         return ArmorName[randomSpeech];
     }
+
     static String[] ArmorName = new String[]{"SouthLat", "Valeamor", "Gendalf", "Saruman"};
 }

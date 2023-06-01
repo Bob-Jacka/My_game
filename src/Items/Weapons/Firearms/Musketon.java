@@ -10,6 +10,7 @@ public class Musketon implements RangedCombatWeaponInterface {
 
         this.attack = attack;
     }
+
     private int bulletCount;
     private final String fireArmName;
     private final String typeOfFireArm = "Musketon";
@@ -34,10 +35,12 @@ public class Musketon implements RangedCombatWeaponInterface {
     public void HoldTheArrow() {
 
     }
+
     @Override
     public String getTypeOfWeapon() {
         return typeOfFireArm;
     }
+
     @Override
     public void repairTheRangedWeapon() {
 

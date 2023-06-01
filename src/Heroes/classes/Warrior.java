@@ -13,6 +13,7 @@ public class Warrior extends Knight {
         this.resistance = resistance;  ////
 
     }
+
     private String name;
     private int health;
     private int armor;
@@ -22,5 +23,5 @@ public class Warrior extends Knight {
     private int mana = 100;
     private String quest;
     private int experience = 0;
-    
+
 }

@@ -9,6 +9,7 @@ public class Crossbow implements RangedCombatWeaponInterface {
         this.arrowCount = arrowCount;
         this.attack = attack;
     }
+
     private int arrowCount;
     private final String weaponName;
     private final String typeOfBow = "Crossbow";

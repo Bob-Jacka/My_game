@@ -6,6 +6,7 @@ public class Bo implements MeleeCombatWeaponInterface {
     Bo() {
         System.out.println("Weapon created");
     }
+
     public Bo(String weaponName, int weaponAttack) {
         this.weaponName = weaponName;
         this.weaponAttack = weaponAttack;
@@ -18,6 +19,7 @@ public class Bo implements MeleeCombatWeaponInterface {
         this.sharpening = sharpening;
         System.out.println(this.weaponName + " Created");
     }
+
     ///////////////////////////////////////////////////////////
     private String weaponName;
     private int weaponAttack;
@@ -36,10 +38,12 @@ public class Bo implements MeleeCombatWeaponInterface {
     public void makeItSharp() {
 
     }
+
     @Override
     public String getTypeOfWeapon() {
         return typeOfSword;
     }
+
     @Override
     public void repairTheMeleeWeapon() {
 

@@ -6,13 +6,15 @@ public class Mace implements MeleeCombatWeaponInterface {
     public Mace(String weaponName, int weaponAttack, float weaponWeight, int sharpening) {
         this.weaponName = weaponName;
         this.weaponAttack = weaponAttack;
-        this.weaponWeight= weaponWeight;
+        this.weaponWeight = weaponWeight;
         this.sharpening = sharpening;
     }
+
     public Mace(String weaponName, int weaponAttack) {
         this.weaponName = weaponName;
         this.weaponAttack = weaponAttack;
     }
+
     private String weaponName;
     private int weaponAttack;
     private float weaponWeight;
@@ -41,10 +43,12 @@ public class Mace implements MeleeCombatWeaponInterface {
     public void repairTheMeleeWeapon() {
 
     }
+
     @Override
     public String getTypeOfWeapon() {
         return typeOfSword;
     }
+
     @Override
     public void ThrowIt() {
 

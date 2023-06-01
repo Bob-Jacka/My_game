@@ -6,6 +6,7 @@ public class muzzleBrake implements Items {  /////Дульный тормоз
     public muzzleBrake(int damagePlus) {
         this.damagePlus = damagePlus;
     }
+
     private final int damagePlus;
     private String name = "muzzle brake";
 

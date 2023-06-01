@@ -3,16 +3,17 @@ package Main;
 import Heroes.Hero;
 import Heroes.Slave;
 import NPC.StartNPC;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static boolean IS_AUTO_SAVE;  // if false no autosave
+    static boolean IS_AUTO_SAVE;  // if false no autosave
     static boolean IS_QUIT_GAME = false;
     static Hero PERSON = new Slave();
     static File SAVE_FILE = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/saveHeroParams.txt");
-    static boolean IS_IN_BATTLE = false;
+    public static boolean[] STATUSES = new boolean[] {false, false, false, false}; // 0 - isInBattle, 1- nearNPC, 2-isInCity, 3-isInDungeon
     static short HERO_LOCATION = 0; // местоположение героя на карте
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -20,7 +21,7 @@ public class Main {
         //Start game
         Source.startMenu(); //start menu
 
-        StartNPC startNPC = Source.GenerateStartNPC();  ///встреча с нпс
+        StartNPC startNPC = Source.generateStartNPC();  ///встреча с нпс
 
         if (PERSON.getActiveQuest() == null) {
             startNPC.takeQuest(PERSON);
@@ -53,11 +54,13 @@ public class Main {
                     Source.saveMenu();
                     break;
                 case 5:
-                    Source.configurateGameOptionsMenu();
+                    Source._configurateGameOptionsMenu();
                     break;
                 case 6:
-                    Source.quitGameMenu(IS_AUTO_SAVE);//TODO сделать чтобы если файл был недавно сохранён, то предупреждение не отображается
+                    Source.quitGameMenu(IS_AUTO_SAVE);
                     break;
+                default:
+                    throw new IllegalStateException("Unexpected value");
             }
         }
     }

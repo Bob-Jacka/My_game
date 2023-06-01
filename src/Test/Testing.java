@@ -1,9 +1,9 @@
 package Test;
 
 import Dictionary.QuestItems.QuestItem;
-import Heroes.Slave;
-import Heroes.Peasant;
 import Heroes.Knight;
+import Heroes.Peasant;
+import Heroes.Slave;
 import Items.Armor.Armor;
 import Items.Armor.ClothArmor;
 import Items.Items;
@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Testing {
     private Slave valera;
@@ -31,11 +30,13 @@ public class Testing {
     public void CreateHero1() {
         valera = new Slave("Valera", true);
     }
+
     @Test
     public void getHero2Params() {
         Peasant v = valera.levelUpToHero2();
         v.getParams();
     }
+
     @Test
     public void GetWeaponParam() {
         sword = new Sword("Hellraiser", 30, 23.5f, 50);
@@ -182,10 +183,15 @@ public class Testing {
     }
 
     @Test
-    public void MapTest() throws IOException {
-        Source.LoadGame();
-        Source.viewMap();
+    public void MapTest1() throws IOException {
+        Source._LoadGame();
+        Source.viewMapBlocked();
     }
 
+    @Test
+    public void MapTest2() throws IOException {
+        Source._LoadGame();
+//        Source.viewMapUNBlocked();
+    }
 
 }

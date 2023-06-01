@@ -2,11 +2,12 @@ package Items.Armor;
 
 import java.util.Random;
 
-public class IronArmor extends Armor{
+public class IronArmor extends Armor {
     public IronArmor(String armorName, int armorDef) {
         this.armorName = armorName;
         this.armorDef = armorDef;
     }
+
     private final String armorName;
 
     private int armorDef;
@@ -18,10 +19,10 @@ public class IronArmor extends Armor{
 
     public void penetrate() {
         Random random = new Random();
-        if(random.nextBoolean()) {
+        if (random.nextBoolean()) {
             System.out.println("Пробито");
-            this.setArmorDef((int) (this.getArmorDef() / 1.5));}
-        else {
+            this.setArmorDef((int) (this.getArmorDef() / 1.5));
+        } else {
             System.out.println("Не пробито");
         }
     }
@@ -30,10 +31,12 @@ public class IronArmor extends Armor{
     public String getItemName() {
         return this.armorName;
     }
+
     @Override
     public String getTypeOfArmor() {
         return typeOfArmor;
     }
+
     @Override
     public void getParams() {
         System.out.println("Armor name is " + this.armorName);

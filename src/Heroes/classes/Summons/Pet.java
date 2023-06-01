@@ -41,6 +41,7 @@ public class Pet {
     public int getResistance() {
         return resistance;
     }
+
     public String getName() {
         return petName;
     }
@@ -66,10 +67,12 @@ public class Pet {
     public void attack() {
         System.out.println(this.petName + " attacking");
     }
+
     public void defend() {
         System.out.println(this.petName + " defending");
         this.armor += 25;
     }
+
     public void dead() {
         if (Pet.health == 0) {
             System.out.println(this.petName + " is dead");
@@ -78,6 +81,7 @@ public class Pet {
         }
 
     }
+
     public boolean follow() {
         System.out.println(this.petName + " is following you now");
         return this.isFollow = true;

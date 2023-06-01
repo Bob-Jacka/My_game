@@ -5,9 +5,11 @@ public class Enemy {
         this.name = name;
         this.magic = magic;
     }
+
     public Enemy() {
 
     }
+
     private String name;
     private int health = 100;
     private int armor = 40;
@@ -19,18 +21,23 @@ public class Enemy {
     public int getAttack() {
         return attack;
     }
+
     public String getName() {
         return name;
     }
+
     public int getArmor() {
         return armor;
     }
+
     public void getMagic() {
         System.out.println("Yes, magic is allowed");
     }
+
     public int getHealth() {
         return health;
     }
+
     public int getResistance() {
         return resistance;
     }
@@ -56,6 +63,7 @@ public class Enemy {
         this.name = name;
         System.out.println("New name is " + name);
     }
+
     public void setResistance(int resistance) {
         this.resistance = resistance;
     }
@@ -87,13 +95,14 @@ public class Enemy {
     public void dead() {
         System.out.println(this.name + " is dead");
     }
+
     public void getParams() {
-        System.out.println("Name: "+this.name);
-        System.out.println("health: "+this.health);
-        System.out.println("armor: "+this.armor);
-        System.out.println("attack: "+this.attack);
-        System.out.println("magic: "+this.magic);
-        System.out.println("resistance: "+this.resistance);
+        System.out.println("Name: " + this.name);
+        System.out.println("health: " + this.health);
+        System.out.println("armor: " + this.armor);
+        System.out.println("attack: " + this.attack);
+        System.out.println("magic: " + this.magic);
+        System.out.println("resistance: " + this.resistance);
     }
 
 }

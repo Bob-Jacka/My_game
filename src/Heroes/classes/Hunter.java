@@ -13,6 +13,7 @@ public class Hunter extends Knight {
         this.magic = magic;
         this.resistance = resistance;  ////
     }
+
     private String name;
     private int health;
     private int armor;
@@ -24,20 +25,19 @@ public class Hunter extends Knight {
     private String quest;
 
     public Wolf wolfSummon() {
-        if(mana >= 60) {
+        if (mana >= 60) {
             return new Wolf("valera");
-        }
-        else {
+        } else {
             System.out.println("Not enough mana: " + this.name);
         }
         return null;
     }
+
     public void hunterVision() {
-        if(mana > 40) {
+        if (mana > 40) {
             this.attack += 30;
             this.mana -= 40;
-        }
-        else {
+        } else {
             System.out.println("Not enough mana: " + this.name);
         }
     }

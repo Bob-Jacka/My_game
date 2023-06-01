@@ -13,6 +13,7 @@ public class Healer extends Knight {
         this.magic = magic;
         this.resistance = resistance;  ////
     }
+
     private String name;
     private int health;
     private int armor;
@@ -25,30 +26,28 @@ public class Healer extends Knight {
 ///////////////////////////////////////////////////////////
 
     public void selfHeal() {
-        if(this.mana >= 30) {
+        if (this.mana >= 30) {
             this.health += 50;
             this.mana -= 30;
-        }
-        else {
+        } else {
             System.out.println("Not enough mana: " + this.name);
         }
     }
+
     public void defend() {
-        if(this.mana >= 50) {
+        if (this.mana >= 50) {
             this.armor += 70;
             this.mana -= 50;
-        }
-        else {
+        } else {
             System.out.println("Not enough mana: " + this.name);
         }
     }
 
     public void strongHeal() {
-        if(this.mana == 100) {
+        if (this.mana == 100) {
             this.health += 100;
             this.mana -= 100;
-        }
-        else {
+        } else {
             System.out.println("Not enough mana: " + this.name);
         }
     }

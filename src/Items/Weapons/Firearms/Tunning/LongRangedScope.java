@@ -8,6 +8,7 @@ public class LongRangedScope implements Items {
         this.destinationPlus = destinationPlus;
         this.scopeName = scopeName;
     }
+
     private final int destinationPlus;
     private final String scopeName;
 

@@ -13,6 +13,7 @@ public class Necromancer extends Knight {
         this.magic = magic;
         this.resistance = resistance;  ////
     }
+
     private String name;
     private int health;
     private int armor;
@@ -28,8 +29,7 @@ public class Necromancer extends Knight {
             this.health += 200;
             this.mana = 0;
             System.out.println(this.name + "Rusurected");
-        }
-        else {
+        } else {
             System.out.println("Not enough mana");
         }
 

@@ -12,6 +12,7 @@ public class Tank extends Knight {
         this.magic = magic;
         this.resistance = resistance;  ////
     }
+
     private String name;
     private int health;
     private int armor;

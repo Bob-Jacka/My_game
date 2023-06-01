@@ -15,7 +15,8 @@ public class RandomPotion {
 //    TAWNY_OWL, ////Ускоряет восстановление энергии.
 
     public static String[] RandomPotionName = new String[]{"WHITE_HONEY", "WOLF", "THUNDER", "RAFARIS_POTIOON",
-            "iWE","SWALLOW","KISS","MOONLIGHT","TAWNY_OWL"};
+            "iWE", "SWALLOW", "KISS", "MOONLIGHT", "TAWNY_OWL"};
+
     public static String getRandomPotionName() {
         Random random = new Random();
         int randomSpeech = random.nextInt(RandomPotion.RandomPotionName.length);

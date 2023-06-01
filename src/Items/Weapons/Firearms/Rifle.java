@@ -8,6 +8,7 @@ public class Rifle implements RangedCombatWeaponInterface {
         this.bulletCount = bulletCount;
         this.attack = attack;
     }
+
     private int bulletCount;
     private final String fireArmName;
     private final String typeOfFireArm = "Rifle";
@@ -32,10 +33,12 @@ public class Rifle implements RangedCombatWeaponInterface {
     public void HoldTheArrow() {
 
     }
+
     @Override
     public String getTypeOfWeapon() {
         return typeOfFireArm;
     }
+
     @Override
     public void repairTheRangedWeapon() {
 

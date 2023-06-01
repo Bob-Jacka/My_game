@@ -4,9 +4,10 @@ import Items.OtherItems.ResurrectStone;
 
 import static java.lang.System.gc;
 
-public class Peasant extends Slave implements Hero{
+public class Peasant extends Slave implements Hero {
     /**
      * Second level of the hero
+     *
      * @since 0.0.1
      */
     public Peasant() {

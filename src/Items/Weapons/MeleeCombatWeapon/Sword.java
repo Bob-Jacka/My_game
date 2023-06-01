@@ -1,4 +1,5 @@
 package Items.Weapons.MeleeCombatWeapon;
+
 import Items.Weapons.MeleeCombatWeaponInterface;
 
 public class Sword implements MeleeCombatWeaponInterface {
@@ -37,10 +38,12 @@ public class Sword implements MeleeCombatWeaponInterface {
     private float weaponWeight;
     private int sharpening;  ///// заточка
     private final String typeOfSword = "Sword";
+
     @Override
     public String getTypeOfWeapon() {
         return typeOfSword;
     }
+
     @Override
     public void makeItSharp() {
         this.sharpening += 20;

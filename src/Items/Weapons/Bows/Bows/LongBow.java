@@ -8,6 +8,7 @@ public class LongBow implements RangedCombatWeaponInterface {
         this.arrowCount = arrowCount;
         this.attack = attack1;
     }
+
     private int arrowCount;
     private int attack;
     private final String weaponName;

@@ -5,14 +5,16 @@ import Heroes.classes.*;
 import Heroes.classes.Summons.Pet;
 import Items.OtherItems.ResurrectStone;
 
-public class Knight extends Peasant implements Hero{
+public class Knight extends Peasant implements Hero {
     /**
      * Third level of the hero
+     *
      * @since 0.0.1
      */
-        public Knight() {
+    public Knight() {
 
-        }
+    }
+
     protected Knight(String name, int health, int armor, int attack, boolean magic, int resistance) {
         super(name, health, armor, attack, magic, resistance);  ////maybe problems
         this.name = name;
@@ -70,6 +72,7 @@ public class Knight extends Peasant implements Hero{
         System.out.print("Your inventory is: ");
         inventoryCall();
     }
+
     public void resurrect() {
         if (inventory.contains(ResurrectStone.class)) {
             this.inventory.remove(ResurrectStone.class);

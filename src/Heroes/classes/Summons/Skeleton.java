@@ -10,9 +10,10 @@ public class Skeleton extends Pet {
 
     public Skeleton(String petName) {
         this.petName = petName;
-        System.out.println(this.petName +" constructed");
+        System.out.println(this.petName + " constructed");
 
     }
+
     public Skeleton(String petName, int health, int armor, int attack, int resistance) {
         this.petName = petName;
         this.health = health;

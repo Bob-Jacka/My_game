@@ -8,6 +8,7 @@ public class Musket implements RangedCombatWeaponInterface {
         this.bulletCount = bulletCount;
         this.attack = attack;
     }
+
     private int bulletCount;
     private final String fireArmName;
     private final String typeOfFireArm = "Musket";
