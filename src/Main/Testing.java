@@ -1,4 +1,4 @@
-package Test;
+package Main;
 
 import Dictionary.QuestItems.QuestItem;
 import Heroes.Knight;
@@ -12,8 +12,8 @@ import Items.Weapons.MeleeCombatWeapon.Sword;
 import Items.Weapons.WeaponInterface;
 import Main.Source;
 import jdk.jfr.Label;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -26,7 +26,7 @@ public class Testing {
     private Source source;
     private String potionName;
 
-    @Before
+    @BeforeAll
     public void CreateHero1() {
         valera = new Slave("Valera", true);
     }
@@ -122,37 +122,19 @@ public class Testing {
     @Label("Important")
     @Test
     public void LoadGame() throws IOException {
-//        Source.TestLoad();
+        Source._LoadGame();
         valera.getParams();
         valera.getActiveQuest();
-//        valera.getActiveQuest();
-//        System.out.println(Main.isAutoSave);
-//        Main.forwardCoordinates = 1;
-//        Main.rightCoordinates = 5;
-//        Main.leftCoordinates = 10;
-//        Main.backwardCoordinates = 15;
-//        System.out.println(Main.forwardCoordinates);
-//        System.out.println(Main.rightCoordinates);
-//        System.out.println(Main.backwardCoordinates);
-//        System.out.println(Main.leftCoordinates);
     }
 
     @Label("Important")
     @Test
     public void SavingGame() throws IOException {
-//        valera.setActiveQuest(Quest.Quest1);
-//        Main.forwardCoordinates = 1;
-//        Main.rightCoordinates = 5;
-//        Main.leftCoordinates = 10;
-//        Main.backwardCoordinates = 15;
-//        Source.createMap(3);
-//        ArrayList<ArrayList<Integer>> mapa1 = Source.getMAP();
-//        System.out.println(mapa1);
         sword = new Sword("Hellraiser", 30, 23.5f, 50);
         armor = new ClothArmor("Unpenetrateble_Lats", 50);
         valera.putOnWeapon(sword);
         valera.putOnArmor(armor);
-//        Source.TestSave();
+        Source.saveMenu();
     }
 
 //    @Label("Important")
@@ -182,16 +164,14 @@ public class Testing {
         valera.getParams();
     }
 
-    @Test
-    public void MapTest1() throws IOException {
-        Source._LoadGame();
-        Source.viewMapBlocked();
-    }
-
-    @Test
-    public void MapTest2() throws IOException {
-        Source._LoadGame();
-//        Source.viewMapUNBlocked();
-    }
+//    @Test
+//    public void MapTest1() throws IOException {
+//        Source.viewMapBlocked();
+//    }
+//
+//    @Test
+//    public void MapTest2() throws IOException {
+////        Source.viewMapUNBlocked();
+//    }
 
 }

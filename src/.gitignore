@@ -5,3 +5,8 @@ out/
 #src/.idea/uiDesigner.xml
 #src/.idea/workspace.xml
 src/Main/AsciiDecoder
+My_game.iml
+component-1.1.3.xsd
+pom.xml
+target
+/.idea/

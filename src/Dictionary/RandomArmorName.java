@@ -9,5 +9,5 @@ public class RandomArmorName {
         return ArmorName[randomSpeech];
     }
 
-    static String[] ArmorName = new String[]{"SouthLat", "Valeamor", "Gendalf", "Saruman"};
+    private static final String[] ArmorName = new String[]{"SouthLat", "Valeamor", "Gendalf", "Saruman"};
 }

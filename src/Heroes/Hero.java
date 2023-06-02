@@ -1,6 +1,7 @@
 package Heroes;
 
 import Items.Armor.Armor;
+import Items.Items;
 import Items.Weapons.WeaponInterface;
 
 import java.util.ArrayList;
@@ -78,5 +79,5 @@ public interface Hero {
     void attackMagick();
 
     ArrayList<String> getQuestListSimple();
-
+    void inventoryPut(Items item);
 }

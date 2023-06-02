@@ -9,6 +9,6 @@ public class RandomNpcName {
         return NPCname[randomSpeech];
     }
 
-    static String[] NPCname = new String[]{"Valera", "Valeamor", "Gendalf", "Saruman"};
+    private static final String[] NPCname = new String[]{"Valera", "Valeamor", "Gendalf", "Saruman"};
 
 }

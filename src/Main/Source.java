@@ -13,9 +13,7 @@ import Items.Armor.IronArmor;
 import Items.Armor.LeatherArmor;
 import Items.Items;
 import Items.OtherItems.Food;
-import Items.OtherItems.ResurrectStone;
 import Items.Potions.HealthPotion;
-import Items.Potions.ManaPotion;
 import Items.Weapons.Firearms.Tunning.Muska;
 import Items.Weapons.Firearms.Tunning.OpticalScope;
 import Items.Weapons.Firearms.Tunning.muzzleBrake;
@@ -34,49 +32,25 @@ import java.util.Random;
 import java.util.Scanner;
 
 
-public class Source {
+public final class Source {
     private static final Random random = new Random(1000);
     private static int MapArea = 3;  //default value of the map
     private static ArrayList<ArrayList<Integer>> MAP = new ArrayList<>(MapArea * MapArea);
 
     /////////////////////Generate Category//////////////////////////////////////////////////////////
-    static Items GeneratePotion() {
-        int generationRate = random.nextInt(90);
-        if (generationRate > 70) {
-            return new HealthPotion(RandomPotion.getRandomPotionName(), random.nextDouble(), 1, random.nextInt());
-        } else if (generationRate < 70) {
-            return new ManaPotion(RandomPotion.getRandomPotionName(), random.nextDouble(), 1, random.nextInt());
-        } else {
-            System.out.println("There is no potions");
-            return null;
-        }
+    private static Items GeneratePotion() {
+        return new HealthPotion(RandomPotion.getRandomPotionName(), random.nextDouble(), 1, random.nextInt());
     }
 
-    static Items GenerateWeapon() {
-        int generationRate = random.nextInt(90);
-        if (generationRate > 75) {
-            return new Sword("Sword", 15, 20, 50);
-        } else if (generationRate > 80) {
-            return new Sword("Sword", 40, 15, 50);
-        } else {
-            System.out.println("There is nothing interesting");
-            return null;
-        }
+    private static Items GenerateWeapon() {
+        return new Sword(RandomWeaponName.getRandomWeaponName(), random.nextInt(40), random.nextInt(30), random.nextInt(80));
     }
 
-    static Items GenerateArmor() {
-        int generationRate = random.nextInt(90);
-        if (generationRate > 85) {
-            return new IronArmor(RandomArmorName.getRandomArmorName(), 80);
-        } else if (generationRate > 60 && generationRate < 85) {
-            return new LeatherArmor(RandomArmorName.getRandomArmorName(), 80);
-        } else {
-            System.out.println("There is nothing interesting");
-            return null;
-        }
+    private static Items GenerateArmor() {
+        return new IronArmor(RandomArmorName.getRandomArmorName(), random.nextInt());
     }
 
-    static Slave CreateHero1() {
+    private static Slave CreateHero1() {
         System.out.println("Only latin letters and no numbers allowed");
         System.out.print("Enter your hero name: ");
         Scanner name = new Scanner(System.in);
@@ -94,30 +68,18 @@ public class Source {
         return new Slave(name_actual, magic_actual);
     }
 
-    private static Enemy generateEnemy() {
-        return new Enemy(RandomNpcName.getRandomNPCName(), false);
+    private static Enemy GenerateEnemy() {
+        return new Enemy(RandomNpcName.getRandomNPCName(), random.nextBoolean());
     }
 
-    static Items GenerateOtherItems() {
-        int generationRate = random.nextInt(90);
-        if (generationRate > 85) {
-            return new Food(RandomFoodName.getRandomFoodName(), 30, false);
-        } else if (generationRate > 60 && generationRate < 85) {
-            return new Food(RandomFoodName.getRandomFoodName(), 20, false);
-        } else if (generationRate > 40 && generationRate < 60) {
-            return new ResurrectStone("Valhalla", 3);
-        } else if (generationRate > 80 && generationRate < 85) {
-            return new ResurrectStone("Valhallaaaa", 4);
-        } else {
-            System.out.println("There is nothing interesting");
-            return null;
-        }
+    private static Items GenerateOtherItems() {
+        return new Food(RandomFoodName.getRandomFoodName(), random.nextInt(50), random.nextBoolean());
     }
 
-    static Items GenerateTunning() {
+    private static Items GenerateTunning() {
         int generationRate = random.nextInt(90);
         if (generationRate > 50) {
-            return new Muska(20, "Muska");
+            return new Muska(random.nextInt(25), "Muska");
         } else if (generationRate > 50 && generationRate < 80) {
             return new OpticalScope("Callimator", 50);
         } else if (generationRate == 50) {
@@ -125,8 +87,43 @@ public class Source {
         } else return null;
     }
 
+    public static Items publicGenerator(int AskForGenerator) {
+        switch (AskForGenerator) {
+            case 1:
+                return GeneratePotion();
+
+            case 2:
+                return GenerateWeapon();
+
+            case 3:
+                return GenerateArmor();
+
+//            case 4:
+//                return GenerateTunning();
+
+            case 5:
+                return GenerateOtherItems();
+        }
+        return null;
+    }
+
+    private static Items LootGenerator() {
+        int generationRate = random.nextInt(100);
+        if (generationRate < 30) {
+            return null;
+        } else if (generationRate > 30 && generationRate < 50) {
+            GenerateWeapon();
+        } else if (generationRate > 50 && generationRate < 70) {
+            GenerateArmor();
+        } else if (generationRate > 70 && generationRate <= 100) {
+            GenerateOtherItems();
+        }
+        System.out.println("There are nothing interesting");
+        return null;
+    }
+
     ////NPC////////////////////////////////////////////////////////////
-    static StartNPC generateStartNPC() {
+    static StartNPC GenerateStartNPC() {
         return new StartNPC(RandomNpcName.getRandomNPCName());
     }
 
@@ -142,8 +139,8 @@ public class Source {
     static void quitGameMenu(boolean isAutoSave) throws IOException, InterruptedException {
         if (isAutoSave) {
             SaveTheGame();
-        } else if (isAutoSave == false && Main.SAVE_FILE.lastModified() > LocalTime.MAX.getNano()) {
-//                //TODO по идее второе условие так и так будет меньше
+        } else if (isAutoSave == false && Main.SAVE_FILE.lastModified() > (LocalTime.MAX.getNano() - 100_000)) {
+            //TODO по идее второе условие так и так будет меньше
             System.out.println("Attention, the game option auto save is disabled");
             System.out.println("The game will not be saved");
             Thread.sleep(3_000);
@@ -178,7 +175,7 @@ public class Source {
                     }
                 case 2:
                     System.out.println("Enter new save File name");
-                    System.out.println("You're currently in /home/kirill/IdeaProjects/My_game/src/Saving_Files/");
+                    System.out.println("You're currently in ~/Saving_Files/");
                     Scanner askForNewSavePath = new Scanner(System.in);
                     String newSavePath = askForNewSavePath.nextLine();
                     Main.SAVE_FILE = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/" + newSavePath);
@@ -271,7 +268,7 @@ public class Source {
                     System.out.println("Вы подошли к границе карты, идите назад");
                 } else {
                     System.out.println(Main.PERSON.getName() + " moving forward");
-                    _move(howManyPointsToGo);
+                    _changeHeroCoordinates(howManyPointsToGo);
                     getActionMenu();
                 }
                 break;
@@ -280,7 +277,7 @@ public class Source {
                     System.out.println("Вы подошли к границе карты, идите влево");
                 } else {
                     System.out.println(Main.PERSON.getName() + " moving right");
-                    _move(MapArea);
+                    _changeHeroCoordinates(MapArea);
                     getActionMenu();
                 }
                 break;
@@ -289,16 +286,16 @@ public class Source {
                     System.out.println("Вы подошли к границе карты, идите вперёд");
                 } else {
                     System.out.println(Main.PERSON.getName() + " moving backward");
-                    _move(-1);
+                    _changeHeroCoordinates(-1);
                     getActionMenu();
                 }
                 break;
             case "left":
-                if (Main.HERO_LOCATION + (-MapArea) <= 0 ) {
+                if (Main.HERO_LOCATION + (-MapArea) <= 0) {
                     System.out.println("Вы подошли к границе карты, идите вправо");
                 } else {
                     System.out.println(Main.PERSON.getName() + " moving left");
-                    _move(-MapArea);
+                    _changeHeroCoordinates(-MapArea);
                     getActionMenu();
                 }
                 break;
@@ -307,7 +304,7 @@ public class Source {
         }
     }
 
-    private static void _move(int howManyPointsToGo) throws IOException {
+    private static void _changeHeroCoordinates(int howManyPointsToGo) throws IOException {
         /**
          * This method changed hero coordinates
          * @since 0.1.1
@@ -322,16 +319,15 @@ public class Source {
             if (Main.IS_AUTO_SAVE) {
                 System.out.println("Аварийное сохранение");
                 SaveTheGame();
-                System.exit(1);
-            } else {
-                System.exit(1);
             }
+            System.exit(1);
         }
     }
 
+
     private static void getActionMenu() {
         if (MAP.get(Main.HERO_LOCATION).get(0) == 1) {
-            StartNPC npc = generateStartNPC();
+            StartNPC npc = GenerateStartNPC();
             _NPCMenu(npc);
         } else if ((MAP.get(Main.HERO_LOCATION).get(1) == 1)) {
             City city = new City(RandomCityName.getRandomCityName());
@@ -817,10 +813,11 @@ public class Source {
 
 //////////////////Menu Category Close///////////////////////////////////////////////////////
 
-//////////////////Fight Category///////////////////////////////////////////////////////////////
+    //////////////////Fight Category///////////////////////////////////////////////////////////////
     private static void _fight() throws IOException, InterruptedException {
-        Enemy enemy = Source.generateEnemy();
+        Enemy enemy = Source.GenerateEnemy();
         int enemyHealth = enemy.getHealth();
+        Items loot = LootGenerator();
         Main.STATUSES[0] = true;  ///enter fight mode
         System.out.println("You're currently in Battle mode");
         boolean attackEnemyBoolean = Source.attackEnemy(Main.PERSON, enemy);
@@ -829,7 +826,12 @@ public class Source {
                 System.out.println("You're won!");
                 Main.PERSON.setExperience(Main.PERSON.getExperience() + enemyHealth / 2); ///начисление опыта
                 System.out.println("Your experience is " + Main.PERSON.getExperience());
-
+                if (loot != null) {
+                    System.out.println("You find something interesting");
+                    Main.PERSON.inventoryPut(loot);
+                } else {
+                    System.out.println("There are nothing interesting");
+                }
             } else {
                 System.out.println("The battle is lose");
             }
@@ -966,13 +968,7 @@ public class Source {
 
 //////////////////Fight Category Close///////////////////////////////////////////////////////////////
 
-    /////////////////Save and load Category///////////////////////////////////////////////////////////////
-//     static void TestLoad() {
-//        LoadGame();
-//    }
-//    static void TestSave() throws IOException {
-//        SaveTheGame();
-//    }
+/////////////////Save and load Category///////////////////////////////////////////////////////////////
 
     private static void _whatInformationToSave() {
         /**
@@ -981,8 +977,8 @@ public class Source {
          */
         try {
             BufferedWriter bf = new BufferedWriter(new FileWriter(Main.SAVE_FILE));
-////Parameters to save
             Main.SAVE_FILE.setWritable(true);
+            ////Parameters to save
             bf.write(Main.PERSON.getName());  //0
             bf.write(' ');
 
@@ -1108,7 +1104,7 @@ public class Source {
 //        }
     }
 
-    public static Hero _LoadGame() {
+    static Hero _LoadGame() {
         /**
          * This method makes load of the game by reading save file, line by line and return Hero object
          * @returns персонажа с параметрами считанными из файла сохранения
@@ -1233,7 +1229,7 @@ public class Source {
 
         } catch (IOException e) {
             e.getStackTrace();
-            System.out.println("Load failed");
+            throw new RuntimeException("Load failed");
         } finally {
             System.out.println("File loaded");
         }
@@ -1244,7 +1240,7 @@ public class Source {
 //////////////////Save and Load Category Close///////////////////////////////////////////////////////////////
 
     /////////////////Map category///////////////////////////////////////////////////////////////////////////////
-    public static void createMap(int mapCapacity) {
+    static void createMap(int mapCapacity) {
         ArrayList<Integer> emptyBlock = new ArrayList<>();
         int randint;
         emptyBlock.add(0);  //isNpc
@@ -1288,7 +1284,7 @@ public class Source {
         }
     }
 
-    public static void viewMapBlocked() {
+    static void viewMapBlocked() {
         char heroSign = 'O';   //местоположение героя относительно других позиций
         int LineFeed = MapArea - 1;  /// 2 5 8 11 14
         int blockIndex = 0;
@@ -1319,11 +1315,15 @@ public class Source {
     }
 
 
-//    public static void viewMapUNBlocked() {
-//        char heroSign = 'O';   //местоположение героя относительно других позиций
+//    static void viewMapUNBlocked() {
+//          //местоположение героя относительно других позиций
 //        int LineFeed = MapArea - 1;  /// 2 5 8 11 14
 //        int blockIndex = 0;
-//        char x = 'X';    /// местоположение блока с данными
+//        char x = 'X';    /// местоположение пустого блока с данными
+//        char heroSign = 'O';
+//        char citySign = '$';   ////isCity
+//        char dungSign = '#';  ///isDungeon
+//        char npcSign = '?';   ///isNPC
 //        for (ArrayList<Integer> block : MAP) {
 //            if (blockIndex == LineFeed) {
 //                if (block.size() == 4) {
@@ -1331,15 +1331,15 @@ public class Source {
 //                    System.out.print("\n");
 //                }
 //                else if (block.get(0) == 1 && block.size() != 4) {
-//                    System.out.print('?');  ///isNPC
+//                    System.out.print(npcSign);
 //                    System.out.print("\n");
 //                }
 //                else if (block.get(1) == 1) {
-//                    System.out.print('$');  ///isCity
+//                    System.out.print(citySign);
 //                    System.out.print("\n");
 //                }
 //                else if (block.get(2) == 1) {
-//                    System.out.print('#');  ///isDungeon
+//                    System.out.print(dungSign);
 //                    System.out.print("\n");
 //                } else {
 //                    System.out.print(x);
@@ -1353,13 +1353,13 @@ public class Source {
 //                    System.out.print(heroSign);
 //                    System.out.print(" ");
 //                } else if (block.get(0) == 1 && block.size() != 4) {  ///isNPC
-//                    System.out.print('?');
+//                    System.out.print(npcSign);
 //                    System.out.print(" ");
 //                } else if (block.get(1) == 1) {
-//                    System.out.print('$');  ///isCity
+//                    System.out.print(citySign);  ///isCity
 //                    System.out.print(" ");
 //                } else if (block.get(2) == 1) {
-//                    System.out.print('#');  ///isDungeon
+//                    System.out.print(dungSign);  ///isDungeon
 //                    System.out.print(" ");
 //                } else {
 //                    System.out.print(x);
@@ -1376,7 +1376,8 @@ public class Source {
     }
 /////////////////Map category Close///////////////////////////////////////////////////////////////////////////
 
-//    public static void getStatistic() {
+////////////////OTHER Category//////////////////////////
+//    static void getStatistic() {
 //        /**
 //         * this method provides statistic
 //         */

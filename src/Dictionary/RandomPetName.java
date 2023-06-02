@@ -6,7 +6,7 @@ public class RandomPetName {
 
 ///////////PetName//////////////
 
-    public static String[] RandomPetName = new String[]{"Jorge", "Puffy", "Buddy", "Boomer",
+    private static final String[] RandomPetName = new String[]{"Jorge", "Puffy", "Buddy", "Boomer",
             "Vulcan", "Vesta", "Geta", "Gera",
             "Josephina", "Jacks", "Eva", "Ingebar", "Inga", "Lumbra"};
 

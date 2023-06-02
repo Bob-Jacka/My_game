@@ -21,7 +21,7 @@ public class Main {
         //Start game
         Source.startMenu(); //start menu
 
-        StartNPC startNPC = Source.generateStartNPC();  ///встреча с нпс
+        StartNPC startNPC = Source.GenerateStartNPC();  ///встреча с нпс
 
         if (PERSON.getActiveQuest() == null) {
             startNPC.takeQuest(PERSON);
@@ -31,7 +31,7 @@ public class Main {
         while (!IS_QUIT_GAME) {
             System.out.println();
             System.out.println("""
-                    What can you do
+                    What you can do
                     1. Move
                     2. Hero menu
                     3. Inventory

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class RandomFoodName {
 
-    public static String[] RandomFoodName = new String[]{"hlebyshek", "vodka", "solyanka", "borch"};
+    private static final String[] RandomFoodName = new String[]{"hlebyshek", "vodka", "solyanka", "borch"};
 
     public static String getRandomFoodName() {
         Random random = new Random();

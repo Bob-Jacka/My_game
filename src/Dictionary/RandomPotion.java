@@ -14,7 +14,7 @@ public class RandomPotion {
 //    MOONLIGHT, ////Увеличивает максимальный уровень здоровья на 100%.
 //    TAWNY_OWL, ////Ускоряет восстановление энергии.
 
-    public static String[] RandomPotionName = new String[]{"WHITE_HONEY", "WOLF", "THUNDER", "RAFARIS_POTIOON",
+    private static final String[] RandomPotionName = new String[]{"WHITE_HONEY", "WOLF", "THUNDER", "RAFARIS_POTIOON",
             "iWE", "SWALLOW", "KISS", "MOONLIGHT", "TAWNY_OWL"};
 
     public static String getRandomPotionName() {

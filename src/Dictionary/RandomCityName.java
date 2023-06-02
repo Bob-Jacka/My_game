@@ -3,7 +3,7 @@ package Dictionary;
 import java.util.Random;
 
 public class RandomCityName {
-    public static String[] RandomCityName = new String[]{"Ogrimar", "Skyrim", "Hammerfall", "Morrowind"};
+    private static final String[] RandomCityName = new String[]{"Ogrimar", "Skyrim", "Hammerfall", "Morrowind"};
 
     public static String getRandomCityName() {
 
