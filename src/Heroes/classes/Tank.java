@@ -23,6 +23,10 @@ public class Tank extends Knight {
     private String quest;
     private int experience = 0;
 
+    public Tank() {
+
+    }
+
     public void defend() {
         this.attack -= 15;
         this.armor += 40;

@@ -24,6 +24,10 @@ public class Necromancer extends Knight {
     private String quest;
     private int experience = 0;
 
+    public Necromancer() {
+
+    }
+
     public void resurect() {
         if ((mana == 100) && (this.health == 0)) {
             this.health += 200;

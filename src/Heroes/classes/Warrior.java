@@ -24,4 +24,7 @@ public class Warrior extends Knight {
     private String quest;
     private int experience = 0;
 
+    public Warrior() {
+
+    }
 }

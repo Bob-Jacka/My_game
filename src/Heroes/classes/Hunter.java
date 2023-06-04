@@ -24,6 +24,10 @@ public class Hunter extends Knight {
     private int experience = 0;
     private String quest;
 
+    public Hunter() {
+
+    }
+
     public Wolf wolfSummon() {
         if (mana >= 60) {
             return new Wolf("valera");

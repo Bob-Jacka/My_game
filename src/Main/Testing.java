@@ -10,10 +10,11 @@ import Items.Items;
 import Items.Potions.HealthPotion;
 import Items.Weapons.MeleeCombatWeapon.Sword;
 import Items.Weapons.WeaponInterface;
-import Main.Source;
 import jdk.jfr.Label;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import java.io.IOException;
 
@@ -26,7 +27,7 @@ public class Testing {
     private Source source;
     private String potionName;
 
-    @BeforeAll
+    @BeforeEach
     public void CreateHero1() {
         valera = new Slave("Valera", true);
     }
@@ -122,7 +123,7 @@ public class Testing {
     @Label("Important")
     @Test
     public void LoadGame() throws IOException {
-        Source._LoadGame();
+        source.TestLoad();
         valera.getParams();
         valera.getActiveQuest();
     }
@@ -134,7 +135,7 @@ public class Testing {
         armor = new ClothArmor("Unpenetrateble_Lats", 50);
         valera.putOnWeapon(sword);
         valera.putOnArmor(armor);
-        Source.saveMenu();
+        Source.TestSave();
     }
 
 //    @Label("Important")

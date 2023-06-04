@@ -23,6 +23,10 @@ public class Healer extends Knight {
     private int mana = 100;
     private String quest;
     private int experience = 0;
+
+    public Healer() {
+
+    }
 ///////////////////////////////////////////////////////////
 
     public void selfHeal() {

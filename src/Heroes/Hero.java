@@ -15,7 +15,6 @@ public interface Hero {
     void getParams();
 
     /////QuestMethods///
-//    void getActiveQuest();
     void getQuestsList();
 
     void passTheQuest(String quest);
