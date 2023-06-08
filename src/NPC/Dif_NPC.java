@@ -42,7 +42,7 @@ public class Dif_NPC implements NPC {
 
     @Override
     public void talk() {
-        System.out.println(RandomNpcSpeech.getRandomSpeech());
+        System.out.println(RandomNpcSpeech.getRandomNPCSpeech());
     }
 
     @Override

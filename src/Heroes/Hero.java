@@ -78,5 +78,6 @@ public interface Hero {
     void attackMagick();
 
     ArrayList<String> getQuestListSimple();
+
     void inventoryPut(Items item);
 }

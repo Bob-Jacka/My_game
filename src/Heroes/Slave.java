@@ -34,12 +34,12 @@ public class Slave implements Hero {
     private int resistance = 15;
     private int mana = 100;
     private int experience = 0;
-    private String activeQuest = null;
-    private int inventoryCapacity = 10;
-    private final ArrayList<String> questList = new ArrayList<>();  ///для квестов
+    protected String activeQuest = null;
+    protected int inventoryCapacity = 10;
+    protected final ArrayList<String> questList = new ArrayList<>(5);  ///для квестов
     protected ArrayList<Items> inventory = new ArrayList<>(inventoryCapacity);   //// инвентарь
-    private final ArrayList<WeaponInterface> activeWeapon = new ArrayList<>(1);  /// оружие в руках у героя
-    private final ArrayList<Armor> activeArmor = new ArrayList<>(1);  /// броня у героя
+    protected final ArrayList<WeaponInterface> activeWeapon = new ArrayList<>(1);  /// оружие в руках у героя
+    protected final ArrayList<Armor> activeArmor = new ArrayList<>(1);  /// броня у героя
 
 
     /////////////////////////Getter/////////////////////////////////
@@ -275,6 +275,7 @@ public class Slave implements Hero {
         if (this.inventory.contains(ResurrectStone.class)) {
             this.inventory.remove(ResurrectStone.class);
             System.out.println("Resurrect!");
+            this.health = 100;
         } else {
             System.out.println("There is no resurrect stone in you inventory");
         }

@@ -70,6 +70,6 @@ public class Trader {
     }
 
     private void talk() {
-        System.out.println(RandomNpcSpeech.getRandomSpeech());
+        System.out.println(RandomNpcSpeech.getRandomNPCSpeech());
     }
 }

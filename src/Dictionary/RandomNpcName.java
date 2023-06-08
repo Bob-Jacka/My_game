@@ -1,14 +1,7 @@
 package Dictionary;
 
-import java.util.Random;
+public final class RandomNpcName {
 
-public class RandomNpcName {
-    public static String getRandomNPCName() {
-        Random random = new Random();
-        int randomSpeech = random.nextInt(RandomNpcName.NPCname.length);
-        return NPCname[randomSpeech];
-    }
-
-    private static final String[] NPCname = new String[]{"Valera", "Valeamor", "Gendalf", "Saruman"};
+    public static final String[] NPCname = new String[]{"Valera", "Valeamor", "Gendalf", "Saruman"};
 
 }

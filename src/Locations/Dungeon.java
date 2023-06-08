@@ -1,6 +1,6 @@
 package Locations;
 
-import Main.Main;
+import Main.Player;
 
 public class Dungeon {
     private String dungeonName;
@@ -11,11 +11,11 @@ public class Dungeon {
 
     public void enterTheDungeon() {
         System.out.println("Вы вошли в подземелье");
-        Main.STATUSES[3] = true;
+        Player.STATUSES[3] = true;
     }
 
     public void exitTheDungeon() {
         System.out.println("Вы вышли из подземелья");
-        Main.STATUSES[3] = false;
+        Player.STATUSES[3] = false;
     }
 }

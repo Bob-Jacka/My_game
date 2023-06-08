@@ -1,6 +1,6 @@
 package Locations;
 
-import Main.Main;
+import Main.Player;
 
 public class City {
     private final String cityName;
@@ -11,11 +11,11 @@ public class City {
 
     public void enterTheCity() {
         System.out.println("Вы вошли в Город" + cityName);
-        Main.STATUSES[2] = true;
+        Player.STATUSES[2] = true;
     }
 
     public void exitTheCity() {
         System.out.println("Вы вышли из города");
-        Main.STATUSES[2] = false;
+        Player.STATUSES[2] = false;
     }
 }

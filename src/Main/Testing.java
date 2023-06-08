@@ -5,16 +5,13 @@ import Heroes.Knight;
 import Heroes.Peasant;
 import Heroes.Slave;
 import Items.Armor.Armor;
-import Items.Armor.ClothArmor;
 import Items.Items;
 import Items.Potions.HealthPotion;
 import Items.Weapons.MeleeCombatWeapon.Sword;
 import Items.Weapons.WeaponInterface;
 import jdk.jfr.Label;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 import java.io.IOException;
 
@@ -130,11 +127,7 @@ public class Testing {
 
     @Label("Important")
     @Test
-    public void SavingGame() throws IOException {
-        sword = new Sword("Hellraiser", 30, 23.5f, 50);
-        armor = new ClothArmor("Unpenetrateble_Lats", 50);
-        valera.putOnWeapon(sword);
-        valera.putOnArmor(armor);
+    public void SavingGame() {
         Source.TestSave();
     }
 
@@ -174,5 +167,10 @@ public class Testing {
 //    public void MapTest2() throws IOException {
 ////        Source.viewMapUNBlocked();
 //    }
+
+    @Test
+    public void getViewExperienceBar() {
+        Source.viewExperienceBar();
+    }
 
 }

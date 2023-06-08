@@ -54,7 +54,7 @@ public class StartNPC implements NPC {
 
     @Override
     public void talk() {
-        System.out.println(RandomNpcSpeech.getRandomSpeech()); ////make random choice
+        System.out.println(RandomNpcSpeech.getRandomNPCSpeech()); ////make random choice
     }
 
     @Override

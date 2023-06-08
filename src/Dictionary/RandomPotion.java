@@ -1,7 +1,5 @@
 package Dictionary;
 
-import java.util.Random;
-
 public class RandomPotion {
     //////Potions////////
 //    WHITE_HONEY, ///Устраняет токсичность и воздействия других эликсиров.
@@ -14,13 +12,7 @@ public class RandomPotion {
 //    MOONLIGHT, ////Увеличивает максимальный уровень здоровья на 100%.
 //    TAWNY_OWL, ////Ускоряет восстановление энергии.
 
-    private static final String[] RandomPotionName = new String[]{"WHITE_HONEY", "WOLF", "THUNDER", "RAFARIS_POTIOON",
+    public static final String[] RandomPotionName = new String[]{"WHITE_HONEY", "WOLF", "THUNDER", "RAFARIS_POTIOON",
             "iWE", "SWALLOW", "KISS", "MOONLIGHT", "TAWNY_OWL"};
-
-    public static String getRandomPotionName() {
-        Random random = new Random();
-        int randomSpeech = random.nextInt(RandomPotion.RandomPotionName.length);
-        return RandomPotionName[randomSpeech];
-    }
 
 }

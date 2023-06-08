@@ -1,14 +1,7 @@
 package Dictionary;
 
-import java.util.Random;
+public final class RandomFoodName {
 
-public class RandomFoodName {
+    public static final String[] RandomFoodName = new String[]{"hlebyshek", "vodka", "solyanka", "borch"};
 
-    private static final String[] RandomFoodName = new String[]{"hlebyshek", "vodka", "solyanka", "borch"};
-
-    public static String getRandomFoodName() {
-        Random random = new Random();
-        int randomSpeech = random.nextInt(Dictionary.RandomFoodName.RandomFoodName.length);
-        return RandomFoodName[randomSpeech];
-    }
 }
