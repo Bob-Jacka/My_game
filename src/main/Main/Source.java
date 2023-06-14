@@ -23,13 +23,21 @@ import NPC.NPC;
 import NPC.StartNPC;
 
 import java.io.*;
-import java.time.Instant;
 import java.util.*;
 
-
 public final class Source {
+    /**
+     * Параметр предназначенный для генерации случайного, как целого числа, булевого числа, дробного числа
+     */
     private static final Random random = new Random(1000);
-    private static int MapArea = 3;  //default value of the map
+    /**
+     * Параметр предназначенный для задания площади карты
+     * <p> Стандартное значение переменно это 3, ниже этого значения нельзя
+     */
+    private static int MapArea = 3;
+    /**
+     * Параметр, хранящий в себе карту, размер которой квадрат стороной {@link Source#MapArea}
+     */
     private static ArrayList<ArrayList<Integer>> MAP = new ArrayList<>(MapArea * MapArea);
 
     /////////////////////Generate Category//////////////////////////////////////////////////////////
@@ -113,13 +121,17 @@ public final class Source {
         } else if (generationRate > 70 && generationRate <= 100) {
             GenerateOtherItems();
         }
-        System.out.println("There are nothing interesting");
+        System.out.println("There are nothing loot items");
         return null;
     }
 
-    ////NPC////////////////////////////////////////////////////////////
+    ////main.NPC////////////////////////////////////////////////////////////
     static StartNPC GenerateStartNPC() {
-        return new StartNPC(RandomNpcName.NPCname[random.nextInt(RandomNpcName.NPCname.length)]);
+        StartNPC startNPC = new StartNPC(RandomNpcName.NPCname[random.nextInt(RandomNpcName.NPCname.length)]);  ///встреча с нпс
+        if (Player.get_Person().getActiveQuest() == null) {
+            startNPC.takeQuest(Player.get_Person());
+        } else startNPC.setIsQuestTaken(true);
+        return startNPC;
     }
 
     private static Dif_NPC GenerateNpc() {
@@ -132,12 +144,10 @@ public final class Source {
 /////////////////Menu Category////////////////////////////////////////////////////////////////////////
 
     private static void quitGameMenu() throws IOException, InterruptedException {
-        Instant start = Instant.ofEpochSecond(Player.SAVE_FILE.lastModified());
-        Instant end = Instant.ofEpochSecond(Player.SAVE_FILE.lastModified() - 600_000);
 
-        if (Player.IS_AUTO_SAVE) {
+        if (Player.get_IsAutoSave()) {
             SaveTheGame();
-        } else if (Player.IS_AUTO_SAVE == false && end.isAfter(start)) {
+        } else if (Player.get_IsAutoSave() == false && Player.get_SaveFile().lastModified() > Player.get_SaveFile().lastModified() - 600_000) {
             System.out.println("Attention, the game option auto save is disabled");
             System.out.println("The game will not be saved");
             Thread.sleep(3_000);
@@ -159,14 +169,14 @@ public final class Source {
         while (!isClose) {
             switch (_IntegerInput(3)) {
                 case 1:
-                    if (!Player.IS_AUTO_SAVE) {
+                    if (!Player.get_IsAutoSave()) {
                         System.out.println("Auto save enabled");
-                        Player.IS_AUTO_SAVE = true;
+                        Player.set_IsAutoSave(true);
                         isClose = true;
                         break;
                     } else {
                         System.out.println("Auto save disabled");
-                        Player.IS_AUTO_SAVE = false;
+                        Player.set_IsAutoSave(false);
                         isClose = true;
                         break;
                     }
@@ -174,8 +184,8 @@ public final class Source {
                     System.out.println("Enter new save File name");
                     System.out.println("You're currently in ~/Saving_Files/");
                     Scanner askForNewSavePath = new Scanner(System.in);
-                    String newSavePath = askForNewSavePath.nextLine();
-                    Player.SAVE_FILE = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/" + newSavePath);
+                    String newSaveFileName = askForNewSavePath.nextLine();
+                    Player.set_SaveFile(newSaveFileName);
                     isClose = true;
                     break;
                 case 3:
@@ -189,11 +199,11 @@ public final class Source {
         }
     }
 
+    /**
+     * This method is built for moving hero
+     * Also contains chance of activating battle mode
+     */
     private static void movingMenu() throws IOException, InterruptedException {
-        /***
-         * This method is built for moving hero
-         * Also contains chance of activating battle mode
-         */
         boolean isClose = false;
         while (!isClose) {
             System.out.println("""
@@ -259,34 +269,34 @@ public final class Source {
     private static void moving(String direction, int howManyPointsToGo) throws IOException { //TODO сделать перемещение по карте
         switch (direction) {
             case "forward":
-                if (Player.HERO_LOCATION + howManyPointsToGo >= MAP.size()) {
+                if (Player.get_HeroLocation() + howManyPointsToGo >= MAP.size()) {
                     System.out.println("Вы подошли к границе карты, идите назад");
                 } else {
-                    System.out.println(Player.PERSON.getName() + " moving forward");
+                    System.out.println(Player.get_Person().getName() + " moving forward");
                     _changeHeroCoordinates(howManyPointsToGo);
                 }
                 break;
             case "right":
-                if (Player.HERO_LOCATION + MapArea >= MAP.size()) {
+                if (Player.get_HeroLocation() + MapArea >= MAP.size()) {
                     System.out.println("Вы подошли к границе карты, идите влево");
                 } else {
-                    System.out.println(Player.PERSON.getName() + " moving right");
+                    System.out.println(Player.get_Person().getName() + " moving right");
                     _changeHeroCoordinates(MapArea);
                 }
                 break;
             case "backward":
-                if (Player.HERO_LOCATION + howManyPointsToGo <= MAP.size()) {
+                if (Player.get_HeroLocation() + howManyPointsToGo <= MAP.size()) {
                     System.out.println("Вы подошли к границе карты, идите вперёд");
                 } else {
-                    System.out.println(Player.PERSON.getName() + " moving backward");
+                    System.out.println(Player.get_Person().getName() + " moving backward");
                     _changeHeroCoordinates(-1);
                 }
                 break;
             case "left":
-                if (Player.HERO_LOCATION + (-MapArea) <= 0) {
+                if (Player.get_HeroLocation() + (-MapArea) <= 0) {
                     System.out.println("Вы подошли к границе карты, идите вправо");
                 } else {
-                    System.out.println(Player.PERSON.getName() + " moving left");
+                    System.out.println(Player.get_Person().getName() + " moving left");
                     _changeHeroCoordinates(-MapArea);
                 }
                 break;
@@ -295,22 +305,26 @@ public final class Source {
         }
     }
 
-    private static void _changeHeroCoordinates(int howManyPointsToGo) throws IOException {
-        /**
-         * This method changed hero coordinates
-         * @since 0.1.1
-         */
+    /**
+     * Метод изменяет позицию героя. В случае достижения границы карты перемещение не будет совершено
+     *
+     * @param howManyPointsToGo - параметр, показывающий на сколько клеток будет перемещён герой
+     * @throws ArrayIndexOutOfBoundsException в случае если файл сохранения повреждён и позиция героя не
+     *                                        соответствует действительности
+     * @since 0.1.1
+     */
+    private static void _changeHeroCoordinates(int howManyPointsToGo) {
         try {
-            MAP.get(Player.HERO_LOCATION).remove(3);  /// берём текущий массив в котором герой и убираем его
-            Player.HERO_LOCATION += howManyPointsToGo;  /// двигаем позицию
-            MAP.get(Player.HERO_LOCATION).add(2);  //берём следующий массив и ставим героя
-            if (MAP.get(Player.HERO_LOCATION).get(0) == 1 || MAP.get(Player.HERO_LOCATION).get(1) == 1 || MAP.get(Player.HERO_LOCATION).get(2) == 1)
-                Player.STATUSES[4] = true;
-            else Player.STATUSES[4] = false;
+            MAP.get(Player.get_HeroLocation()).remove(3);  /// берём текущий массив в котором герой и убираем его
+            Player.set_HeroLocation((short) howManyPointsToGo);  /// двигаем позицию
+            MAP.get(Player.get_HeroLocation()).add(2);  //берём следующий массив и ставим героя
+            if (MAP.get(Player.get_HeroLocation()).get(0) == 1 || MAP.get(Player.get_HeroLocation()).get(1) == 1 || MAP.get(Player.get_HeroLocation()).get(2) == 1)
+                Player.set_Flag(4, true);
+            else Player.set_Flag(4, false);
         } catch (ArrayIndexOutOfBoundsException e) {
             e.getStackTrace();
             System.out.println("Файл сохранения неисправен, положение героя неверно");
-            if (Player.IS_AUTO_SAVE) {
+            if (Player.get_IsAutoSave()) {
                 System.out.println("Аварийное сохранение");
                 SaveTheGame();
             }
@@ -320,13 +334,13 @@ public final class Source {
 
 
     private static void getActionMenu() {
-        if (MAP.get(Player.HERO_LOCATION).get(0) == 1) {
+        if (MAP.get(Player.get_HeroLocation()).get(0) == 1) {
             StartNPC npc = GenerateStartNPC();
             _NPCMenu(npc);
-        } else if ((MAP.get(Player.HERO_LOCATION).get(1) == 1)) {
+        } else if ((MAP.get(Player.get_HeroLocation()).get(1) == 1)) {
             City city = new City(RandomCityName.RandomCityName[random.nextInt(RandomCityName.RandomCityName.length)]);
             _locationMenu(city);
-        } else if ((MAP.get(Player.HERO_LOCATION).get(2) == 1)) {
+        } else if ((MAP.get(Player.get_HeroLocation()).get(2) == 1)) {
             Dungeon dungeon = new Dungeon(RandomDungeonName.RandomDungeonName[random.nextInt(RandomDungeonName.RandomDungeonName.length)]);
             dungeonMenu(dungeon);
         }
@@ -348,7 +362,7 @@ public final class Source {
                     npc.talk();
                     break;
                 case 2:
-                    npc.takeQuest(Player.PERSON);
+                    npc.takeQuest(Player.get_Person());
                     isClose = true;
                     break;
                 case 4:
@@ -455,7 +469,7 @@ public final class Source {
             System.out.println();
             switch (_IntegerInput(4)) {
                 case 1:
-                    paramsMenu(Player.PERSON);
+                    paramsMenu(Player.get_Person());
                     isClose = true;
                     break;
                 case 2:
@@ -464,6 +478,7 @@ public final class Source {
                     break;
                 case 3:
                     questMenu();
+                    isClose = true;
                     break;
                 case 4:
                     isClose = true;
@@ -488,10 +503,13 @@ public final class Source {
                     isClose = true;
                     break;
                 case 2:
-                    if (Player.PERSON.getExperience() > 1000) {
+                    if (Player.get_Person().getExperience() > 1000) {
                         System.out.println("Level up");
                         //TODO сделать повышение уровня
-                    } else System.out.println("You do not have enough experience");
+                    } else {
+                        viewExperienceBar();
+                        System.out.println("You do not have enough experience");
+                    }
                     isClose = true;
                     break;
                 case 3:
@@ -512,11 +530,11 @@ public final class Source {
                     HINT: just type number of the clause""");
             switch (_IntegerInput(3)) {
                 case 1:
-                    System.out.println(Player.PERSON.getActiveQuest());
+                    System.out.println(Player.get_Person().getActiveQuest());
                     isClose = true;
                     break;
                 case 2:
-                    Player.PERSON.getQuestsList();
+                    Player.get_Person().getQuestsList();
                     isClose = true;
                     break;
                 case 3:
@@ -593,7 +611,7 @@ public final class Source {
             System.out.println();
             switch (_IntegerInput(6)) {
                 case 1:
-                    Player.PERSON.inventoryCall();
+                    Player.get_Person().inventoryCall();
                     break;
 //                case 2:
 //                    Player.PERSON.putOnArmor();
@@ -614,6 +632,13 @@ public final class Source {
         }
     }
 
+    /**
+     * Метод представляющий из себя стартовый лаунчер игры
+     * Принимает Файл сохранения и если файл не пустой предлагает его загрузить
+     * Если же файл сохранения не существует или файл пустой, то предлагает создать новую игру
+     *
+     * @since 0.1.0
+     */
     static void startMenu() {
         System.out.println("""
                 ████████████████████████░░░▀██▀█████████
@@ -635,7 +660,7 @@ public final class Source {
                 █████████▄▄░░░░░░░░░░░░░░░░░░░▄█████████
                 ████████████▄▄░░░░░░░░░░░░▄▄████████████
                 """);
-        if (Player.SAVE_FILE.exists() && Player.SAVE_FILE.length() != 0L) {  ///if save file exists
+        if (Player.get_SaveFile().exists() && Player.get_SaveFile().length() != 0L) {  ///if save file exists
             ifSaveFileExists();
         } else ifSaveFileNotExists();
     }
@@ -664,10 +689,10 @@ public final class Source {
                 System.out.print("To create Hero enter yes/no ");
                 String askForCreateHero = _StringInput();
                 if (askForCreateHero.equals("yes")) {
-                    Player.PERSON = CreateHero1();
+                    Player.set_Person(CreateHero1());
                     System.out.print("Укажите величину карты ");    /// создание карты
                     createMap(new Scanner(System.in).nextInt());
-                    Player.HERO_LOCATION = 0;
+                    Player.set_HeroLocation((short) 0);
                     Source.getMAP().get(0).add(2);  //Задание стартовой позиции героя
                 } else {
                     System.out.print("""
@@ -677,10 +702,10 @@ public final class Source {
                             HINT: just type number of the clause
                                     """);
                     if (new Scanner(System.in).nextInt() == 1) {
-                        Player.PERSON = CreateHero1();
+                        Player.set_Person(CreateHero1());
                         System.out.print("Укажите величину карты ");    /// создание карты
                         createMap(new Scanner(System.in).nextInt());
-                        Player.HERO_LOCATION = 0;
+                        Player.set_HeroLocation((short) 0);
                         Source.getMAP().get(0).add(2);  //Задание стартовой позиции героя
                     } else {
                         System.exit(1);
@@ -694,7 +719,7 @@ public final class Source {
                 System.exit(1);
                 break;
         }
-        getActionMenu();
+        GenerateStartNPC();
     }
 
     private static void ifSaveFileNotExists() {
@@ -712,12 +737,12 @@ public final class Source {
                 System.out.print("To create Hero enter yes/no ");
                 String askForCreateHero = _StringInput();
                 if (askForCreateHero.equals("yes")) {
-                    Player.PERSON = CreateHero1();
+                    Player.set_Person(CreateHero1());
                     System.out.print("Укажите величину карты ");    /// создание карты
                     createMap(new Scanner(System.in).nextInt());
-                    Player.HERO_LOCATION = 0;
+                    Player.set_HeroLocation((short) 0);
                     Source.getMAP().get(0).add(2);  //Задание стартовой позиции героя
-                    getActionMenu();  ///стартовое общение с нпс
+                    GenerateStartNPC();
                 }
                 break;
             case 2:
@@ -729,9 +754,17 @@ public final class Source {
         }
     }
 
+    /**
+     *<p> Метод, который в зависимости от флага №4, распечатывает два меню
+     *<p> Если флаг равен false - то меню будет без пункта с actionMenu
+     *<p> Если флаг равен true - то меню будет с пунктом actionMenu
+     *
+     * @throws IOException
+     * @throws InterruptedException
+     */
     static void mainGameMenu() throws IOException, InterruptedException {
         System.out.println();
-        if (Player.STATUSES[4] == false) {
+        if (Player.get_Flag(4) == false) {
             System.out.println("""
                     What you can do
                     1. Move
@@ -741,7 +774,7 @@ public final class Source {
                     5. Settings
                     6. Quit game
                     HINT: just type number of the clause""");
-        } else if (Player.STATUSES[4]) {
+        } else if (Player.get_Flag(4)) {
             System.out.println("""
                     What you can do
                     1. Move
@@ -774,7 +807,11 @@ public final class Source {
                 quitGameMenu();
                 break;
             case 7:
-                getActionMenu();
+                if (Player.get_Flag(4)) {
+                    getActionMenu();
+                } else {
+                    System.out.println("Значение не доступно");
+                }
                 break;
         }
     }
@@ -785,24 +822,24 @@ public final class Source {
         Enemy enemy = GenerateEnemy();
         int enemyHealth = enemy.getHealth();
         Items loot = LootGenerator();
-        Player.STATUSES[0] = true;  ///enter fight mode
+        Player.set_Flag(0, true); ///enter fight mode
         System.out.println("You're currently in Battle mode");
-        boolean attackEnemyBoolean = attackEnemy(Player.PERSON, enemy); //сама битва
-        while (Player.STATUSES[0]) {
+        boolean attackEnemyBoolean = attackEnemy(Player.get_Person(), enemy); //сама битва
+        while (Player.get_Flag(0)) {
             if (attackEnemyBoolean) {  //true - win, false - lose
                 System.out.println("You're won!");
-                Player.PERSON.setExperience(Player.PERSON.getExperience() + enemyHealth / 2); ///начисление опыта
-                System.out.println("Your experience is " + Player.PERSON.getExperience());
+                Player.get_Person().setExperience(Player.get_Person().getExperience() + enemyHealth / 2); ///начисление опыта
+                System.out.println("Your experience is " + Player.get_Person().getExperience());
                 if (loot != null) {
                     System.out.println("You find something interesting");
-                    Player.PERSON.inventoryPut(loot);
+                    Player.get_Person().inventoryPut(loot);
                 } else {
                     System.out.println("There are nothing interesting");
                 }
             } else {
                 System.out.println("The battle is lose");
             }
-            Player.STATUSES[0] = false;
+            Player.set_Flag(0, false);
         }
     }
 
@@ -832,12 +869,18 @@ public final class Source {
         } else {
             valera.setHealth((int) (valera.getHealth() * 0.5));
             System.out.println("It is your choice");
-            Player.STATUSES[0] = false;
+            Player.set_Flag(0, false);
             return result;
         }
         return result;
     }
 
+    /**
+     * Метод представляет из себя ветку авто битвы
+     *
+     * @return Значение окончания битвы
+     * @since 0.1.1
+     */
     private static boolean _autoFight(Hero valera, Enemy enemy) throws IOException, InterruptedException {
         while (enemy.getHealth() >= 0) {
             enemy.setHealth(enemy.getHealth() - valera.getAttack());
@@ -847,7 +890,7 @@ public final class Source {
             if (enemy.getHealth() <= 0) {
                 enemy.dead();
 
-                if (Player.IS_AUTO_SAVE) {
+                if (Player.get_IsAutoSave()) {
                     System.out.println("After fight saving game");
                     SaveTheGame();
                 }
@@ -862,6 +905,12 @@ public final class Source {
         return false;
     }
 
+    /**
+     * Метод представляет из себя ветку пошаговой битвы
+     *
+     * @return Значение окончания битвы
+     * @since 0.1.1
+     */
     private static boolean _manualFight(Hero valera, Enemy enemy) throws IOException, InterruptedException {
         System.out.println("Здоровье противника " + enemy.getHealth());
         while (true) {
@@ -917,7 +966,7 @@ public final class Source {
             }
             if (enemy.getHealth() <= 0) {
                 enemy.dead();
-                if (Player.IS_AUTO_SAVE) {
+                if (Player.get_IsAutoSave()) {
                     System.out.println("After fight saving game");
                     SaveTheGame();
                 }
@@ -934,97 +983,100 @@ public final class Source {
 
 /////////////////Save and load Category///////////////////////////////////////////////////////////////
 
+    /**
+     * This method save game and hero data
+     *
+     * @returns Save file
+     * @since 0.0.2
+     */
     private static void do_Save() {
-        /**
-         * This method save game and hero data
-         * @since 0.0.2
-         */
+
         try {
-            BufferedWriter bf = new BufferedWriter(new FileWriter(Player.SAVE_FILE));
-            Player.SAVE_FILE.setWritable(true);
+            BufferedWriter bf = new BufferedWriter(new FileWriter(Player.get_SaveFile()));
+            Player.get_SaveFile().setWritable(true);
             ////Parameters to save
-            bf.write(Player.PERSON.getName());  //0
+            bf.write(Player.get_Person().getName());  //0
             bf.write(' ');
 
-            bf.write(String.valueOf(Player.PERSON.getHealth()));  ///1
+            bf.write(String.valueOf(Player.get_Person().getHealth()));  ///1
             bf.write(' ');
 
-            bf.write(String.valueOf(Player.PERSON.getArmor())); //2
+            bf.write(String.valueOf(Player.get_Person().getArmor())); //2
             bf.write(' ');
 
-            bf.write(String.valueOf(Player.PERSON.getAttack()));  //3
+            bf.write(String.valueOf(Player.get_Person().getAttack()));  //3
             bf.write(' ');
 
-            if (Player.PERSON.getMagic()) {     ///save magic boolean  //4
+            if (Player.get_Person().getMagic()) {     ///save magic boolean  //4
                 bf.write(String.valueOf(true));
                 bf.write(' ');
-            } else if (Player.PERSON.getMagic() == false) {
+            } else if (Player.get_Person().getMagic() == false) {
                 bf.write(String.valueOf(false));
                 bf.write(' ');
             }
-            bf.write(String.valueOf(Player.PERSON.getResistance()));  //5
+            bf.write(String.valueOf(Player.get_Person().getResistance()));  //5
             bf.write(' ');
 
-            bf.write(String.valueOf(Player.PERSON.getMana()));  //6
+            bf.write(String.valueOf(Player.get_Person().getMana()));  //6
             bf.write(' ');
 
-            bf.write(String.valueOf(Player.PERSON.getExperience()));  //7
+            bf.write(String.valueOf(Player.get_Person().getExperience()));  //7
             bf.write(' ');
 
-            bf.write(String.valueOf(Levels.decode(String.valueOf(Player.PERSON.getClass()).substring(13))));
+            bf.write(String.valueOf(Levels.decode(String.valueOf(Player.get_Person().getClass()).substring(13))));
 
-            if (Player.PERSON.getActiveQuest() == null) {   ///Active quest save
+            if (Player.get_Person().getActiveQuest() == null) {   ///Active quest save
                 bf.newLine();
                 bf.write("null");
-            } else if (Player.PERSON.getActiveQuest() != null) {
+            } else if (Player.get_Person().getActiveQuest() != null) {
                 bf.newLine();
-                bf.write(Player.PERSON.getActiveQuest());
+                bf.write(Player.get_Person().getActiveQuest());
             }
 
-            if (Player.PERSON.getQuestListSimple().isEmpty()) {  ///Quest list save
+            if (Player.get_Person().getQuestListSimple().isEmpty()) {  ///Quest list save
                 bf.newLine();
                 bf.write("null");
-            } else if (Player.PERSON.getQuestListSimple().size() != 0) {
-                String QuestList = String.valueOf(Player.PERSON.getQuestListSimple());
+            } else if (Player.get_Person().getQuestListSimple().size() != 0) {
+                String QuestList = String.valueOf(Player.get_Person().getQuestListSimple());
                 bf.newLine();
                 bf.write(QuestList.substring(1, QuestList.length() - 1));
             }
 
-            if (Player.PERSON.getActiveArmor().isEmpty()) {  ///ARMOR
+            if (Player.get_Person().getActiveArmor().isEmpty()) {  ///ARMOR
                 bf.newLine();
                 bf.write("null");
             } else {
                 bf.newLine();
-                bf.write(Player.PERSON.getActiveArmor().get(0).getItemName());
+                bf.write(Player.get_Person().getActiveArmor().get(0).getItemName());
                 bf.write(' ');
-                bf.write(((String.valueOf(Player.PERSON.getActiveArmor().get(0).getArmorDef()))));
+                bf.write(((String.valueOf(Player.get_Person().getActiveArmor().get(0).getArmorDef()))));
                 bf.write(' ');
-                bf.write(((String.valueOf(Player.PERSON.getActiveArmor().get(0).getTypeOfArmor()))));
+                bf.write(((String.valueOf(Player.get_Person().getActiveArmor().get(0).getTypeOfArmor()))));
             }
 
-            if (Player.PERSON.getActiveWeapon().isEmpty()) {  ///WEAPON
+            if (Player.get_Person().getActiveWeapon().isEmpty()) {  ///WEAPON
                 bf.newLine();
                 bf.write("null");
             } else {
                 bf.newLine();
-                bf.write(Player.PERSON.getActiveWeapon().get(0).getItemName());
+                bf.write(Player.get_Person().getActiveWeapon().get(0).getItemName());
                 bf.write(' ');
-                bf.write((String.valueOf(Player.PERSON.getActiveWeapon().get(0).getAttack())));
+                bf.write((String.valueOf(Player.get_Person().getActiveWeapon().get(0).getAttack())));
                 bf.write(' ');
-                bf.write(((String.valueOf(Player.PERSON.getActiveWeapon().get(0).getTypeOfWeapon()))));
+                bf.write(((String.valueOf(Player.get_Person().getActiveWeapon().get(0).getTypeOfWeapon()))));
             }
             bf.newLine();
-            bf.write(String.valueOf(Player.IS_AUTO_SAVE));  //запись параметра автосохранения
+            bf.write(String.valueOf(Player.get_IsAutoSave()));  //запись параметра автосохранения
 
             bf.newLine();
             bf.write(String.valueOf(MapArea));
 
             bf.newLine();
-            bf.write(String.valueOf(Player.SAVE_FILE));  //Save file path
+            bf.write(String.valueOf(Player.get_SaveFile()));  //Save file path
 
             /////COORDINATES
             bf.newLine();
-            bf.write(String.valueOf(Player.HERO_LOCATION)); // Hero coordinates
+            bf.write(String.valueOf(Player.get_HeroLocation())); // Hero coordinates
             /////COORDINATES
 
             ///Map
@@ -1032,12 +1084,12 @@ public final class Source {
                 bf.newLine();
                 bf.write(String.valueOf(MAP.get(i)).substring(1, String.valueOf(MAP.get(i)).indexOf("]")));
             }
-            Player.SAVE_FILE.setWritable(false);
+            Player.get_SaveFile().setWritable(false);
             bf.close();   ////close file stream
         } catch (IOException e) {
             e.getStackTrace();
             System.out.println("There are problems on saving data");
-            Player.SAVE_FILE.setWritable(false);
+            Player.get_SaveFile().setWritable(false);
         } finally {
             System.out.println("File saved");
         }
@@ -1045,22 +1097,22 @@ public final class Source {
 
     private static void _deleteWrittenSaveFile() {
         try {
-            Player.SAVE_FILE.delete();
+            Player.get_SaveFile().delete();
         } catch (Exception e) {
             e.getStackTrace();
             System.out.println("There are problems on saving data");
         }
     }
 
-    private static void SaveTheGame() throws IOException {
+    private static void SaveTheGame() {
         System.out.print("Are you sure? yes/no ");      ///does not work in Test framework
         String askForSave = _StringInput();
         if (askForSave.equals("yes")) {   ///   does not work in Test framework
-            if (Player.SAVE_FILE.exists() && Player.SAVE_FILE.length() != 0L) {
+            if (Player.get_SaveFile().exists() && Player.get_SaveFile().length() != 0L) {
                 System.out.println("Rewriting save file");
                 _deleteWrittenSaveFile();
                 do_Save();
-            } else if (!Player.SAVE_FILE.exists()) {
+            } else if (!Player.get_SaveFile().exists()) {
                 do_Save();
             }
         } else if (askForSave.equals("no")) {   ///   does not work in Test framework
@@ -1068,15 +1120,16 @@ public final class Source {
         }
     }
 
+    /**
+     * This method makes load of the game by reading save file, line by line
+     *
+     * @returns {@link Hero} с параметрами считанными из файла сохранения
+     * @since 0.0.2
+     */
     private static void do_LoadGame() {
-        /**
-         * This method makes load of the game by reading save file, line by line and return Hero object
-         * @returns персонажа с параметрами считанными из файла сохранения
-         * @since 0.0.2
-         */
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(Player.SAVE_FILE));
+            BufferedReader br = new BufferedReader(new FileReader(Player.get_SaveFile()));
             //What parameters to load
             String[] HeroParams = br.readLine().split(" ");  //All hero params
             String activeQuest = br.readLine();
@@ -1091,7 +1144,7 @@ public final class Source {
             short heroPosition = Short.parseShort(br.readLine());
             ///Game options
 
-            Player.setPerson(Integer.parseInt(HeroParams[8]));
+            Player.set_Person(Integer.parseInt(HeroParams[8]));
 
             int doubleMapArea = Integer.parseInt(mapArea) * Integer.parseInt(mapArea);  //mapArea * mapArea
             ArrayList<ArrayList<Integer>> afterLoadMap = new ArrayList<>(doubleMapArea);
@@ -1120,15 +1173,15 @@ public final class Source {
             if (activeArmor.equals("null") == true) {
                 switch (activeArmor[2]) {
                     case "Cloth":
-                        Player.PERSON.putOnArmor(new ClothArmor(activeArmor[0],
+                        Player.get_Person().putOnArmor(new ClothArmor(activeArmor[0],
                                 Integer.parseInt(activeArmor[1])));
                         break;
                     case "Iron":
-                        Player.PERSON.putOnArmor(new IronArmor(activeArmor[0],
+                        Player.get_Person().putOnArmor(new IronArmor(activeArmor[0],
                                 Integer.parseInt(activeArmor[1])));
                         break;
                     case "Leather":
-                        Player.PERSON.putOnArmor(new LeatherArmor(activeArmor[0],
+                        Player.get_Person().putOnArmor(new LeatherArmor(activeArmor[0],
                                 Integer.parseInt(activeArmor[1])));
                         break;
                 }
@@ -1136,58 +1189,58 @@ public final class Source {
             if (activeWeapon.equals("null") == true) {
                 switch (activeWeapon[2]) {
                     case "Bo":
-                        Player.PERSON.putOnWeapon(new Bo(activeWeapon[0],
+                        Player.get_Person().putOnWeapon(new Bo(activeWeapon[0],
                                 Integer.parseInt(activeWeapon[1])));
                         break;
                     case "Cathars":
-                        Player.PERSON.putOnWeapon(new Cathars(activeWeapon[0],
+                        Player.get_Person().putOnWeapon(new Cathars(activeWeapon[0],
                                 Integer.parseInt(activeWeapon[1])));
                         break;
                     case "Chakram":
-                        Player.PERSON.putOnWeapon(new Chakram(activeWeapon[0],
+                        Player.get_Person().putOnWeapon(new Chakram(activeWeapon[0],
                                 Integer.parseInt(activeWeapon[1])));
                         break;
                     case "Knife":
-                        Player.PERSON.putOnWeapon(new Knife(activeWeapon[0],
+                        Player.get_Person().putOnWeapon(new Knife(activeWeapon[0],
                                 Integer.parseInt(activeWeapon[1])));
                         break;
                     case "Mace":
-                        Player.PERSON.putOnWeapon(new Mace(activeWeapon[0],
+                        Player.get_Person().putOnWeapon(new Mace(activeWeapon[0],
                                 Integer.parseInt(activeWeapon[1])));
                         break;
                     case "Sword":
-                        Player.PERSON.putOnWeapon(new Sword(activeWeapon[0],
+                        Player.get_Person().putOnWeapon(new Sword(activeWeapon[0],
                                 Integer.parseInt(activeWeapon[1])));
                         break;
                 }
             }
             if (!activeQuest.equals("null")) {
-                Player.PERSON.setActiveQuest(activeQuest);
+                Player.get_Person().setActiveQuest(activeQuest);
             }
             if (!questList.equals("null")) {
-                Player.PERSON.addToQuestList(questList);
+                Player.get_Person().addToQuestList(questList);
             }
-            Player.PERSON.setName(HeroParams[0]);  // name
-            Player.PERSON.setHealth(Integer.parseInt(HeroParams[1]));
-            Player.PERSON.setArmor(Integer.parseInt(HeroParams[2]));       //Armor
-            Player.PERSON.setAttack(Integer.parseInt(HeroParams[3]));
+            Player.get_Person().setName(HeroParams[0]);  // name
+            Player.get_Person().setHealth(Integer.parseInt(HeroParams[1]));
+            Player.get_Person().setArmor(Integer.parseInt(HeroParams[2]));       //Armor
+            Player.get_Person().setAttack(Integer.parseInt(HeroParams[3]));
             if (HeroParams[4].equals("true")) {
-                Player.PERSON.setMagic(true);
+                Player.get_Person().setMagic(true);
             } else {  ///Magic
-                Player.PERSON.setMagic(false);
+                Player.get_Person().setMagic(false);
             }
-            Player.PERSON.setResistance(Integer.parseInt(HeroParams[5]));
-            Player.PERSON.setMana(Integer.parseInt(HeroParams[6]));
-            Player.PERSON.setExperience(Integer.parseInt(HeroParams[7]));
+            Player.get_Person().setResistance(Integer.parseInt(HeroParams[5]));
+            Player.get_Person().setMana(Integer.parseInt(HeroParams[6]));
+            Player.get_Person().setExperience(Integer.parseInt(HeroParams[7]));
 
             ///Game params
             MapArea = Integer.parseInt(mapArea);
             MAP = afterLoadMap;
-            Player.SAVE_FILE = new File(gameSaveFile);
-            Player.IS_AUTO_SAVE = Boolean.parseBoolean(isAutoSaveTheGame);
+            Player.set_SaveFile(gameSaveFile);
+            Player.set_IsAutoSave(Boolean.parseBoolean(isAutoSaveTheGame));
 
             ///heroPosition
-            Player.HERO_LOCATION = heroPosition;
+            Player.set_HeroLocation(heroPosition);
             br.close();
 
         } catch (IOException e) {
@@ -1201,6 +1254,14 @@ public final class Source {
 //////////////////Save and Load Category Close///////////////////////////////////////////////////////////////
 
     /////////////////Map category///////////////////////////////////////////////////////////////////////////////
+
+    /**
+     *<p>Метод создаёт карту площадью mapCapacity на основании раднома
+     *<p> Минимальная площадь карты указана в MapArea
+     *
+     * @param mapCapacity Площадь карты
+     * @since 0.1.0
+     */
     private static void createMap(int mapCapacity) {
         ArrayList<Integer> emptyBlock = new ArrayList<>();
         int randint;
@@ -1245,6 +1306,9 @@ public final class Source {
         }
     }
 
+    /**
+     * Метод предоставляет интерфейс просмотра карты без знаков нпс или города
+     */
     private static void viewMapBlocked() {
         char heroSign = 'O';   //местоположение героя относительно других позиций
         int LineFeed = MapArea - 1;  /// 2 5 8 11 14
@@ -1275,7 +1339,9 @@ public final class Source {
         }
     }
 
-
+    /**
+     * Метод предоставляет интерфейс просмотра карты со знаками нпс или города
+     */
 //    static void viewMapUNBlocked() {
 //        int LineFeed = MapArea - 1;  /// 2 5 8 11 14
 //        int blockIndex = 0;
@@ -1329,8 +1395,6 @@ public final class Source {
 //            }
 //        }
 //    }
-
-
     static ArrayList<ArrayList<Integer>> getMAP() {
         return MAP;
     }
@@ -1344,6 +1408,12 @@ public final class Source {
 //        System.out.println();
 //    }
 
+    /**
+     * Метод предоставляет интерфейс ввода двух строк yes/no
+     *
+     * @return Строка, которая равна yes/no
+     * @since 0.1.2
+     */
     private static String _StringInput() {
         String askFor = new Scanner(System.in).nextLine();
         if (askFor.equals("yes") || askFor.equals("no")) {
@@ -1355,6 +1425,13 @@ public final class Source {
         return askFor;
     }
 
+    /**
+     * Метод предоставляет интерфейс ввода чисел не больше, чем maxValue
+     *
+     * @param maxValue параметр максимально возможного числа для ввода
+     * @return Число не больше, чем maxValue
+     * @since 0.1.2
+     */
     private static int _IntegerInput(int maxValue) {
         int askFor;
         try {
@@ -1373,8 +1450,8 @@ public final class Source {
     }
 
     public static void viewExperienceBar() {
-        StringBuilder sb = new StringBuilder("|"); //TODO сделать автоподстановку
-        int experience = Player.PERSON.getExperience();
+        StringBuilder sb = new StringBuilder(Player.get_Person().getExperience() + " |");
+        int experience = Player.get_Person().getExperience();
         for (int i = 0; i < 10; i++) {
             experience = experience - 100;
             if (experience >= 0) {
@@ -1387,12 +1464,11 @@ public final class Source {
         System.out.println(sb);
     }
 
-
-    static void TestSave() {
+    public static void TestSave() {
         do_Save();
     }
 
-    static void TestLoad() {
+    public static void TestLoad() {
         do_LoadGame();
     }
 ////////////////OTHER Category//////////////////////////

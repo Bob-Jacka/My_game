@@ -11,11 +11,11 @@ public class City {
 
     public void enterTheCity() {
         System.out.println("Вы вошли в Город" + cityName);
-        Player.STATUSES[2] = true;
+        Player.set_Flag(2, true);
     }
 
     public void exitTheCity() {
         System.out.println("Вы вышли из города");
-        Player.STATUSES[2] = false;
+        Player.set_Flag(2, false);
     }
 }

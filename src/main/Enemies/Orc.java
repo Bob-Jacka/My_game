@@ -7,7 +7,7 @@ public class Orc extends Enemy {
     private final boolean magic = false;
 
     public Orc() {
-        System.out.println("Enemies.Orc constructor");
+        System.out.println("main.Enemies.Orc constructor");
     }
 
 

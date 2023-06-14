@@ -6,7 +6,7 @@ import Items.OtherItems.ResurrectStone;
 import Items.Potions.HealthPotion;
 import Items.Potions.ManaPotion;
 import Items.Weapons.WeaponInterface;
-
+import Heroes.Hero;
 import java.util.ArrayList;
 
 import static java.lang.System.gc;

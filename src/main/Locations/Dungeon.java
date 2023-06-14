@@ -11,11 +11,11 @@ public class Dungeon {
 
     public void enterTheDungeon() {
         System.out.println("Вы вошли в подземелье");
-        Player.STATUSES[3] = true;
+        Player.set_Flag(3, true);
     }
 
     public void exitTheDungeon() {
         System.out.println("Вы вышли из подземелья");
-        Player.STATUSES[3] = false;
+        Player.set_Flag(3, false);
     }
 }

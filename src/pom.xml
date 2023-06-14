@@ -17,13 +17,16 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
+            <version>5.9.2</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
 
     <build>
+       <testSourceDirectory>test</testSourceDirectory>
+       <sourceDirectory>main</sourceDirectory>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -31,6 +34,7 @@
                 <version>3.0.0</version>
                 <configuration>
                     <failIfNoTests>false</failIfNoTests>
+                    <test>test.Testing</test>
                 </configuration>
             </plugin>
 
@@ -48,7 +52,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        Main
+                                        main.Main
                                     </mainClass>
                                 </manifest>
                             </archive>

@@ -12,7 +12,7 @@ public class Dif_NPC implements NPC {
 
     public Dif_NPC(String name) {
         this.name = name;
-        System.out.println("NPC is created");
+        System.out.println("main.NPC is created");
     }
 
     @Override
