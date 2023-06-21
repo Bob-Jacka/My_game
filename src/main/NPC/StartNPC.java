@@ -1,25 +1,16 @@
 package NPC;
 
+import Items.Armor.ClothArmor;
+import Items.Weapons.MeleeCombatWeapon.Sword;
 import Dictionary.Quest;
 import Dictionary.RandomNpcSpeech;
 import Heroes.Hero;
-import Items.Armor.ClothArmor;
-import Items.Weapons.MeleeCombatWeapon.Sword;
 
 
 public class StartNPC implements NPC {
     private final String name;
     private final int health = 100;
     private final int attack = 10;
-
-    public boolean getIsQuestTaken() {
-        return isQuestTaken;
-    }
-
-    public void setIsQuestTaken(boolean isQuestTaken) {
-        this.isQuestTaken = isQuestTaken;
-    }
-
     private boolean isQuestTaken = false;  /// по стандарту false - квест не взят
 
     public StartNPC(String name) {
@@ -28,13 +19,13 @@ public class StartNPC implements NPC {
 
     @Override
     public void takeQuest(Hero person) {
-        if (!isQuestTaken) {
+        if (isQuestTaken == false) {
             System.out.println();
             System.out.println("С пробуждением, рада тебя видеть, у меня есть задание для тебя");
-            System.out.println(Quest.Quest1);
+            System.out.println(Quest.Quests[0]);
 
-            person.setActiveQuest(Quest.Quest1);
-            person.addToQuestList(Quest.Quest1);
+            person.setActiveQuest(Quest.Quests[0]);
+            person.addToQuestList(Quest.Quests[0]);
             this.isQuestTaken = true;
             System.out.println();
             System.out.println("Возьми это оружие и броню, они тебе пригодятся");
@@ -42,7 +33,7 @@ public class StartNPC implements NPC {
             System.out.println("training armor added to the inventory");
             person.putOnWeapon(new Sword("training_sword", 15, 1.5f, 20));
             person.putOnArmor(new ClothArmor("training_armor", 10));
-        } else {
+        } else if(isQuestTaken){
             System.out.println("Задание уже взято");
         }
     }
@@ -70,5 +61,13 @@ public class StartNPC implements NPC {
     @Override
     public int getAttack() {
         return this.attack;
+    }
+
+    public boolean getIsQuestTaken() {
+        return isQuestTaken;
+    }
+
+    public void setIsQuestTaken(boolean isQuestTaken) {
+        this.isQuestTaken = isQuestTaken;
     }
 }

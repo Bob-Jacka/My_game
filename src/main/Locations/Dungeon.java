@@ -10,7 +10,7 @@ public class Dungeon {
     }
 
     public void enterTheDungeon() {
-        System.out.println("Вы вошли в подземелье");
+        System.out.println("Вы вошли в подземелье ");
         Player.set_Flag(3, true);
     }
 

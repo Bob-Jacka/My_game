@@ -3,8 +3,6 @@ package Heroes;
 import Items.OtherItems.ResurrectStone;
 
 import static java.lang.System.gc;
-import Heroes.Slave;
-import Heroes.Hero;
 
 public class Peasant extends Slave implements Hero {
     /**

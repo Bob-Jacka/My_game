@@ -1,12 +1,13 @@
 package Heroes;
 
-import Items.Armor.Armor;
-import Items.Items;
 import Items.OtherItems.ResurrectStone;
 import Items.Potions.HealthPotion;
 import Items.Potions.ManaPotion;
+import Dictionary.IMAGES;
+import Items.Armor.Armor;
+import Items.Items;
 import Items.Weapons.WeaponInterface;
-import Heroes.Hero;
+
 import java.util.ArrayList;
 
 import static java.lang.System.gc;
@@ -142,12 +143,13 @@ public class Slave implements Hero {
         }
     }
 
-    public void hurt() {
+    public final void hurt() {
         this.setHealth(this.health - 20);
         System.out.println("Your health is " + this.health);
     }
 
-    public void dead() {
+    public final void dead() {
+        System.out.println(IMAGES.DeathSing);
         System.out.println(this.name + "is dead");
     }
 
@@ -180,7 +182,7 @@ public class Slave implements Hero {
 
     public void passTheQuest(String quest) {
         this.questList.remove(quest);
-        System.out.println("Quest is passed");
+        System.out.println("Quest passed");
     }
 
     public void addToQuestList(String quest) {
@@ -188,7 +190,7 @@ public class Slave implements Hero {
         System.out.println("Quest added");
     }
 
-    public void rejectTheQuest() throws NoSuchFieldException {
+    public void rejectTheQuest() {
 
     }
 

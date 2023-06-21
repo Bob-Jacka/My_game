@@ -1,18 +1,18 @@
 package NPC;
 
-import Dictionary.Quest;
 import Dictionary.RandomNpcSpeech;
 import Heroes.Hero;
 
-public class Dif_NPC implements NPC {
+public final class Dif_NPC implements NPC {
     private final String name;
     private final int health = 100;
     private final int attack = 10;
+    private final String quest;
     private boolean isQuestTaken = false;  /// по стандарту false - квест не взят
 
-    public Dif_NPC(String name) {
+    public Dif_NPC(String name, String quest) {
         this.name = name;
-        System.out.println("main.NPC is created");
+        this.quest = quest;
     }
 
     @Override
@@ -20,14 +20,15 @@ public class Dif_NPC implements NPC {
         if (!isQuestTaken) {
             System.out.println();
             System.out.println(" ");
-            System.out.println(Quest.Quest2);
+            System.out.println(quest);
 
             //adding quest to activeQuest
-            person.setActiveQuest(Quest.Quest2);
+            person.setActiveQuest(quest);
             //adding quest to questList
-            person.addToQuestList(Quest.Quest2);
+            person.addToQuestList(quest);
             this.isQuestTaken = true;
-//                System.out.println("Возьми это оружие и броню, они тебе пригодятся");
+
+            //TODO место для поощрения
 
         } else {
             System.out.println("Задание уже взято");

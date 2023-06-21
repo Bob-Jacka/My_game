@@ -5,7 +5,6 @@ import Heroes.classes.Warrior;
 import Heroes.classes.Tank;
 import Heroes.classes.Necromancer;
 import Heroes.classes.Hunter;
-import Heroes.Peasant;
 import Items.OtherItems.ResurrectStone;
 
 public class Knight extends Peasant implements Hero {

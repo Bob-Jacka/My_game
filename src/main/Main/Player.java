@@ -27,18 +27,24 @@ public abstract class Player {
      * <p>Если параметр выставлен в значение false - автосохранение выключено
      */
     private static boolean IS_AUTO_SAVE;
+
     /**
      * Параметр, сохраняющий в себя класс персонажа, по стандарту изначально равен {@link Slave}
      */
-    private static Hero PERSON = new Slave();
+    private static Hero PERSON;
 
     /**
      * Параметр, определяющий директорию в которую будет произведено сохранение
      */
-    private static SaveFile SAVE_FILE = new SaveFile("saveHeroParams");
+    private static final File[] SAVE_FILE_DIRECTORY = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/").listFiles();
 
     /**
-     * <p>Переменная предназначенная для отслеживание статуса героя в игре
+     * Параметр, определяющий указатель на первый файл сохранения
+     */
+    private static File SAVE_FILE = SAVE_FILE_DIRECTORY.length != 0 ? SAVE_FILE_DIRECTORY[0] : null;
+
+    /**
+     * <p>Переменная предназначенная для отслеживание состояния героя в игре
      * Значения:
      * <p>0 - isInBattle,
      * <p>1 - nearNPC,
@@ -132,10 +138,10 @@ public abstract class Player {
      * Метод предназначенный для получения доступа к {@link Player#SAVE_FILE}
      * и перезаписи его на newSaveFile
      *
-     * @param newSaveFile путь нового файла сохранения
+     * @param newSaveFileName путь нового файла сохранения
      */
-    static void set_SaveFile(String newSaveFile) {
-        SAVE_FILE = new SaveFile(newSaveFile);
+    static void set_SaveFile(String newSaveFileName) {
+        SAVE_FILE = new SaveFile(newSaveFileName);
     }
 
     /**
@@ -190,5 +196,9 @@ public abstract class Player {
      */
     static Hero get_Person() {
         return PERSON;
+    }
+
+    static File[] get_SaveFileDirectory() {
+        return SAVE_FILE_DIRECTORY;
     }
 }

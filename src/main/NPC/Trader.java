@@ -1,8 +1,8 @@
 package NPC;
 
+import Main.GameEngine;
 import Dictionary.RandomNpcSpeech;
 import Items.Items;
-import Main.Source;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -49,11 +49,11 @@ public class Trader {
         Random random = new Random(100);
         for (int i = 0; i < 4; i++) {
             if (random.nextInt() < 20) {
-                Source.publicGenerator(1);
+                GameEngine.publicGenerator(1);
             } else if (random.nextInt() > 20) {
-                Source.publicGenerator(2);
+                GameEngine.publicGenerator(2);
             } else if (random.nextInt() > 20 && random.nextInt() < 100) {
-                Source.publicGenerator(3);
+                GameEngine.publicGenerator(3);
             }
         }
     }
