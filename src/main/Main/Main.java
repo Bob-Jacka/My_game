@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class Main {
     /**
-     *  Флаг, обозначающий выхож из игры, по умолчанию false, если true игра закончена
+     *  Флаг, обозначающий выход из игры, по умолчанию false, если true игра закончена
      */
     static boolean IS_QUIT_GAME = false;
 

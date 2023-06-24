@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface Hero {
     ///////////////methods////////////
-    void resurrect();
+    void resurrect_Ability();
 
     void dead();
 
@@ -73,9 +73,9 @@ public interface Hero {
 
     void inventoryCall();
 
-    void defendingMagick();
+    void defendingMagick_Ability();
 
-    void attackMagick();
+    void attackMagick_Ability();
 
     ArrayList<String> getQuestListSimple();
 

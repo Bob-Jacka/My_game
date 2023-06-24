@@ -27,17 +27,17 @@ public class Knight extends Peasant implements Hero {
         this.resistance = resistance;
     }
 
-    private String name;
-    private int health;
-    private int armor;
-    private int attack;
-    private boolean magic;
-    private int resistance;
-    private String quest;
-    private int mana = 100;
-    private int experience = 0;
+//    private String name;
+//    private int health;
+//    private int armor;
+//    private int attack;
+//    private boolean magic;
+//    private int resistance;
+//    private String quest;
+//    private int mana = 100;
+//    private int experience = 0;
 
-//    public Pet summon() {
+//    public Pet summon_Ability() {
 //        Random random = new Random();
 //        int petNumber = random.nextInt();
 //        Pet pet = new Pet();
@@ -45,7 +45,7 @@ public class Knight extends Peasant implements Hero {
 //        return pet;
 //    }
 
-    public void resurrect() {
+    public void resurrect_Ability() {
         if (inventory.contains(ResurrectStone.class)) {
             this.inventory.remove(ResurrectStone.class);
             System.out.println("Resurrect!");

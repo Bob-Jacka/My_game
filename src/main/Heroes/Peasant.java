@@ -23,16 +23,16 @@ public class Peasant extends Slave implements Hero {
         this.resistance = resistance;
     }
 
-    private String name;
-    private int health;
-    private int armor;
-    private int attack;
-    private boolean magic;
-    private int resistance;
-    private int mana = 100;
-    private int experience = 0;
+//    private String name;
+//    private int health;
+//    private int armor;
+//    private int attack;
+//    private boolean magic;
+//    private int resistance;
+//    private int mana = 100;
+//    private int experience = 0;
 
-    public void redemption() {
+    public void redemption_Ability() {
         if (this.mana > 40) {
             System.out.println("REDEMPTION!!!");
         } else {
@@ -41,7 +41,7 @@ public class Peasant extends Slave implements Hero {
 
     }
 
-    public void resurrect() {
+    public void resurrect_Ability() {
         if (inventory.contains(ResurrectStone.class)) {
             this.inventory.remove(ResurrectStone.class);
             System.out.println("Resurrect!");

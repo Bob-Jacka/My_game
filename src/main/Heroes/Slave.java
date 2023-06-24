@@ -27,14 +27,14 @@ public class Slave implements Hero {
     }
 
     ////////////////////////////////////////////////////////////////////////
-    private String name;
-    private int health = 100;
-    private int armor = 20;
-    private int attack = 20;
-    private boolean magic;
-    private int resistance = 15;
-    private int mana = 100;
-    private int experience = 0;
+    protected String name;
+    protected int health = 100;
+    protected int armor = 20;
+    protected int attack = 20;
+    protected boolean magic;
+    protected int resistance = 15;
+    protected int mana = 100;
+    protected int experience = 0;
     protected String activeQuest = null;
     protected int inventoryCapacity = 10;
     protected final ArrayList<String> questList = new ArrayList<>(5);  ///для квестов
@@ -122,8 +122,8 @@ public class Slave implements Hero {
     }
 
     /////////////////////////////////////////////////////////////////////////////
-    public void defendingMagick() {
-        if ((this.magic) && (this.mana >= 40)) {
+    public void defendingMagick_Ability() {
+        if ((this.magic) && (this.mana > 40)) {
             this.armor += 10;
             this.resistance += 5;
             this.mana -= 30;
@@ -133,8 +133,8 @@ public class Slave implements Hero {
         }
     }
 
-    public void attackMagick() {
-        if ((this.magic) && (this.mana >= 40)) {
+    public void attackMagick_Ability() {
+        if ((this.magic) && (this.mana > 40)) {
             this.attack += 10;
             this.mana -= 40;
             System.out.println("Ваша атака " + this.attack);
@@ -245,7 +245,7 @@ public class Slave implements Hero {
             } else if (inventory.size() == 1) {
                 System.out.println(inventory.get(0).getItemName());
             }
-        } else System.out.println("There is no items");
+        } else System.out.println("There are no items");
     }
 
     ///////////////////////////////////////////////////////////////
@@ -273,7 +273,7 @@ public class Slave implements Hero {
         }
     }
 
-    public void resurrect() {
+    public void resurrect_Ability() {
         if (this.inventory.contains(ResurrectStone.class)) {
             this.inventory.remove(ResurrectStone.class);
             System.out.println("Resurrect!");
