@@ -44,7 +44,13 @@ public abstract class GameEngine {
      * Параметр, хранящий в себе карту, размер которой квадрат стороной {@link GameEngine#MapArea}
      */
     private static ArrayList<int[]> MAP = new ArrayList<>(MapArea * MapArea);
-    private static final long SECURITY_KEY = 1000000000L;
+    private static final long SECURITY_KEY = 1010100100L;
+
+    /**
+     * Просто разделитель между строками
+     */
+    private static final String LineBreaker = "##################################################";
+
 
     /////////////////////Generate Category//////////////////////////////////////////////////////////
     private static Items GeneratePotion() {
@@ -62,10 +68,10 @@ public abstract class GameEngine {
     private static Slave CreateHero1() {
         System.out.println("Only latin letters and no numbers allowed");
         System.out.print("Enter your hero name: ");
-        String name_actual = new Scanner(System.in).nextLine();
+        String name_actual = new Scanner(System.in).next();
 
         System.out.print("Is your hero a magician (yes/no): ");
-        boolean magic = accept();
+        boolean magic = _Accept();
 
         return new Slave(name_actual, magic);
     }
@@ -79,7 +85,7 @@ public abstract class GameEngine {
         return new Food(RandomFoodName.RandomFoodName[random.nextInt(RandomFoodName.RandomFoodName.length)], random.nextInt(50), random.nextBoolean());
     }
 
-    private static Items GenerateTunning(int tunningNum) {
+    private static Items GenerateTuning(int tunningNum) {
         if (tunningNum == 1) {
             return new Muska(random.nextInt(25), "Muska");
         } else if (tunningNum == 2) {
@@ -98,11 +104,11 @@ public abstract class GameEngine {
             case 3:
                 return GenerateArmor();
             case 4:
-                return GenerateTunning(1);
+                return GenerateTuning(1);
             case 5:
-                return GenerateTunning(2);
+                return GenerateTuning(2);
             case 6:
-                return GenerateTunning(3);
+                return GenerateTuning(3);
             case 7:
                 return GenerateOtherItems();
         }
@@ -120,11 +126,11 @@ public abstract class GameEngine {
         } else if (generationRate > 70 && generationRate < 100) {
             GenerateOtherItems();
         } else if (generationRate > 100 && generationRate < 130) {
-            GenerateTunning(1);
+            GenerateTuning(1);
         } else if (generationRate > 130 && generationRate < 160) {
-            GenerateTunning(2);
+            GenerateTuning(2);
         } else if (generationRate > 160 && generationRate < 200) {
-            GenerateTunning(3);
+            GenerateTuning(3);
         }
         return null;
     }
@@ -167,15 +173,16 @@ public abstract class GameEngine {
                 e.getStackTrace();
             }
         }
+        System.out.println(LineBreaker);
         System.out.println("Outing the game");
         Main.IS_QUIT_GAME = true;
     }
 
     private static void _configureGameOptionsMenu() {
         boolean isClose = false;
-        System.out.print("What would you like to change? ");
+        System.out.println(LineBreaker);
         System.out.println("""
-                What can you do
+                What you can do
                 1. Change auto save parameter
                 2. Change save path
                 3. Close configuration
@@ -216,8 +223,9 @@ public abstract class GameEngine {
     private static void movingMenu() {
         boolean isClose = false;
         while (!isClose) {
+            System.out.println(LineBreaker);
             System.out.println("""
-                    What direction you need
+                    What direction you need?
                     1. Move forward
                     2. Move left
                     3. Move right
@@ -237,7 +245,7 @@ public abstract class GameEngine {
                     } else {
                         System.out.println("You're lucky, there is no enemy ");
                     }
-                    moving("forward", 1);
+                    moving(1, 1);
                     break;
                 case 2:
                     if (randint < 8) {
@@ -246,7 +254,7 @@ public abstract class GameEngine {
                     } else {
                         System.out.println("You're lucky, there is no enemy ");
                     }
-                    moving("left", 1);
+                    moving(4, 1);
                     break;
                 case 3:
                     if (randint < 8) {
@@ -255,7 +263,7 @@ public abstract class GameEngine {
                     } else {
                         System.out.println("You're lucky, there is no enemy ");
                     }
-                    moving("right", 1);
+                    moving(2, 1);
                     break;
                 case 4:
                     if (randint < 5) {
@@ -264,7 +272,7 @@ public abstract class GameEngine {
                     } else {
                         System.out.println("You're lucky, there is no enemy ");
                     }
-                    moving("backward", 1);
+                    moving(3, 1);
                     break;
                 case 5:
                     viewMapBlocked();
@@ -276,9 +284,9 @@ public abstract class GameEngine {
         }
     }
 
-    private static void moving(String direction, int howManyPointsToGo) {
+    private static void moving(int direction, int howManyPointsToGo) {
         switch (direction) {
-            case "forward":
+            case 1:  //forward
                 if (Player.get_HeroLocation() + howManyPointsToGo >= MAP.size()) {
                     System.out.println("Вы подошли к границе карты, идите назад");
                 } else {
@@ -286,7 +294,15 @@ public abstract class GameEngine {
                     _changeHeroCoordinates(howManyPointsToGo);
                 }
                 break;
-            case "right":
+            case 2:  //left
+                if (Player.get_HeroLocation() + (-MapArea) <= 0) {
+                    System.out.println("Вы подошли к границе карты, идите вправо");
+                } else {
+                    System.out.println(Player.get_Person().getName() + " moving left");
+                    _changeHeroCoordinates(-MapArea);
+                }
+                break;
+            case 3:  //right
                 if (Player.get_HeroLocation() + MapArea >= MAP.size()) {
                     System.out.println("Вы подошли к границе карты, идите влево");
                 } else {
@@ -294,20 +310,12 @@ public abstract class GameEngine {
                     _changeHeroCoordinates(MapArea);
                 }
                 break;
-            case "backward":
+            case 4:  //backward
                 if (Player.get_HeroLocation() + howManyPointsToGo <= MAP.size()) {
                     System.out.println("Вы подошли к границе карты, идите вперёд");
                 } else {
                     System.out.println(Player.get_Person().getName() + " moving backward");
                     _changeHeroCoordinates(-1);
-                }
-                break;
-            case "left":
-                if (Player.get_HeroLocation() + (-MapArea) <= 0) {
-                    System.out.println("Вы подошли к границе карты, идите вправо");
-                } else {
-                    System.out.println(Player.get_Person().getName() + " moving left");
-                    _changeHeroCoordinates(-MapArea);
                 }
                 break;
             default:
@@ -342,28 +350,28 @@ public abstract class GameEngine {
     private static void getActionMenu() {
         if (MAP.get(Player.get_HeroLocation())[0] == 1 && Player.get_HeroLocation() != 0) {
             Dif_NPC npc = GenerateNpc();
-            _NPCMenu(npc);
+            npcMenu(npc);
         } else if (Player.get_HeroLocation() == 0) {
             StartNPC startNPC = GenerateStartNPC();
-            _NPCMenu(startNPC);
+            npcMenu(startNPC);
         } else if ((MAP.get(Player.get_HeroLocation())[1] == 1)) {
             City city = GenerateCity();
-            _locationMenu(city);
+            cityMenu(city);
         } else if ((MAP.get(Player.get_HeroLocation())[2] == 1)) {
             Dungeon dungeon = GenerateDungeon();
             dungeonMenu(dungeon);
         }
     }
 
-    private static void _NPCMenu(NPC npc) {
+    private static void npcMenu(NPC npc) {
+        System.out.println(LineBreaker);
         System.out.println("""
                 NPC menu
                 1.Talk
                 2.Take quest
                 3.Pass quest
                 4.Exit menu
-                HINT: just type number of the clause
-                """);
+                HINT: just type number of the clause""");
         boolean isClose = false;
         while (!isClose) {
             switch (_IntegerInput(4)) {
@@ -386,15 +394,15 @@ public abstract class GameEngine {
         }
     }
 
-    private static void _locationMenu(City city) {
+    private static void cityMenu(City city) {
+        System.out.println(LineBreaker);
         System.out.println("""
                 Location menu
-                1.Enter location
+                1.Enter city
                 2.Exit the city
                 3.Open map
                 4.Exit menu
-                HINT: just type number of the clause
-                """);
+                HINT: just type number of the clause""");
         boolean isClose = false;
         while (!isClose) {
             switch (_IntegerInput(4)) {
@@ -417,13 +425,13 @@ public abstract class GameEngine {
     }
 
     private static void dungeonMenu(Dungeon dungeon) {
+        System.out.println(LineBreaker);
         System.out.println("""
                 Dungeon menu
                 1.Enter the dungeon
                 2.Exit the dungeon
                 3.Exit menu
-                HINT: just type number of the clause
-                """);
+                HINT: just type number of the clause""");
         boolean isClose = false;
         while (!isClose) {
             switch (_IntegerInput(3)) {
@@ -443,7 +451,7 @@ public abstract class GameEngine {
     private static void paramsMenu(Hero person) {
         boolean isClose = false;
         while (!isClose) {
-            System.out.println();
+            System.out.println(LineBreaker);
             System.out.println("Which params would you like to see?");
             System.out.println("""
                     1. Hero params
@@ -451,20 +459,26 @@ public abstract class GameEngine {
                     3. Armor params
                     4. Exit params menu
                     HINT: just type number of the clause""");
-            System.out.println();
             switch (_IntegerInput(4)) {
                 case 1:
+                    System.out.println(LineBreaker);
                     person.getParams();
                     break;
                 case 2:
                     if (person.getActiveWeapon().isEmpty()) {
                         System.out.println("There is no active armor");
-                    } else person.getActiveWeapon().get(0).getParams();
+                    } else {
+                        System.out.println(LineBreaker);
+                        person.getActiveWeapon().get(0).getParams();
+                    }
                     break;
                 case 3:
                     if (person.getActiveArmor().isEmpty()) {
                         System.out.println("There is no active armor");
-                    } else person.getActiveArmor().get(0).getParams();
+                    } else {
+                        System.out.println(LineBreaker);
+                        person.getActiveArmor().get(0).getParams();
+                    }
                     break;
                 case 4:
                     isClose = true;
@@ -476,6 +490,7 @@ public abstract class GameEngine {
     private static void heroMenu() {
         boolean isClose = false;
         while (!isClose) {
+            System.out.println(LineBreaker);
             System.out.println("""
                     Here are hero actions
                     1. Get params
@@ -483,7 +498,6 @@ public abstract class GameEngine {
                     3. Quest menu
                     4. Exit menu
                     HINT: just type number of the clause""");
-            System.out.println();
             switch (_IntegerInput(4)) {
                 case 1:
                     paramsMenu(Player.get_Person());
@@ -507,20 +521,20 @@ public abstract class GameEngine {
     private static void abilityMenu() {
         boolean isClose = false;
         while (!isClose) {
+            System.out.println(LineBreaker);
             System.out.println("""
                     Here are hero actions
                     1.See abilities
                     2.Level Up
                     3.Exit menu
                     HINT: just type number of the clause""");
-            System.out.println();
             switch (_IntegerInput(3)) {
                 case 1:
                     seeAbilities();
                     isClose = true;
                     break;
                 case 2:
-                    if (Player.get_Person().getExperience() > 1000) {
+                    if (Player.get_Person().getExperience() >= 1000) {
                         System.out.println("Level up");
                         //TODO сделать повышение уровня
                     } else {
@@ -539,6 +553,7 @@ public abstract class GameEngine {
     private static void questMenu() {
         boolean isClose = false;
         while (!isClose) {
+            System.out.println(LineBreaker);
             System.out.println("""
                     Here are quest actions
                     1. Get active quest
@@ -564,13 +579,13 @@ public abstract class GameEngine {
     private static void saveAndLoadMenu() {
         boolean isClose = false;
         while (!isClose) {
+            System.out.println(LineBreaker);
             System.out.println("""
                     Do you need save or load
                     1. Save the game
                     2. Load menu
                     3. Exit
                     HINT: just type number of the clause""");
-            System.out.println();
             switch (_IntegerInput(3)) {
                 case 1:
                     SaveTheGame();
@@ -589,7 +604,7 @@ public abstract class GameEngine {
     private static void loadMenu() {
         boolean isClose = false;
         while (!isClose) {
-            System.out.println();
+            System.out.println(LineBreaker);
             System.out.println("""
                     Load menu
                     1.See save files
@@ -621,15 +636,16 @@ public abstract class GameEngine {
      */
     private static void LoadFilesMenu() {
         if (Player.get_SaveFileDirectory().length != 0) {
-            Map<Integer, File> filesToLoad = new HashMap<>(5);
+            Map<Integer, File> ftl = new HashMap<>(5);
             int index = 1;
+            System.out.println(LineBreaker);
             for (File file : Player.get_SaveFileDirectory()) {
                 System.out.println(index + ". " + String.valueOf(file).substring(SaveFile.getSaveDirectoryLength()));
-                filesToLoad.put(index, file);
+                ftl.put(index, file);
                 index += 1;
             }
             System.out.print("HINT: just type number of the file to load ");
-            do_LoadGame(0, filesToLoad.get(_IntegerInput(index)));
+            do_LoadGame(0, ftl.get(_IntegerInput(index)));
         } else {
             System.out.println("Файлов сохранения нет");
         }
@@ -638,6 +654,7 @@ public abstract class GameEngine {
     private static void inventoryMenu() {
         boolean isClose = false;
         while (!isClose) {
+            System.out.println(LineBreaker);
             System.out.println("""
                     Inventory menu
                     1. Open inventory
@@ -681,6 +698,7 @@ public abstract class GameEngine {
     static void gameLauncherMenu() {
         boolean launcherClose = false;
         System.out.println(IMAGES.Images[0]);
+        System.out.println(LineBreaker);
         if (Player.get_SaveFileDirectory().length != 0 ||
                 Player.get_SaveFile() != null && Player.get_SaveFile().length() != 0L) {
             SaveFileExists(launcherClose);
@@ -695,8 +713,7 @@ public abstract class GameEngine {
                     2. New game
                     3. Settings
                     4. Exit
-                    HINT: just type number of the clause
-                    """);
+                    HINT: just type number of the clause""");
             switch (_IntegerInput(4)) {
                 case 1:
                     LoadFilesMenu();
@@ -704,10 +721,10 @@ public abstract class GameEngine {
                     break;
                 case 2:
                     System.out.println("New game");
-                    System.out.print("To create Hero enter (yes/no) ");
-                    boolean askForCreateHero = accept();
+                    System.out.print("Want to create hero - ");
+                    boolean askForCreateHero = _Accept();
                     if (askForCreateHero) {
-                        _pre_start_creation();
+                        pre_start_creation();
                         LauncherClose = true;
                     } else {
                         System.exit(1);
@@ -734,10 +751,10 @@ public abstract class GameEngine {
             switch (_IntegerInput(3)) {
                 case 1:
                     System.out.println("New game");
-                    System.out.print("To create Hero enter (yes/no) ");
-                    boolean askForCreateHero = accept();
+                    System.out.print("Want to create hero - ");
+                    boolean askForCreateHero = _Accept();
                     if (askForCreateHero) {
-                        _pre_start_creation();
+                        pre_start_creation();
                         LauncherClose = true;
                     } else {
                         System.exit(1);
@@ -762,6 +779,7 @@ public abstract class GameEngine {
         Player.set_Flag(4, MAP.get(Player.get_HeroLocation())[0] == 1
                 || MAP.get(Player.get_HeroLocation())[1] == 1
                 || MAP.get(Player.get_HeroLocation())[2] == 1);  // Проверяем есть ли доп активность
+        System.out.println(LineBreaker);
         System.out.println("""
                 What you can do
                 1. Move
@@ -777,7 +795,6 @@ public abstract class GameEngine {
                     7. Action menu
                     HINT: just type number of the clause""");
         }
-        System.out.println();
         switch (_IntegerInput(7)) {
             case 1:
                 movingMenu();
@@ -836,16 +853,16 @@ public abstract class GameEngine {
 
     private static boolean attackEnemy(Hero valera, Enemy enemy) {
         boolean result = false;
-        System.out.print("Do you want to attack enemy (yes/no) ");
-        boolean questionAttack = accept();
+        System.out.println("Do you want to attack enemy?");
+        boolean questionAttack = _Accept();
         if (questionAttack) { //Хотите атаковать?
 
             enemy.setHealth(((enemy.getHealth() + enemy.getResistance())) + (enemy.getArmor() % 2));
             valera.setHealth(((valera.getHealth() + valera.getResistance())) + (valera.getArmor() % 2));
 
-            System.out.print("Do you want to Auto attack enemy (yes/no) ");
+            System.out.println("Do you want to Auto attack enemy?");
 
-            boolean askForAutoAttack = accept();
+            boolean askForAutoAttack = _Accept();
             if (askForAutoAttack) {
                 result = _autoFight(valera, enemy);   ////fight
 
@@ -930,7 +947,7 @@ public abstract class GameEngine {
                 }
                 case 3: {
                     if (Player.get_Person().getMagic()) {
-                        getAbilitiesAndInvokeIt();
+                        getAbilityAndInvokeIt();
                     } else System.out.println("Вы не можете использовать магию");
                     break;
                 }
@@ -1080,7 +1097,7 @@ public abstract class GameEngine {
     }
 
     private static void SaveTheGame() {
-        boolean askForSave = accept();
+        boolean askForSave = _Accept();
         if (askForSave) {
             if (Player.get_SaveFile() != null && Player.get_SaveFile().length() != 0L) {
                 System.out.println("Rewriting save file");
@@ -1102,7 +1119,7 @@ public abstract class GameEngine {
      * @since 0.0.2
      */
     private static void do_LoadGame(int securityInt, File fileToLoad) {
-        boolean accept = accept();
+        boolean accept = _Accept();
         if (accept) {
             if (saveFileSecurity(securityInt)) {
                 try {
@@ -1314,7 +1331,7 @@ public abstract class GameEngine {
     }
 
     /**
-     * Метод предоставляет интерфейс просмотра карты со знаками нпс или города
+     * Метод предоставляет интерфейс просмотра карты со знаками нпс или городами
      */
 //    static void viewMapUNBlocked() {
 //        int LineFeed = MapArea - 1;  /// 2 5 8 11 14
@@ -1404,7 +1421,7 @@ public abstract class GameEngine {
         int askFor;
         try {
             askFor = new Scanner(System.in).nextInt();
-            if (askFor <= maxValue && askFor > 0) {
+            if (askFor <= maxValue && askFor >= 1) {
                 return askFor;
             } else {
                 System.out.println("Неправильное значение, повторите попытку");
@@ -1452,7 +1469,7 @@ public abstract class GameEngine {
     /**
      * Метод, предназначенный для стартового создания героя, карты и задания стартовой позиции
      */
-    private static void _pre_start_creation() {
+    private static void pre_start_creation() {
         Player.set_Person(CreateHero1());  //создание героя
         System.out.print("Укажите величину карты ");    /// создание карты
         do_createMap(new Scanner(System.in).nextInt());
@@ -1463,21 +1480,18 @@ public abstract class GameEngine {
         }
     }
 
-    private static boolean accept() {
-        System.out.print("Ваше решение? (yes/no) ");
-        String toAccept = _StringInput();
-        return toAccept.equals("yes");
+    private static boolean _Accept() {
+        System.out.println(LineBreaker);
+        System.out.print("Ваше решение? (yes/no) - ");
+        return _StringInput().equals("yes");
     }
 
-    /**
-     *
-     */
-    private static void getAbilitiesAndInvokeIt() {
-        Method[] methods = Player.get_Person().getClass().getDeclaredMethods();
+    private static void getAbilityAndInvokeIt() {
+        Method[] methods = Player.get_Person().getClass().getMethods();
         Map<Integer, Method> abilityMap = new HashMap<>(6);
         int index = 0;
         for (Method method : methods) {
-            if (method.getName().contains("_Ability")) {
+            if (method.getName().endsWith("_Ability")) {
                 index++;
                 abilityMap.put(index, method);
                 System.out.println(index + ". " + method.getName());
@@ -1492,15 +1506,15 @@ public abstract class GameEngine {
     }
 
     private static void seeAbilities() {
-        Method[] abilities = Player.get_Person().getClass().getDeclaredMethods();
+        Method[] abilities = Player.get_Person().getClass().getMethods();
         int index = 0;
         for (Method method : abilities) {
-            if (method.getName().contains("_Ability")) {
+            if (method.getName().endsWith("_Ability")) {
                 index++;
                 System.out.println(index + ". " + method.getName());
             }
         }
-        System.out.println();
+        System.out.println(LineBreaker);
     }
 
     public static void TestSave() {
