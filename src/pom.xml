@@ -6,13 +6,14 @@
 
     <groupId>ru.kirill.games</groupId>
     <artifactId>My_game</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -20,23 +21,36 @@
             <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <version>1.1</version>
+        </dependency>
+
     </dependencies>
 
 
     <build>
-       <testSourceDirectory>test</testSourceDirectory>
-       <sourceDirectory>main</sourceDirectory>
+        <testSourceDirectory>test</testSourceDirectory>
+        <sourceDirectory>main</sourceDirectory>
 
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <failIfNoTests>false</failIfNoTests>
-                    <test>test.Testing</test>
-                </configuration>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-surefire-plugin</artifactId>-->
+            <!--                <version>3.0.0</version>-->
+            <!--                <configuration>-->
+            <!--                    <failIfNoTests>false</failIfNoTests>-->
+            <!--                    <test>test.Testing</test>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
 
 
             <plugin>
@@ -51,9 +65,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>
-                                        main.Main
-                                    </mainClass>
+                                    <mainClass>ru.kirill.games.Main</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>
@@ -63,6 +75,24 @@
                     </execution>
                 </executions>
             </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <goal>
+                        jar
+                    </goal>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>ru.kirill.games.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

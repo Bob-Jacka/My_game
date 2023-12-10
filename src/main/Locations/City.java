@@ -1,6 +1,6 @@
 package Locations;
 
-import Main.Player;
+import ru.kirill.games.Player;
 
 public class City {
     private final int cityNam;

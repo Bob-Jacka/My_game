@@ -1,11 +1,11 @@
 package Heroes;
 
-import Items.OtherItems.ResurrectStone;
-import Items.Potions.HealthPotion;
-import Items.Potions.ManaPotion;
 import Dictionary.IMAGES;
 import Items.Armor.Armor;
 import Items.Items;
+import Items.OtherItems.ResurrectStone;
+import Items.Potions.HealthPotion;
+import Items.Potions.ManaPotion;
 import Items.Weapons.WeaponInterface;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package Main;
+package ru.kirill.games;
 
 import Dictionary.Levels;
 import Heroes.Hero;
@@ -98,10 +98,10 @@ public abstract class Player {
 
     /**
      * Метод меняет значение флага у класса Player
-     * <p>0 - isInBattle,
-     * <p>1 - nearNPC,
-     * <p>2 - isInCity,
-     * <p>3 - isInDungeon,
+     * <p>0 - is In Battle,
+     * <p>1 - near NPC,
+     * <p>2 - is In City,
+     * <p>3 - is In Dungeon,
      * <p>4 - action menu
      *
      * @param flag_Num Номер флага для изменение в {@link Player#FLAGS}
@@ -112,10 +112,10 @@ public abstract class Player {
     }
 
     /**
-     * <p>0 - isInBattle,
-     * <p>1 - nearNPC,
-     * <p>2 - isInCity,
-     * <p>3 - isInDungeon,
+     * <p>0 - is In Battle,
+     * <p>1 - near NPC,
+     * <p>2 - is In City,
+     * <p>3 - is In Dungeon,
      * <p>4 - action menu
      *
      * @param flag_Num номер флага в {@link Player#FLAGS}

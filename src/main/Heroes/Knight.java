@@ -1,10 +1,6 @@
 package Heroes;
 
-import Heroes.classes.Healer;
-import Heroes.classes.Warrior;
-import Heroes.classes.Tank;
-import Heroes.classes.Necromancer;
-import Heroes.classes.Hunter;
+import Heroes.classes.*;
 import Items.OtherItems.ResurrectStone;
 
 public class Knight extends Peasant implements Hero {
@@ -27,7 +23,7 @@ public class Knight extends Peasant implements Hero {
         this.resistance = resistance;
     }
 
-//    private String name;
+    //    private String name;
 //    private int health;
 //    private int armor;
 //    private int attack;
@@ -36,7 +32,7 @@ public class Knight extends Peasant implements Hero {
 //    private String quest;
 //    private int mana = 100;
 //    private int experience = 0;
-
+//
 //    public Pet summon_Ability() {
 //        Random random = new Random();
 //        int petNumber = random.nextInt();
@@ -44,7 +40,7 @@ public class Knight extends Peasant implements Hero {
 //        System.out.println("summoning pet: " + RandomPetName.RandomPetName);
 //        return pet;
 //    }
-
+    @Override
     public void resurrect_Ability() {
         if (inventory.contains(ResurrectStone.class)) {
             this.inventory.remove(ResurrectStone.class);

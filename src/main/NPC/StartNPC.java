@@ -1,10 +1,10 @@
 package NPC;
 
-import Items.Armor.ClothArmor;
-import Items.Weapons.MeleeCombatWeapon.Sword;
 import Dictionary.Quest;
 import Dictionary.RandomNpcSpeech;
 import Heroes.Hero;
+import Items.Armor.ClothArmor;
+import Items.Weapons.MeleeCombatWeapon.Sword;
 
 
 public class StartNPC implements NPC {
@@ -33,7 +33,7 @@ public class StartNPC implements NPC {
             System.out.println("training armor added to the inventory");
             person.putOnWeapon(new Sword("training_sword", 15, 1.5f, 20));
             person.putOnArmor(new ClothArmor("training_armor", 10));
-        } else if(isQuestTaken){
+        } else if (isQuestTaken) {
             System.out.println("Задание уже взято");
         }
     }

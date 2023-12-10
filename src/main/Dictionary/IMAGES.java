@@ -2,7 +2,7 @@ package Dictionary;
 
 public abstract class IMAGES {
 
-    public final static String[] Images = new String[] {
+    public final static String[] Images = new String[]{
             """
                 ████████████████████████░░░▀██▀█████████
                 ██████▀▀▀▀░░░▀▀▀█████▀▀▀▀░░░░▀░░████████
@@ -111,9 +111,6 @@ public abstract class IMAGES {
                            ⢸⣿⣧  ⢸⡇   ⠁   ⠈⢷       ⣿⣷        ⣾⣿
             ⣦⣄⣀    ⢀⣀       ⣻⣿⡀ ⠈⠧   ⠃    ⠈       ⢿⣯       ⣾⣿⣿
             ⣿⣿⣿⡗⠢⠄  ⠁       ⣻⣿⠗                    ⠁    ⣀⣤⣿⣿⣿⣿""",
-
-
-
 
 
     };

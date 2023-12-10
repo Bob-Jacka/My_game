@@ -1,8 +1,8 @@
 package NPC;
 
-import Main.GameEngine;
 import Dictionary.RandomNpcSpeech;
 import Items.Items;
+import ru.kirill.games.GameEngine;
 
 import java.util.ArrayList;
 import java.util.Random;
