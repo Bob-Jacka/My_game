@@ -1,6 +1,7 @@
 package ru.kirill.games;
 
 class Main {
+
     /**
      * Флаг, обозначающий выход из игры, по умолчанию false, если true игра закончена
      */
@@ -13,7 +14,7 @@ class Main {
 
         //The game
         while (!IS_QUIT_GAME) {
-            GameEngine.mainGameMenu();
+            GameEngine.mainMenu();
         }
     }
 }

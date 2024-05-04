@@ -21,6 +21,7 @@ import java.io.File;
  * <p>{@link #HERO_LOCATION} - параметр позиции персонажа на карте ({@link Player#set_HeroLocation})
  */
 public abstract class Player {
+
     /**
      * Параметр, необходимый для автосохранения
      * <p>Если параметр выставлен в значение true - автосохранение включено
@@ -36,8 +37,8 @@ public abstract class Player {
     /**
      * Параметр, определяющий директорию в которую будет произведено сохранение
      */
-    private static final File[] SAVE_FILE_DIRECTORY = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/").listFiles();
-
+//    private static final File[] SAVE_FILE_DIRECTORY = new File("/home/kirill/IdeaProjects/My_game/src/Saving_Files/").listFiles();
+    private static final File[] SAVE_FILE_DIRECTORY = new File("Saving_Files").listFiles();
     /**
      * Параметр, определяющий указатель на первый файл сохранения
      */

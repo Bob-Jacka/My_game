@@ -122,7 +122,7 @@ public class Slave implements Hero {
     }
 
     /////////////////////////////////////////////////////////////////////////////
-    public void defendingMagick_Ability() {
+    public void defendingMagick() {
         if ((this.magic) && (this.mana > 40)) {
             this.armor += 10;
             this.resistance += 5;
@@ -133,7 +133,7 @@ public class Slave implements Hero {
         }
     }
 
-    public void attackMagick_Ability() {
+    public void attackMagick() {
         if ((this.magic) && (this.mana > 40)) {
             this.attack += 10;
             this.mana -= 40;
@@ -249,6 +249,7 @@ public class Slave implements Hero {
     }
 
     ///////////////////////////////////////////////////////////////
+    @Ability
     public void healByHealthPotion(Items healthPotion) {
         if (this.inventory.contains(healthPotion.getClass())) {
             this.health += HealthPotion.getHealthToRecover();
@@ -260,7 +261,7 @@ public class Slave implements Hero {
             System.out.println("There is no health potion in the inventory");
         }
     }
-
+    @Ability
     public void useManaPotion(Items manaPotion) {
         if (this.inventory.contains(ManaPotion.class)) {
             this.health += HealthPotion.getHealthToRecover();
@@ -272,8 +273,8 @@ public class Slave implements Hero {
             System.out.println("There is no mana potion in the inventory");
         }
     }
-
-    public void resurrect_Ability() {
+    @Ability
+    public void resurrect() {
         if (this.inventory.contains(ResurrectStone.class)) {
             this.inventory.remove(ResurrectStone.class);
             System.out.println("Resurrect!");

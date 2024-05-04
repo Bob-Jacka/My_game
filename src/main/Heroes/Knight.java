@@ -1,7 +1,10 @@
 package Heroes;
 
+import Dictionary.RandomPetName;
 import Heroes.classes.*;
-import Items.OtherItems.ResurrectStone;
+import Heroes.classes.Summons.Pet;
+
+import java.util.Random;
 
 public class Knight extends Peasant implements Hero {
     /**
@@ -33,21 +36,13 @@ public class Knight extends Peasant implements Hero {
 //    private int mana = 100;
 //    private int experience = 0;
 //
-//    public Pet summon_Ability() {
-//        Random random = new Random();
-//        int petNumber = random.nextInt();
-//        Pet pet = new Pet();
-//        System.out.println("summoning pet: " + RandomPetName.RandomPetName);
-//        return pet;
-//    }
-    @Override
-    public void resurrect_Ability() {
-        if (inventory.contains(ResurrectStone.class)) {
-            this.inventory.remove(ResurrectStone.class);
-            System.out.println("Resurrect!");
-        } else {
-            System.out.println("There is no resurrect stone in you inventory");
-        }
+    @Ability
+    public Pet summon() {
+        Random random = new Random();
+        int petNumber = random.nextInt();
+        Pet pet = new Pet();
+        System.out.println("summoning pet: " + RandomPetName.RandomPetName);
+        return pet;
     }
 
     ///////////////////////LevelUp after Hero3//////////////////////////////////////
